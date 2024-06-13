@@ -13,8 +13,8 @@ function connectionPool() {
 		charset: "utf8mb4"
 	});
 	// Envoie le retour d'un message en fonction de l'etat de la base de donnée
-	//ici, il faut configurer le test sur une table que vous avez
-	pool.query("SELECT test FROM test WHERE test = 'good_start'", function (err) { // Test de connection à la base de donnée (bien vérifier le wiki)
+	//ici, il faut configurer le accueil sur une table que vous avez
+	pool.query("SELECT accueil FROM accueil WHERE accueil = 'good_start'", function (err) { // Test de connection à la base de donnée (bien vérifier le wiki)
 		if (err) {
 			console.log(redBright("Erreur connection base de données.\n" + err));
 			console.log(redBright.bold(">> Shutdown ! <<"));
