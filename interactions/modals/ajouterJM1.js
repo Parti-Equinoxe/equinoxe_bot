@@ -11,11 +11,16 @@ module.exports = {
             name: "Nombre de vote totale :",
             value: interaction.fields.getTextInputValue("nb")
         }]);
-        const btnAjouter = new ActionRowBuilder().addComponents(new ButtonBuilder()
+        const btnAjouter =new ButtonBuilder()
             .setCustomId("graph:ajouterJM2")
             .setLabel("Ouvrir le formulaire")
             .setEmoji("📋")
-            .setStyle(1));
-        await interaction.update({embeds: [embed], components: [btnAjouter]});
+            .setStyle(1);
+        const btnAnnuler = new ButtonBuilder()
+            .setCustomId("graph:annuler")
+            .setLabel("Annuler")
+            .setEmoji("✖")
+            .setStyle(4);
+        await interaction.update({embeds: [embed], components: [new ActionRowBuilder().addComponents(btnAjouter).addComponents(btnAnnuler)]});
     }
 }
