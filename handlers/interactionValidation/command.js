@@ -57,6 +57,10 @@ module.exports = async (client, interaction) => {
         const subCmdName = interaction.options.getSubcommand();
         for (const subCmd of cmd.options) {
             if (subCmd.name !== subCmdName) continue;
+            //Vérifie si l'utilisateur est owner en cas de commande dev only
+            if (subCmd.devOnly && !client.config.dev.includes(interaction.user.id)) {
+                return [false, {content: ":tools: Commande en développement !", ephemeral: true}];
+            }
             return [true, subCmd.runInteraction];
         }
     }

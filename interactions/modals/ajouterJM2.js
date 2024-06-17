@@ -1,13 +1,13 @@
-const {ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, EmbedBuilder, ButtonBuilder} = require("discord.js");
+const {ActionRowBuilder, EmbedBuilder, ButtonBuilder} = require("discord.js");
 module.exports = {
     customID: "ajouterJM2",
     runInteraction: async (client, interaction) => {
         const votants = [];
-        for (const titre_input of ["éxcellent", "bien", "passable", "insuffisant", "à rejeter"]) {
-            let input = parseInt(interaction.fields.getTextInputValue(titre_input.replace("é","e").replace("à ",""))) ?? 0;
+        for (const titre_input of ["Éxcellent", "Bien", "Passable", "Insuffisant", "À rejeter"]) {
+            let input = parseInt(interaction.fields.getTextInputValue(titre_input.replace("É","e").replace("À ","").toLowerCase())) ?? 0;
             if (input < 0) input = 0;
             votants.push({
-                name: titre_input.replace(/(^\w|\s\w)/, (firstLetter) => firstLetter.toUpperCase()) + " :",
+                name: titre_input + " :",
                 value: `${input}`
             });
         }

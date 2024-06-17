@@ -7,10 +7,10 @@ module.exports = {
             .setCustomId("ajouterJM2")
             .setTitle("Ajout du nombre de votant par mention:");
         const inputs = [];
-        for (const titre_input of ["éxcellent", "bien", "passable", "insuffisant", "à rejeter"]) {
+        for (const titre_input of ["Éxcellent", "Bien", "Passable", "Insuffisant", "À rejeter"]) {
             const input = new TextInputBuilder()
-                .setCustomId(titre_input.replace("é","e").replace("à ",""))
-                .setLabel(`Pour la mention ${titre_input.replace(/(^\w|\s\w)/, (firstLetter) => firstLetter.toUpperCase())} :`)
+                .setCustomId(titre_input.replace("É","e").replace("À ","").toLowerCase())
+                .setLabel(`Pour la mention ${titre_input} :`)
                 .setStyle(TextInputStyle.Short);
             inputs.push(new ActionRowBuilder().addComponents(input));
         }

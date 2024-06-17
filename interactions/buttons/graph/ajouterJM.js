@@ -14,12 +14,17 @@ module.exports = {
             .setDescription("Utilise le bouton pour ajouter le titre et le nombre de votants :")
             .setTimestamp();
 
-        const btnAjouter = new ActionRowBuilder().addComponents(new ButtonBuilder()
+        const btnAjouter = new ButtonBuilder()
             .setCustomId("graph:ajouterJM1")
             .setLabel("Ouvrir le formulaire")
             .setEmoji("📋")
-            .setStyle(1));
+            .setStyle(1);
+        const btnAnnuler = new ButtonBuilder()
+            .setCustomId("graph:annuler")
+            .setLabel("Annuler")
+            .setEmoji("✖")
+            .setStyle(4);
 
-        await interaction.reply({embeds: [embed], components: [btnAjouter]});
+        await interaction.reply({embeds: [embed], components: [new ActionRowBuilder().addComponents(btnAjouter).addComponents(btnAnnuler)]});
     }
 }

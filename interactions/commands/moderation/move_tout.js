@@ -3,7 +3,7 @@ const {getWebhooks} = require("../../../api/utils.js");
 
 module.exports = {
     name: "deplacer_salon",
-    description: "Permet de déplacer les message d'un salon (un maximum).",
+    description: "Permet de déplacer les message d'un salon (un maximum), ne supprime pas les messages copiés.",
     options: [{
         name: "salon",
         description: "Le salon vers le quel déplacer la conversation.",

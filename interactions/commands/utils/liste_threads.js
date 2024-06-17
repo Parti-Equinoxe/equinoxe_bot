@@ -2,7 +2,7 @@ const {ChatInputCommandInteraction, Client, EmbedBuilder} = require("discord.js"
 
 module.exports = {
     name: "liste_fils",
-    description: "Permet d'obtenir la liste des fils.",
+    description: "Permet d'obtenir la liste des fils d'un salon.",
     options: [
         {
             name: "salon",
@@ -19,7 +19,6 @@ module.exports = {
         const channel = interaction.options.getChannel("salon") ?? interaction.channel;
         //if (channel.isThread()) return interaction.reply({content: "Ce n'est pas un salon de fils !", ephemeral: true});
         const threads = channel.threads.cache.map((t) => t);
-        console.log(threads);
         if (threads.length === 0 || !threads) return interaction.reply({content: ":zero: Il n'y a pas de fils dans ce salon.", ephemeral: true});
         const embed = new EmbedBuilder()
             .setTitle(`:thread: Fils de <#${channel.id}>`)
