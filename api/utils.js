@@ -6,9 +6,10 @@ const {
     parseEmoji,
     Snowflake,
     MessagePayload,
-    EmbedBuilder, ButtonBuilder, ActionRowBuilder
+    EmbedBuilder, ButtonBuilder, ActionRowBuilder, BufferResolvable
 } = require("discord.js");
 const salons = require("../data/utils/salons.json");
+const axios = require("axios");
 
 /**
  * @param {GuildBasedChannel.id | String | Snowflake} channelID - l'ID du salon
@@ -32,23 +33,27 @@ module.exports.getGuild = async () => {
  */
 module.exports.getWebhooks = async (channel, user) => {
     let webhook = (await channel.fetchWebhooks()).filter((w) => w.owner.id === client.user.id);
-    console.log(webhook);
-    if (!webhook || webhook.length === 0 || !webhook.first()) {
-        await channel.createWebhook({
+    //user = await user.fetch(true);
+    if (webhook.size === 0) {//!webhook || webhook.size === 0 || !webhook.first()) {
+        console.log({user: user, avatarURL: user.displayAvatarURL({dynamic: true})});
+        const avatar = await axios.get(user.displayAvatarURL({dynamic: true}), {responseType: "arraybuffer"});
+        const w = await channel.createWebhook({
             name: user.username,
-            avatar: user.displayAvatarURL({dynamic: true}),
+            avatar: Buffer.from(avatar.data),
         });
-        return webhook;
+        console.log(w);
+        return w;
     }
     webhook = webhook.first();
     //if (webhook) {
-        if (webhook.name !== user.username) {
-            await webhook.edit({
-                name: user.username,
-                avatar: user.displayAvatarURL({dynamic: true}),
-            });
-        }
-        return webhook;
+    if (webhook.name !== user.username) {
+        console.log(webhook);
+        await webhook.edit({
+            name: user.username,
+            avatar: user.displayAvatarURL({dynamic: true}),
+        });
+    }
+    return webhook;
     //}
 };
 

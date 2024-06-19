@@ -22,7 +22,7 @@ module.exports = {
      * @param {Client} client
      */
     runInteraction: async (client, interaction) => {
-        interaction.deferReply({ephemeral: true});
+        await interaction.deferReply({ephemeral: true});
         const nb = interaction.options.getInteger("nombre"),
             newChannel = interaction.options.getChannel("salon"),
             oldChannel = interaction.channel;
