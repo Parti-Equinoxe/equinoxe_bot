@@ -17,7 +17,7 @@ module.exports = {
      */
     runInteraction: async (client, interaction) => {
         if (!interaction.channel.isThread()) return interaction.reply({content: "Ce n'est pas un salon de fils !", ephemeral: true});
-        interaction.deferReply({ephemeral: true});
+        await interaction.deferReply({ephemeral: true});
         const nb = interaction.options.getInteger("nombre"),
             newChannel = interaction.options.getChannel("salon"),
             oldChannel = interaction.channel;

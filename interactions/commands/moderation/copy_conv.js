@@ -15,14 +15,14 @@ module.exports = {
         description: "Le salon vers le quel coller la conversation.",
         type: 7,
         required: true,
-        channelTypes: [0,5,10,11,12,15]
+        channelTypes: [0, 5, 10, 11, 12, 15]
     }],
     /**
      * @param {ChatInputCommandInteraction} interaction
      * @param {Client} client
      */
     runInteraction: async (client, interaction) => {
-        interaction.deferReply({ephemeral: true});
+        await interaction.deferReply({ephemeral: true});
         const nb = interaction.options.getInteger("nombre"),
             newChannel = interaction.options.getChannel("salon"),
             oldChannel = interaction.channel;
@@ -35,6 +35,7 @@ module.exports = {
                 embeds: message.embeds
             });
         }
+
         return interaction.editReply({
             content: `**${msgs.length}** messages ont été déplacer vers <#${newChannel.id}> !`,
             ephemeral: true
