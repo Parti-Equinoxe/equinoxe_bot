@@ -67,8 +67,9 @@ module.exports.voteJugementMajoritaire = async (titre, data) => {
                     },
                     x: {
                         stacked: true,
-                        min: Math.min(...(datasets[5].data)),
+                        min: Math.floor(Math.min(...(datasets[5].data))),
                         max: 100,
+                        //grace: 0.1,
                         ticks: {
                             stepSize: 25,
                             callback: (value) => `${Math.abs(value)}%`,
