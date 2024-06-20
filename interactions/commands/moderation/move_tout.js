@@ -16,13 +16,14 @@ module.exports = {
      * @param {Client} client
      */
     runInteraction: async (client, interaction) => {
-        if (!interaction.channel.isThread()) return interaction.reply({content: "Ce n'est pas un salon de fils !", ephemeral: true});
+        //if (!interaction.channel.isThread()) return interaction.reply({content: "Ce n'est pas un salon de fils !", ephemeral: true});
         await interaction.deferReply({ephemeral: true});
-        const nb = interaction.options.getInteger("nombre"),
-            newChannel = interaction.options.getChannel("salon"),
+        const newChannel = interaction.options.getChannel("salon"),
             oldChannel = interaction.channel;
         await oldChannel.messages.fetch({force: true});
-        const msgs = oldChannel.messages.cache.sort((a, b) => b.createdTimestamp - a.createdTimestamp).filter((msg) => !(msg.content === "" && msg.embeds.length === 0 && msg.attachments.size === 0)).map((msg) => msg).slice(0, nb).sort((a, b) => a.createdTimestamp - b.createdTimestamp);
+        console.log(oldChannel.messages.cache);
+        const msgs = oldChannel.messages.cache.sort((a, b) => b.createdTimestamp - a.createdTimestamp).filter((msg) => !(msg.content === "" && msg.embeds.length === 0 && msg.attachments.size === 0)).map((msg) => msg).sort((a, b) => a.createdTimestamp - b.createdTimestamp);
+        console.log(msgs);
         for (const message of msgs) {
             await (await getWebhooks(newChannel, message.author)).send({
                 content: message.content,
@@ -31,7 +32,7 @@ module.exports = {
             });
         }
         return interaction.editReply({
-            content: `**${msgs.length}** messages ont été déplacer vers <#${newChannel.id}> !`,
+            content: `**${msgs.length}/${oldChannel.messageCount}** messages ont été déplacer vers <#${newChannel.id}> !`,
             ephemeral: true
         });
     }
