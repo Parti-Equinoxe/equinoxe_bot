@@ -1,7 +1,7 @@
 {
-  "name": "discord-handlerv14",
-  "version": "2.1.2",
-  "description": "Un handler pour bot discord, il est complet, rapide et customisable.",
+  "name": "equinoxe_bot",
+  "version": "1.0.0",
+  "description": "Un bot discord pour le parti politique français Équinoxe.",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
