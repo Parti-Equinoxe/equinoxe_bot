@@ -141,22 +141,6 @@ module.exports.parseValideEmoji = (emoji) => {
     return `<${parseEmoji(emoji).animated ? "a" : ""}:${parseEmoji(emoji).name}:${parseEmoji(emoji).id}>`;
 }
 
-const allEmoji = new RegExp(
-    "^[" +
-    "\u{1F1E0}-\u{1F1FF}" +  // flags (iOS)
-    "\u{1F300}-\u{1F5FF}" +  // symbols & pictographs
-    "\u{1F600}-\u{1F64F}" +  // emoticons
-    "\u{1F680}-\u{1F6FF}" +  // transport & map symbols
-    "\u{1F700}-\u{1F77F}" +  // alchemical symbols
-    "\u{1F780}-\u{1F7FF}" +  // Geometric Shapes Extended
-    "\u{1F800}-\u{1F8FF}" +  // Supplemental Arrows-C
-    "\u{1F900}-\u{1F9FF}" +  // Supplemental Symbols and Pictographs
-    "\u{1FA00}-\u{1FA6F}" +  // Chess Symbols
-    "\u{1FA70}-\u{1FAFF}" +  // Symbols and Pictographs Extended-A
-    "\u{2702}-\u{27B0}" +    // Dingbats
-    "\u{24C2}-\u{1F251}" +
-    "]$", "gu"
-);
 /**
  * @param {string} texte - le texte a simplifier
  * @return {string} - le texte sans accents ni émoji
