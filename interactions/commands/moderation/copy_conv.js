@@ -1,5 +1,5 @@
 const {ChannelType} = require("discord.js");
-const {getWebhooks} = require("../../../api/utils.js");
+const {getWebhooks, sendMessagesUsers} = require("../../../api/utils.js");
 
 module.exports = {
     name: "copier_conversation",
@@ -23,22 +23,28 @@ module.exports = {
      */
     runInteraction: async (client, interaction) => {
         await interaction.deferReply({ephemeral: true});
-        const nb = interaction.options.getInteger("nombre"),
-            newChannel = interaction.options.getChannel("salon"),
-            oldChannel = interaction.channel;
+        const nb = interaction.options.getInteger("nombre");
+        const newChannel = interaction.options.getChannel("salon");
+        const oldChannel = interaction.channel;
         await oldChannel.messages.fetch({force: true, limit: 100});
-        const msgs = oldChannel.messages.cache.sort((a, b) => b.createdTimestamp - a.createdTimestamp).filter((msg) => !(msg.content === "" && msg.embeds.length === 0 && msg.attachments.size === 0)).map((msg) => msg).slice(0, nb).sort((a, b) => a.createdTimestamp - b.createdTimestamp);
-        for (const message of msgs) {
-            await (await getWebhooks(newChannel, message.author)).send({
-                content: message.content,
-                files: message.attachments,
-                embeds: message.embeds
-            });
-        }
+        const msgs = oldChannel.messages.cache.map((msg) => {
+            return {
+                content: msg.content ?? "",
+                embeds: msg.embeds ?? [],
+                attachments: msg.attachments.map((a) => a),
+                createdTimestamp: msg.createdTimestamp,
+                member: msg.member
+            }
+        }).sort((a, b) => b.createdTimestamp - a.createdTimestamp)
+            .filter((msg) => (msg.content.length + msg.embeds.length + msg.attachments.length) !== 0)
+            .map((msg) => msg).slice(0, nb)
+            .sort((a, b) => a.createdTimestamp - b.createdTimestamp);
 
-        return interaction.editReply({
-            content: `**${msgs.length}** messages ont été déplacer vers <#${newChannel.id}> !`,
+        await interaction.editReply({
+            content: `**${msgs.length}/${nb}** messages vont être déplacer vers <#${newChannel.id}> !`,
             ephemeral: true
         });
+        const i = await sendMessagesUsers(msgs, newChannel);
+        return newChannel.send({content: `**${i}/${msgs.length}** messages ont été déplacer depuis <#${oldChannel.id}> !`});
     }
 };

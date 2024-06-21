@@ -1,4 +1,5 @@
 const {client} = require("../index.js");
+const removeAccents = require('remove-accents');
 const {
     GuildBasedChannel,
     BaseGuildTextChannel,
@@ -9,7 +10,6 @@ const {
     EmbedBuilder, ButtonBuilder, ActionRowBuilder, BufferResolvable
 } = require("discord.js");
 const salons = require("../data/utils/salons.json");
-const axios = require("axios");
 
 /**
  * @param {GuildBasedChannel.id | String | Snowflake} channelID - l'ID du salon
@@ -23,38 +23,31 @@ module.exports.getChannel = async (channelID) => {
  * @return {Promise<Guild>}
  */
 module.exports.getGuild = async () => {
-    return await client.guilds.fetch(client.config.guildID);
+    return await client.guilds.fetch(client.config.guildID, {force: true});
 };
 
 /**
  * @param {BaseGuildTextChannel} channel - le channel ou recup le webhook
- * @param {User} user - le user (*message.author*)
+ * @param {GuildMember} member - le user (*message.author*)
  * @return {Promise<Webhook>}
  */
-module.exports.getWebhooks = async (channel, user) => {
+module.exports.getWebhooks = async (channel, member) => {
     let webhook = (await channel.fetchWebhooks()).filter((w) => w.owner.id === client.user.id);
-    //user = await user.fetch(true);
-    if (webhook.size === 0) {//!webhook || webhook.size === 0 || !webhook.first()) {
-        console.log({user: user, avatarURL: user.displayAvatarURL({dynamic: true})});
-        const avatar = await axios.get(user.displayAvatarURL({dynamic: true}), {responseType: "arraybuffer"});
+    if (webhook.size === 0) {
         const w = await channel.createWebhook({
-            name: user.username,
-            avatar: Buffer.from(avatar.data),
+            name: member.nickname ?? member.user.username,
+            avatar: member.user.displayAvatarURL({dynamic: true}),
         });
-        console.log(w);
         return w;
     }
     webhook = webhook.first();
-    //if (webhook) {
-    if (webhook.name !== user.username) {
-        console.log(webhook);
+    if (webhook.name !== member.username) {
         await webhook.edit({
-            name: user.username,
-            avatar: user.displayAvatarURL({dynamic: true}),
+            name: member.nickname ?? member.user.username,
+            avatar: member.user.displayAvatarURL({dynamic: true}),
         });
     }
     return webhook;
-    //}
 };
 
 /**
@@ -148,6 +141,30 @@ module.exports.parseValideEmoji = (emoji) => {
     return `<${parseEmoji(emoji).animated ? "a" : ""}:${parseEmoji(emoji).name}:${parseEmoji(emoji).id}>`;
 }
 
+const allEmoji = new RegExp(
+    "^[" +
+    "\u{1F1E0}-\u{1F1FF}" +  // flags (iOS)
+    "\u{1F300}-\u{1F5FF}" +  // symbols & pictographs
+    "\u{1F600}-\u{1F64F}" +  // emoticons
+    "\u{1F680}-\u{1F6FF}" +  // transport & map symbols
+    "\u{1F700}-\u{1F77F}" +  // alchemical symbols
+    "\u{1F780}-\u{1F7FF}" +  // Geometric Shapes Extended
+    "\u{1F800}-\u{1F8FF}" +  // Supplemental Arrows-C
+    "\u{1F900}-\u{1F9FF}" +  // Supplemental Symbols and Pictographs
+    "\u{1FA00}-\u{1FA6F}" +  // Chess Symbols
+    "\u{1FA70}-\u{1FAFF}" +  // Symbols and Pictographs Extended-A
+    "\u{2702}-\u{27B0}" +    // Dingbats
+    "\u{24C2}-\u{1F251}" +
+    "]$", "gu"
+);
+/**
+ * @param {string} texte - le texte a simplifier
+ * @return {string} - le texte sans accents ni émoji
+ */
+module.exports.simplify = (texte) => {
+    return removeAccents(texte).replaceAll(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{2300}-\u{23FF}\u{2B50}\u{2B06}\u{2194}\u{2934}\u{25AA}\u{25FE}]/gu, "");
+}
+
 /**
  * Send a message in the log-bot channel.
  *
@@ -195,3 +212,24 @@ module.exports.logBdd = (userID, type, data) => {
 module.exports.userARole = (rolesUser, roleID) => {
     return rolesUser.has(roleID);//.valueOf().some((role) => role == roleID); //faut pas mettre "===" car ils ont pas le même type
 };
+
+/**
+ * @param {Array<{member: GuildMember, content: string, embeds: Object[], attachments: Attachment[], createdTimestamp: number}>} messages - les messages
+ * @param {GuildTextBasedChannel} channel - le channel
+ * @return {Promise<number>} - le nombre de messages envoyé
+ */
+module.exports.sendMessagesUsers = async (messages, channel) => {
+    const threadId = channel.isThread() ? channel.id : null;
+    channel = channel.isThread() ? await this.getChannel(channel.parentId) : channel
+    let nb = 0;
+    for (const message of messages) {
+        (await this.getWebhooks(channel, message.member)).send({
+            content: message.content,
+            files: message.attachments,
+            embeds: message.embeds,
+            threadId: threadId
+        });
+        nb++;
+    }
+    return nb;
+}
