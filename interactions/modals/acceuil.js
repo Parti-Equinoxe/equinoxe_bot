@@ -7,12 +7,16 @@ module.exports = {
     runInteraction: async (client, interaction) => {
         const nom = interaction.fields.getTextInputValue("nom");
         const prenom = interaction.fields.getTextInputValue("prenom");
-        const department = interaction.fields.getTextInputValue("departement");
+        if (!prenom || !nom) return interaction.reply({
+            content: "Veuillez entrer votre nom et votre prénom, vous n'êtes pas obligé de remplir ce formulaire.",
+            ephemeral: true
+        });
+        const department = parseInt(interaction.fields.getTextInputValue("departement"));
         if (!interaction.member.moderatable) return interaction.reply({
             content: ":no_entry_sign: Je n'est pas les permissions pour modifier votre profil.",
             ephemeral: true
         });
-        await interaction.member.setNickname(`${prenom} ${nom} - ${department}`,"Formulaire d'accueil");
+        await interaction.member.setNickname(`${prenom} ${nom}` + (department && department > 1 && department < 1000 ? ` - ${department}` : ""), "Formulaire d'accueil");
         return interaction.reply({content: ":white_check_mark: Votre profil a bien été mis à jour !", ephemeral: true});
     },
 };
