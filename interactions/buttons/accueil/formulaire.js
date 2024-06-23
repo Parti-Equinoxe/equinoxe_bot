@@ -21,7 +21,8 @@ module.exports = {
         const departementInput = new TextInputBuilder()
             .setCustomId("departement")
             .setLabel("Quel est votre département ?")
-            .setStyle(TextInputStyle.Short);
+            .setStyle(TextInputStyle.Short)
+            .setRequired(false);
 
         modal.addComponents(new ActionRowBuilder().addComponents(nomInput), new ActionRowBuilder().addComponents(prenomInput), new ActionRowBuilder().addComponents(departementInput));
 

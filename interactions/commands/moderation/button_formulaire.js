@@ -10,7 +10,7 @@ module.exports = {
             .setStyle(1);
 
         return interaction.reply({
-            content: "Bonjour, vous pouvez remplir le formulaire si dessous.",
+            content: ":equinoxe: Bonjour, vous pouvez **remplir le formulaire** (*Nom, Prénom, Département*) ci-dessous pour vous __renommer__ et permettre une meilleure intégration.\nAucune des ces informations ne seront enregistrer.",
             components: [new ActionRowBuilder().addComponents(btnForm)],
         });
     }
