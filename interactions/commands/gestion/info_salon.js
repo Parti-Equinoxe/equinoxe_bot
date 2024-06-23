@@ -1,9 +1,8 @@
 const {EmbedBuilder} = require("discord.js");
 
 module.exports = {
-    name: "salon",
+    name: "information_salon",
     description: "Donne des informations sur un salon (permissions).",
-    subCommande: true,
     options: [{
         name: "salon",
         description: "Le salon dont vous voulez voir les informations.",
