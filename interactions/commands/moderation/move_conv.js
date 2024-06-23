@@ -51,7 +51,7 @@ module.exports = {
         oldChannel.send({
             content: `Les dernier **${bDinfo.length}** messages ont été déplacés ver <#${newChannel.id}> !\nMerci de continuer votre conversation sur l'autre salon.`
         })
-        await log(`**${i}/${msgs.length}** messages ont été déplacés depuis <#${oldChannel.id}> vers <#${newChannel.id}> en **${durationFormatter(Date.now() - date)}** !`, "Déplacement de conversation", interaction.member, "deplacement");
-        return newChannel.send({content: `**${i}/${msgs.length}** messages ont été déplacés depuis <#${oldChannel.id}> en **${durationFormatter(Date.now() - date)}**`});
+        await log(`**${i}/${msgs.length}** messages ont été déplacés depuis <#${oldChannel.id}> vers <#${newChannel.id}> en ${durationFormatter(Date.now() - date)} !`, "Déplacement de conversation", interaction.member, "deplacement");
+        return newChannel.send({content: `**${i}/${msgs.length}** messages ont été déplacés depuis <#${oldChannel.id}> en ${durationFormatter(Date.now() - date)}`});
     }
 };

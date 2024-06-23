@@ -46,7 +46,7 @@ module.exports = {
             ephemeral: true
         });
         const i = await sendMessagesUsers(msgs, newChannel);
-        await log(`**${i}/${msgs.length}** messages ont été copier depuis <#${oldChannel.id}> vers <#${newChannel.id}> en **${durationFormatter(Date.now() - date)}** !`, "Conversation copier", interaction.member, "deplacement");
-        return newChannel.send({content: `**${i}/${msgs.length}** messages ont été déplacés depuis <#${oldChannel.id}> en **${durationFormatter(Date.now() - date)}**`});
+        await log(`**${i}/${msgs.length}** messages ont été copier depuis <#${oldChannel.id}> vers <#${newChannel.id}> en ${durationFormatter(Date.now() - date)} !`, "Conversation copier", interaction.member, "deplacement");
+        return newChannel.send({content: `**${i}/${msgs.length}** messages ont été déplacés depuis <#${oldChannel.id}> en ${durationFormatter(Date.now() - date)}`});
     }
 };
