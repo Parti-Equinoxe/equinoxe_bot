@@ -7,7 +7,7 @@ const {
     parseEmoji,
     Snowflake,
     MessagePayload,
-    EmbedBuilder, ButtonBuilder, ActionRowBuilder, BufferResolvable
+    EmbedBuilder, ButtonBuilder, ActionRowBuilder, BufferResolvable, ModalBuilder
 } = require("discord.js");
 const salons = require("../data/utils/salons.json");
 
@@ -41,7 +41,7 @@ module.exports.getWebhooks = async (channel, member) => {
         return w;
     }
     webhook = webhook.first();
-    if (webhook.name !== member.username) {
+    if (webhook.name !== member.user.username) {
         await webhook.edit({
             name: member.nickname ?? member.user.username,
             avatar: member.user.displayAvatarURL({dynamic: true}),
@@ -155,9 +155,9 @@ module.exports.simplify = (texte) => {
  * @param {string | MessagePayload} message - The message to be send in the channel log
  * @return {Promise<void>} A promise that resolves when the message is successfully logged
  */
-module.exports.log = async (message) => {
+/*module.exports.log = async (message) => {
     (await this.getChannel(salons.log)).send(message);
-}
+}*/
 /**
  * Send a message in the log-channel channel.
  *
@@ -203,17 +203,106 @@ module.exports.userARole = (rolesUser, roleID) => {
  * @return {Promise<number>} - le nombre de messages envoyé
  */
 module.exports.sendMessagesUsers = async (messages, channel) => {
+    const date = Date.now();
     const threadId = channel.isThread() ? channel.id : null;
     channel = channel.isThread() ? await this.getChannel(channel.parentId) : channel
-    let nb = 0;
+    let nb = 0, webhook = (await channel.fetchWebhooks()).filter((w) => w.owner.id === client.user.id);
+    if (webhook.size === 0) {
+        webhook = await channel.createWebhook({
+            name: "MEssage",
+        });
+    } else {
+        webhook = webhook.first();
+    }
     for (const message of messages) {
-        (await this.getWebhooks(channel, message.member)).send({
+        console.log(`before : ${Date.now() - date}`);
+        await sendMessageWebhook(webhook, message, threadId);
+        console.log(`after : ${Date.now() - date}`);
+        /*if (webhook.name !==message.member.user.username) {
+            webhook.edit({
+                name: message.member.nickname ?? message.member.user.username,
+                avatar: message.member.user.displayAvatarURL({dynamic: true}),
+            }).then((webhook) => {
+                console.log(`before send : ${Date.now() - date}`)
+                webhook.send({
+                    content: message.content,
+                    files: message.attachments,
+                    embeds: message.embeds,
+                    threadId: threadId
+                });
+                console.log(`send : ${Date.now() - date}`)
+            });
+        }*/
+        /*console.log(`webhooks rename : ${Date.now() - date}`)
+        await delay(1500);
+        console.log(`before send : ${Date.now() - date}`)
+        await webhook.send({
             content: message.content,
             files: message.attachments,
             embeds: message.embeds,
             threadId: threadId
         });
+        console.log(`send : ${Date.now() - date}`)
+        await delay(1500);
+        console.log(`end : ${Date.now() - date}`)*/
         nb++;
     }
     return nb;
+}
+
+function sendMessageWebhook(webhook, message, threadId) {
+    console.log(webhook.name);
+    console.log(message.member.nickname);
+    if (webhook.name !== message.member.nickname) {
+        return webhook.edit({
+            name: message.member.nickname ?? message.member.user.username,
+            avatar: message.member.user.displayAvatarURL({dynamic: true}),
+        }).then(async (webhook) => {
+            webhook.send({
+                content: message.content,
+                files: message.attachments,
+                embeds: message.embeds,
+                threadId: threadId
+            });
+        });
+    } else {
+        return webhook.send({
+            content: message.content,
+            files: message.attachments,
+            embeds: message.embeds,
+            threadId: threadId
+        });
+    }
+}
+
+function delay(time) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, time);
+    });
+}
+
+const colorByCode = {
+    "info": "#f8d796",
+    "success": "#43b581",
+    "warning": "#faa61a",
+    "error": "#f04747",
+    "deplacement": "#7289da"
+}
+/**
+ * @param {string} message - le message
+ * @param {string} titre - le titre
+ * @param {GuildMember} member - le membre
+ * @param {string} type - le type
+ * @return {Promise}
+ */
+module.exports.log = async (message, titre, member, type = "info") => {
+    const embed = new EmbedBuilder()
+        .setColor(colorByCode[type])
+        .setTitle(titre)
+        .setDescription(message)
+        .setAuthor({name: member.nickname ?? member.user.username, iconURL: member.user.displayAvatarURL()})
+        .setTimestamp();
+    return (await this.getChannel(salons.log)).send({embeds: [embed]});
 }
