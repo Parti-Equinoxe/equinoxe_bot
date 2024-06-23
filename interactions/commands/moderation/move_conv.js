@@ -1,9 +1,9 @@
 const {ChannelType} = require("discord.js");
-const {getWebhooks, sendMessagesUsers} = require("../../../api/utils.js");
+const {getWebhooks, sendMessagesUsers, log, durationFormatter} = require("../../../api/utils.js");
 
 module.exports = {
     name: "deplacer_conversation",
-    description: "Permet de déplacer une conversation (x dernier messages), supprime les message en question.",
+    description: "Permet de déplacer une conversation (x dernier messages), supprime les message en question !",
     options: [{
         name: "nombre",
         description: "Le nombre de message à déplacer. (max 100)",
@@ -22,6 +22,7 @@ module.exports = {
      * @param {Client} client
      */
     runInteraction: async (client, interaction) => {
+        const date = Date.now();
         await interaction.deferReply({ephemeral: true});
         const nb = interaction.options.getInteger("nombre");
         const newChannel = interaction.options.getChannel("salon");
@@ -42,7 +43,7 @@ module.exports = {
             .sort((a, b) => a.createdTimestamp - b.createdTimestamp);
 
         await interaction.editReply({
-            content: `**${msgs.length}/${nb}** messages vont être déplacer vers <#${newChannel.id}> !`,
+            content: `**${msgs.length}/${nb}** messages vont être déplacer vers <#${newChannel.id}> (à une vitesse de 1msg/s) !`,
             ephemeral: true
         });
         const i = await sendMessagesUsers(msgs, newChannel);
@@ -50,6 +51,7 @@ module.exports = {
         oldChannel.send({
             content: `Les dernier **${bDinfo.length}** messages ont été déplacés ver <#${newChannel.id}> !\nMerci de continuer votre conversation sur l'autre salon.`
         })
-        return newChannel.send({content: `**${i}/${msgs.length}** messages ont été déplacer depuis <#${oldChannel.id}> !`});
+        await log(`**${i}/${msgs.length}** messages ont été déplacés depuis <#${oldChannel.id}> vers <#${newChannel.id}> en **${durationFormatter(Date.now() - date)}** !`, "Déplacement de conversation", interaction.member, "deplacement");
+        return newChannel.send({content: `**${i}/${msgs.length}** messages ont été déplacés depuis <#${oldChannel.id}> en **${durationFormatter(Date.now() - date)}**`});
     }
 };
