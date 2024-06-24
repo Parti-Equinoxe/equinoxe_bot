@@ -29,12 +29,22 @@ module.exports = {
         const oldChannel = interaction.channel;
         await oldChannel.messages.fetch({force: true, limit: 100});
         const msgs = oldChannel.messages.cache.map((msg) => {
+            let member = msg.member ?? false;
+            if (!member) {
+                member = {
+                    user: {
+                        username: "Utilisateur inconnu",
+                        displayAvatarURL: () => "https://cdn.discordapp.com/embed/avatars/0.png"
+                    },
+                    nickname: "Utilisateur inconnu"
+                }
+            }
             return {
-                content: msg.content ?? "",
+                content: msg.content.slice(0, 1999) ?? "",
                 embeds: msg.embeds ?? [],
                 attachments: msg.attachments.map((a) => a),
                 createdTimestamp: msg.createdTimestamp,
-                member: msg.member
+                member: member
             }
         }).sort((a, b) => b.createdTimestamp - a.createdTimestamp)
             .filter((msg) => (msg.content.length + msg.embeds.length + msg.attachments.length) !== 0)
