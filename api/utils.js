@@ -183,11 +183,6 @@ module.exports.sendError = async (message) => {
     });
 }
 
-module.exports.logBdd = (userID, type, data) => {
-    //TODO : Log in bdd for web panel
-    return "In dev"
-}
-
 /**
  * @param {DataManager.cache} rolesUser - les roles de l'utilisateur (**interaction.member.roles.cache**)
  * @param {Role.id | string} roleID - l'ID du role en question
@@ -203,7 +198,7 @@ module.exports.userARole = (rolesUser, roleID) => {
  * @return {Promise<number>} - le nombre de messages envoyé
  */
 module.exports.sendMessagesUsers = async (messages, channel) => {
-    const date = Date.now();
+    console.log(`Début d'envoie de ${messages.length} messages dans ${channel.name}`);
     const threadId = channel.isThread() ? channel.id : null;
     channel = channel.isThread() ? await this.getChannel(channel.parentId) : channel
     let nb = 0, webhook = (await channel.fetchWebhooks()).filter((w) => w.owner.id === client.user.id);
@@ -215,45 +210,15 @@ module.exports.sendMessagesUsers = async (messages, channel) => {
         webhook = webhook.first();
     }
     for (const message of messages) {
-        console.log(`before : ${Date.now() - date}`);
         await sendMessageWebhook(webhook, message, threadId);
-        console.log(`after : ${Date.now() - date}`);
-        /*if (webhook.name !==message.member.user.username) {
-            webhook.edit({
-                name: message.member.nickname ?? message.member.user.username,
-                avatar: message.member.user.displayAvatarURL({dynamic: true}),
-            }).then((webhook) => {
-                console.log(`before send : ${Date.now() - date}`)
-                webhook.send({
-                    content: message.content,
-                    files: message.attachments,
-                    embeds: message.embeds,
-                    threadId: threadId
-                });
-                console.log(`send : ${Date.now() - date}`)
-            });
-        }*/
-        /*console.log(`webhooks rename : ${Date.now() - date}`)
-        await delay(1500);
-        console.log(`before send : ${Date.now() - date}`)
-        await webhook.send({
-            content: message.content,
-            files: message.attachments,
-            embeds: message.embeds,
-            threadId: threadId
-        });
-        console.log(`send : ${Date.now() - date}`)
-        await delay(1500);
-        console.log(`end : ${Date.now() - date}`)*/
         nb++;
     }
+    console.log(`Fin d'envoie de ${messages.length} messages dans ${channel.name}`);
     return nb;
 }
 
 function sendMessageWebhook(webhook, message, threadId) {
-    console.log(webhook.name);
-    console.log(message.member.nickname);
-    if (webhook.name !== message.member.nickname) {
+    if (webhook.name !== (message.member.nickname ?? message.member.user.username)) {
         return webhook.edit({
             name: message.member.nickname ?? message.member.user.username,
             avatar: message.member.user.displayAvatarURL({dynamic: true}),
@@ -299,7 +264,7 @@ const colorByCode = {
  */
 module.exports.log = async (message, titre, member, type = "info") => {
     const embed = new EmbedBuilder()
-        .setColor(colorByCode[type])
+        .setColor(colorByCode[type] ?? colorByCode)
         .setTitle(titre)
         .setDescription(message)
         .setAuthor({name: member.nickname ?? member.user.username, iconURL: member.user.displayAvatarURL()})
