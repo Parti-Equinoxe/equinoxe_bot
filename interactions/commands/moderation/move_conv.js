@@ -4,6 +4,7 @@ const {getWebhooks, sendMessagesUsers, log, durationFormatter} = require("../../
 module.exports = {
     name: "deplacer_conversation",
     description: "Permet de déplacer une conversation (x dernier messages), supprime les message en question !",
+    devOnly: true,
     options: [{
         name: "nombre",
         description: "Le nombre de message à déplacer. (max 100)",
