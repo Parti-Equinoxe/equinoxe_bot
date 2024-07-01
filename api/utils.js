@@ -3,11 +3,11 @@ const removeAccents = require('remove-accents');
 const {
     GuildBasedChannel,
     BaseGuildTextChannel,
-    User,
     parseEmoji,
     Snowflake,
     MessagePayload,
-    EmbedBuilder, ButtonBuilder, ActionRowBuilder, BufferResolvable, ModalBuilder
+    EmbedBuilder, ButtonBuilder, ActionRowBuilder,
+    GuildTextBasedChannel, Role
 } = require("discord.js");
 const salons = require("../data/utils/salons.json");
 
@@ -240,14 +240,6 @@ function sendMessageWebhook(webhook, message, threadId) {
     }
 }
 
-function delay(time) {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve();
-        }, time);
-    });
-}
-
 const colorByCode = {
     "info": "#f8d796",
     "success": "#43b581",
@@ -270,4 +262,21 @@ module.exports.log = async (message, titre, member, type = "info") => {
         .setAuthor({name: member.nickname ?? member.user.username, iconURL: member.user.displayAvatarURL()})
         .setTimestamp();
     return (await this.getChannel(salons.log)).send({embeds: [embed]});
+}
+/**
+ * @param {GuildTextBasedChannel} channel - le channel
+ * @param {Role.id | string} roleID - l'ID du role
+ * @param {string} permission - la permission
+ * @return {boolean}
+ */
+module.exports.hasPerm = (channel, roleID, permission) => {
+    const perm = channel.permissionOverwrites.cache.map(p => {
+        return {
+            id: p.id,
+            allow: p.allow.toArray(),
+            deny: p.deny.toArray()
+        }
+    }).find(p => p.id === roleID);
+    if (!perm) return false;
+    return (perm.allow.includes(permission) && !perm.deny.includes(permission));
 }
