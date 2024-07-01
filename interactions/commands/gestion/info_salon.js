@@ -42,7 +42,6 @@ module.exports = {
                 },
             ])
             .setColor("#3190de")
-            .setFooter({text: `<#${channel.id}>`})
             .setTimestamp();
         if (!showPermissions) return interaction.reply({embeds: [embed]})
         const permission = channel.permissionOverwrites.cache.map(p => {
