@@ -127,3 +127,94 @@ module.exports.voteJugementMajoritaire = async (titre, data) => {
         .setDescription(titre);
     return img;
 }
+
+/**
+ * Draws the chart
+ * @param {string} titre - The title of the vote
+ * @param {Array<{departement: string, circonscription: string,prenom: string, nom: string, pourcentage: string, vote: number}>} data - The list of data
+ * @returns {Promise<AttachmentBuilder>} - The data with the "majority" property added, indicating if the note is part of the majority.
+ */
+module.exports.voteLegislative = async (titre, data) => {
+    const labels = data.map((v) => {
+        return `${v.prenom} ${v.nom} - ${v.circonscription} ${v.departement}`;
+    });
+    const dataset = {
+        label: "% dans la circonscription",
+        data: data.map((v) => {
+            return parseFloat(v.pourcentage.replace("%",""));
+        }),
+        backgroundColor: "rgba(255,212,18,0.9)"
+    }
+    const chartJSNodeCanvas = new ChartJSNodeCanvas({
+        width: 200 * data.length + 400,
+        height: 2000,
+        backgroundColour: 'rgb(25,23,28)',
+        plugins: {requireLegacy: ['chartjs-plugin-datalabels']}
+    });
+    const img = new AttachmentBuilder()
+        .setFile(await chartJSNodeCanvas.renderToBuffer({
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [dataset]
+            },
+            options: {
+                scales: {
+                    y: {
+                        ticks: {
+                            font: {size: 40},
+                            color: texteColor,
+                            padding: 50
+                        },
+                    },
+                    x: {
+                        grid: {
+                            color: texteColor,
+                            lineWidth: 2,
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: titre,
+                        fullSize: true,
+                        font: {size: 70},
+                        color: "#ffd412",
+                        padding: {bottom: 40, top: 20}
+                    },
+                    legend: {
+                        fullSize: true,
+                        position: "top",
+                        align: "end",
+                        labels: {font: {size: 40}, color: texteColor, padding: 40,}
+                    },
+                    /*datalabels: {
+                        formatter: function (value, context) {
+                            return `${Math.abs(data[context.dataIndex].votes[context.datasetIndex])}`;
+                        },
+                        display: function (context) {
+                            return context.dataset.data[context.dataIndex] !== 0;
+                        },
+                        color: 'black',
+                        anchor: 'center',
+                        align: 'center',
+                        font: {size: 35},
+                        backgroundColor: 'white',
+                        borderRadius: 10,
+                    }*/
+                },
+                layout: {
+                    padding: {
+                        top: 40,
+                        right: 50,
+                        bottom: 30,
+                        left: 100
+                    },
+                }
+            }
+        }, "image/png"))
+        .setName(`vote_result.png`)
+        .setDescription(titre);
+    return img;
+}
