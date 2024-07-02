@@ -38,7 +38,7 @@ module.exports = {
             });
             if (!dataUrl) return;
             const data = dataUrl.data;
-            if (!data.titre) data.titre = interaction.options.getString("titre");
+            if (!data.titre) data.titre = interaction.options.getString("titre") ?? "Pas de titre donnée";
             const graph = await voteJugementMajoritaire(data.titre, data.data);
             embed.setImage(`attachment://${graph.name}`);
             return interaction.reply({embeds: [embed], files: [graph]});
