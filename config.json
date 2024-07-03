@@ -5,7 +5,6 @@
   "dev": [
 	"665266080285196299"
   ],
-  "invite": "Invitation discord",
-  "bdd": false,
+  "bdd": true,
   "guildID": "861570273400717313"
 }
