@@ -25,7 +25,7 @@ module.exports = {
             .setColor("#ffd412")
             .setDescription("Utilise les boutons pour ajouter des données !")
             .setTimestamp();
-        if (interaction.options.getAttachment("json").contentType === "application/json; charset=utf-8") {
+        if (interaction.options.getAttachment("json") &&interaction.options.getAttachment("json").contentType === "application/json; charset=utf-8") {
             embed.setDescription(null);
             embed.setTitle(null);
             const dataUrl = await axios({
