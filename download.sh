@@ -23,8 +23,6 @@ unzip -q "$path/output.zip" -d "$path/download"
 
 mv "$path/download/"*/* "$path/code"
 
-ls "$path/code"
-
 rm "$path/output.zip"
 rm -rf "$path/download"
 rm -f "$path/code/.env"
