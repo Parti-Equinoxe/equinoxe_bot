@@ -1,5 +1,5 @@
 const {yellow, redBright, blackBright} = require("cli-color");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 function connectionPool() {
 	const pool = mysql.createPool({
@@ -14,11 +14,11 @@ function connectionPool() {
 	});
 	// Envoie le retour d'un message en fonction de l'etat de la base de donnée
 	//ici, il faut configurer le accueil sur une table que vous avez
-	pool.query("SELECT accueil FROM accueil WHERE accueil = 'good_start'", function (err) { // Test de connection à la base de donnée (bien vérifier le wiki)
+	pool.query("SELECT 1", function (err) { // Test de connection à la base de donnée (bien vérifier le wiki)
 		if (err) {
 			console.log(redBright("Erreur connection base de données.\n" + err));
 			console.log(redBright.bold(">> Shutdown ! <<"));
-			pool.destroy();//shutdown de la connection
+			//pool.destroy();//shutdown de la connection
 			const {client} = require("../index.js");
 			return client.destroy(); // Shutdown le bot si erreur de connection
 		}
