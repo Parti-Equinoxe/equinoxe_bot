@@ -46,8 +46,7 @@ module.exports.send = async (interaction) => {
     console.log(rolesNotif.map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> : ${role.description}`).join("\n").length);
     return {
         embeds: [new EmbedBuilder()
-            .setTitle("__Contribuez en rejoignant nos équipes opérationnelles :__")
-            .setDescription("Ci-dessous vous trouverez une présentation des différentes équipes accompagnée de postes sur lesquels nous avons besoin de force vive (liste non exhaustive).\nSi vous pensez pouvoir nous aider (même un peu) sur l'un de ces sujets. Utilisez les boutons ci-dessous.")
+            .setDescription("## __Contribuez en rejoignant nos équipes opérationnelles :__\nCi-dessous vous trouverez une présentation des différentes équipes accompagnée de postes sur lesquels nous avons besoin de force vive (liste non exhaustive).\nSi vous pensez pouvoir nous aider (même un peu) sur l'un de ces sujets. Utilisez les boutons ci-dessous.")
             .setColor("#ffd412")
             .addFields({
                 name: "__Liste des rôles :__",
