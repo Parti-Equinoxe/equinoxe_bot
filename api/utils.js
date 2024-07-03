@@ -184,15 +184,6 @@ module.exports.sendError = async (message) => {
 }
 
 /**
- * @param {DataManager.cache} rolesUser - les roles de l'utilisateur (**interaction.member.roles.cache**)
- * @param {Role.id | string} roleID - l'ID du role en question
- * @return {boolean} - si l'utilisateur a le role
- */
-module.exports.userARole = (rolesUser, roleID) => {
-    return rolesUser.has(roleID);//.valueOf().some((role) => role == roleID); //faut pas mettre "===" car ils ont pas le même type
-};
-
-/**
  * @param {Array<{member: GuildMember, content: string, embeds: Object[], attachments: Attachment[], createdTimestamp: number}>} messages - les messages
  * @param {GuildTextBasedChannel} channel - le channel
  * @return {Promise<number>} - le nombre de messages envoyé
