@@ -5,7 +5,7 @@ const pre_load_msgs = readdirSync("./data/pre_load/").filter((file) => file.ends
 });
 
 module.exports = {
-    name: "pre_load_massage",
+    name: "pre_load_message",
     description: "Envoy un message pre écrit.",
     options: [
         {
