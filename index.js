@@ -68,3 +68,5 @@ client.login(process.env.TOKEN).catch((reason) => {
 	}
 	if (process.env.DEBUG === "true") console.log(reason);
 });
+
+//"node-html-to-image": "^3.4.0",
