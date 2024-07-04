@@ -2,19 +2,24 @@ const {
     EmbedBuilder,
     ActionRowBuilder,
     ButtonBuilder,
-    ChatInputCommandInteraction, parseEmoji
+    ChatInputCommandInteraction, parseEmoji, AttachmentBuilder
 } = require("discord.js");
-const roles = require("../utils/roles.json");
 
 /**
  * @param {ChatInputCommandInteraction} interaction
  */
 module.exports.send = async (interaction) => {
+    const banner = new AttachmentBuilder('./data/images/equinoxe_banner_hight.png', {name: 'equinoxe_banner.png'});
+    const info = new AttachmentBuilder('./data/images/information.png', {name: 'info.png'});
+    const relgemement = new AttachmentBuilder('./data/images/reglement.png', {name: 'reglement.png'});
+
     return {
         embeds: [
             new EmbedBuilder()
-                .setDescription("## __Bienvenue sur le discord du parti :__\nIci vous trouverez l'essentiel des informations pour vous lancer dans l'action avec nous.")
+                .setDescription("# __Bienvenue sur le discord du parti :__\nIci vous trouverez l'essentiel des informations pour vous lancer dans l'action avec nous.")
                 .setColor("#ffd412")
+                .setThumbnail(`attachment://equinoxe_banner.png`)
+                .setImage(`attachment://info.png`)
                 .addFields({
                     name: "➡️ Les infos principales :",
                     value: "- La réunion d'accueil des nouveaux __tous les dimanches soir à 19h__ : [Zoom](https://us02web.zoom.us/j/86054314608?pwd=RnFqRFVEbHRXaVVkR0V1dEFCRHhtUT09)\n- Le [guide du nouvel adhérent](https://docs.google.com/presentation/d/1j0sXELn29E4ZOxRoWZqe9m8kN_WpWdZ-gqxeKEF3s-0/edit?usp=drive_link) vous présente **l’architecture** et **l’organisation** du parti.\n"
@@ -28,10 +33,12 @@ module.exports.send = async (interaction) => {
                     name: "❓Besoin d'aide ?",
                     value: "- Si vous avez besoin d'aide hésitez pas à créer un post ici : <#1249732581872767057>.\n"
                 }),
-                //.setFooter({text: ""}),
+            //.setFooter({text: ""}),
             new EmbedBuilder()
-                .setDescription("## __Règle de bonne conduite sur le discord :__")
+                .setDescription("# __Règle de bonne conduite sur le discord :__")
                 .setColor("#ffd412")
+                .setThumbnail(`attachment://equinoxe_banner.png`)
+                .setImage(`attachment://reglement.png`)
                 .addFields({
                     name: "Pensez à vous renommer : <Prénom> <Nom> et à vous présentez :",
                     value: "- Cela permet une **une meilleure intégration et une transparence de vos avis** et autant __assumez vos avis__. *Vous pouvez utilisez le bouton ci-dessous pour vous renommez.*\n- <#862077093226610688> pour vous présentez.\n"
@@ -48,7 +55,7 @@ module.exports.send = async (interaction) => {
                     name: "Ni violence, ni discrimination, ni offense :",
                     value: "- __Certaines publications__ peuvent ne pas être acceptées si elles sont **discriminatoires**, **offensantes** ou si elles sont **susceptibles de choquer** (*violence explicite, blague de mauvais goût, etc*).\n- Les salons <#1023829177004199966> et <#1249829979328348230> existent.\n"
                 })
-                //.setFooter({text: ""})
+            //.setFooter({text: ""})
         ],
         components: [new ActionRowBuilder().addComponents(
             new ButtonBuilder()
@@ -56,6 +63,7 @@ module.exports.send = async (interaction) => {
                 .setEmoji("📝")
                 .setLabel("Se renommer")
                 .setStyle(1)
-        )]
+        )],
+        files: [banner, info, relgemement]
     };
 }
