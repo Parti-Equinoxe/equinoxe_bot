@@ -1,6 +1,6 @@
 const {AttachmentBuilder} = require("discord.js");
 const {ChartJSNodeCanvas} = require("chartjs-node-canvas");
-const {jaune, noir} = require("./permanent.js");
+const {couleurs} = require("./permanent.js");
 const label = ["Éxcellent", "Bien", "Passable", "Insuffisant", "À rejeter", "Abstention"];
 const backgroundColor = [
     'rgb(73,117,40)',
@@ -41,7 +41,7 @@ module.exports.voteJugementMajoritaire = async (titre, data) => {
     const chartJSNodeCanvas = new ChartJSNodeCanvas({
         width: 3200,
         height: 120 * data.length + 400,
-        backgroundColour: noir,
+        backgroundColour: couleurs.noir,
         plugins: {requireLegacy: ['chartjs-plugin-datalabels']}
     });
     const img = new AttachmentBuilder()
@@ -90,7 +90,7 @@ module.exports.voteJugementMajoritaire = async (titre, data) => {
                         text: titre,
                         fullSize: true,
                         font: {size: 70},
-                        color: jaune,
+                        color: couleurs.jaune,
                         padding: {bottom: 40, top: 20}
                     },
                     legend: {
@@ -144,12 +144,12 @@ module.exports.voteLegislative = async (titre, data) => {
         data: data.map((v) => {
             return parseFloat(v.pourcentage.replace("%",""));
         }),
-        backgroundColor: jaune
+        backgroundColor: couleurs.jaune
     }
     const chartJSNodeCanvas = new ChartJSNodeCanvas({
         width: 200 * data.length + 400,
         height: 2000,
-        backgroundColour: noir,
+        backgroundColour: couleurs.noir,
         plugins: {requireLegacy: ['chartjs-plugin-datalabels']}
     });
     const img = new AttachmentBuilder()
@@ -181,7 +181,7 @@ module.exports.voteLegislative = async (titre, data) => {
                         text: titre,
                         fullSize: true,
                         font: {size: 70},
-                        color: jaune,
+                        color: couleurs.jaune,
                         padding: {bottom: 40, top: 20}
                     },
                     legend: {

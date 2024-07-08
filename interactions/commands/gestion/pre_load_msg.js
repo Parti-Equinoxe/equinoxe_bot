@@ -1,6 +1,8 @@
 const {ChatInputCommandInteraction, Client} = require("discord.js");
 const {readdirSync} = require("fs");
 const pre_load_msgs = readdirSync("./data/pre_load/").filter((file) => file.endsWith(".js")).map((msg) => {
+    //permet de vérifier et que tou va bien
+    require(`../../../data/pre_load/${msg}`);
     return msg.replace(".js", "");
 });
 

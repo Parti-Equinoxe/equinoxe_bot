@@ -6,13 +6,12 @@ module.exports.banniere = {
     file: () => new AttachmentBuilder('./data/images/equinoxe_banner_hight.png', {name: 'equinoxe_banner.png'})
 }
 /**
- * @return {`#${string}`}
+ * @return {Object<`#${string}`>}
  */
-module.exports.jaune = "#ffd412";
-/**
- * @return {`#${string}`}
- */
-module.exports.noir = "#19171CFF"
+module.exports.couleurs = {
+    jaune: "#ffd412",
+    noir: "#19171C"
+}
 
 module.exports.roles = roles;
 module.exports.salons = salons;
