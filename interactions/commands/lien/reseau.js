@@ -1,7 +1,7 @@
 const {ChatInputCommandInteraction, Client} = require("discord.js");
 
 module.exports = {
-    name: "réseau",
+    name: "réseaux",
     description: "Permet d'obtenir les liens des réseaux sociaux.",
     subCommande: true,
     /**
