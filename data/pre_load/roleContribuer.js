@@ -4,7 +4,7 @@ const {
     ButtonBuilder,
     ChatInputCommandInteraction, parseEmoji, AttachmentBuilder
 } = require("discord.js");
-const {banniere, jaune, roles} = require("../../api/permanent.js");
+const {banniere, couleurs, roles} = require("../../api/permanent.js");
 
 const rolesNotif = [
     {
@@ -48,7 +48,7 @@ module.exports.send = async (interaction) => {
     return {
         embeds: [new EmbedBuilder()
             .setDescription("# __Contribuez en rejoignant nos équipes opérationnelles :__\nCi-dessous vous trouverez une présentation des différentes équipes accompagnée de postes sur lesquels nous avons besoin de force vive (liste non exhaustive).\nSi vous pensez pouvoir nous aider (même un peu) sur l'un de ces sujets. Utilisez les boutons ci-dessous.")
-            .setColor(jaune)
+            .setColor(couleurs.jaune)
             .setThumbnail(banniere.link)
             .setImage(`attachment://contribuer.png`)
             .addFields({

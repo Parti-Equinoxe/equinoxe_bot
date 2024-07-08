@@ -2,10 +2,9 @@ const {
     EmbedBuilder,
     ActionRowBuilder,
     ButtonBuilder,
-    ChatInputCommandInteraction, parseEmoji, AttachmentBuilder
+    ChatInputCommandInteraction, AttachmentBuilder
 } = require("discord.js");
-const {banniere, jaune} = require("../../api/permanent.js");
-
+const {banniere, couleurs} = require("../../api/permanent.js");
 /**
  * @param {ChatInputCommandInteraction} interaction
  */
@@ -17,7 +16,7 @@ module.exports.send = async (interaction) => {
         embeds: [
             new EmbedBuilder()
                 .setDescription("# __Bienvenue sur le discord du parti :__\nIci vous trouverez l'essentiel des informations pour vous lancer dans l'action avec nous.")
-                .setColor(jaune)
+                .setColor(couleurs.jaune)
                 .setThumbnail(banniere.link)
                 .setImage(`attachment://info.png`)
                 .addFields({
@@ -36,7 +35,7 @@ module.exports.send = async (interaction) => {
             //.setFooter({text: ""}),
             new EmbedBuilder()
                 .setDescription("# __Règle de bonne conduite sur le discord :__")
-                .setColor(jaune)
+                .setColor(couleurs.jaune)
                 .setThumbnail(banniere.link)
                 .setImage(`attachment://reglement.png`)
                 .addFields({
