@@ -9,6 +9,6 @@ module.exports = {
      * @param {Client} client
      */
     runInteraction: async (client, interaction) => {
-        interaction.reply({content: "https://parti-equinoxe.fr/notre-vision/"});
+        return interaction.reply({content: "https://parti-equinoxe.fr/notre-vision/"});
     },
 };
