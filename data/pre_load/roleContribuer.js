@@ -38,6 +38,7 @@ const rolesNotif = [
         description: "Pour contribuer à faire connaître Équinoxe auprès de personnalités ciblées : influenceurs, scientifiques, mécènes. Gestion des contacts avec différents partis politiques et associations."
     }
 ];
+const nbPerRow = 3;
 
 /**
  * @param {ChatInputCommandInteraction} interaction
@@ -56,13 +57,13 @@ module.exports.send = async (interaction) => {
                 value: rolesNotif.map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> : ${role.description}`).join("\n"),
             })
             .setFooter({text: "Cliquez sur les boutons ci-dessous pour vous ajouter/retirer des roles."})],
-        components: [new ActionRowBuilder().addComponents(rolesNotif.slice(0, 4).map((role) => {
+        components: [new ActionRowBuilder().addComponents(rolesNotif.slice(0, nbPerRow).map((role) => {
             return new ButtonBuilder()
                 .setCustomId(`contribuer:${role.roleID}`)
                 .setEmoji(parseEmoji(role.emoji))
                 .setLabel(interaction.guild.roles.cache.get(roles[role.roleID]).name)
                 .setStyle(2);
-        })), new ActionRowBuilder().addComponents(rolesNotif.slice(4, 8).map((role) => {
+        })), new ActionRowBuilder().addComponents(rolesNotif.slice(nbPerRow, nbPerRow * 2).map((role) => {
             return new ButtonBuilder()
                 .setCustomId(`contribuer:${role.roleID}`)
                 .setEmoji(parseEmoji(role.emoji))
