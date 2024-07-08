@@ -4,12 +4,12 @@ const {
     ButtonBuilder,
     ChatInputCommandInteraction, parseEmoji, AttachmentBuilder
 } = require("discord.js");
+const {banniere, jaune} = require("../../api/permanent.js");
 
 /**
  * @param {ChatInputCommandInteraction} interaction
  */
 module.exports.send = async (interaction) => {
-    const banner = new AttachmentBuilder('./data/images/equinoxe_banner_hight.png', {name: 'equinoxe_banner.png'});
     const info = new AttachmentBuilder('./data/images/information.png', {name: 'info.png'});
     const relgemement = new AttachmentBuilder('./data/images/reglement.png', {name: 'reglement.png'});
 
@@ -17,8 +17,8 @@ module.exports.send = async (interaction) => {
         embeds: [
             new EmbedBuilder()
                 .setDescription("# __Bienvenue sur le discord du parti :__\nIci vous trouverez l'essentiel des informations pour vous lancer dans l'action avec nous.")
-                .setColor("#ffd412")
-                .setThumbnail(`attachment://equinoxe_banner.png`)
+                .setColor(jaune)
+                .setThumbnail(banniere.link)
                 .setImage(`attachment://info.png`)
                 .addFields({
                     name: "➡️ Les infos principales :",
@@ -36,8 +36,8 @@ module.exports.send = async (interaction) => {
             //.setFooter({text: ""}),
             new EmbedBuilder()
                 .setDescription("# __Règle de bonne conduite sur le discord :__")
-                .setColor("#ffd412")
-                .setThumbnail(`attachment://equinoxe_banner.png`)
+                .setColor(jaune)
+                .setThumbnail(banniere.link)
                 .setImage(`attachment://reglement.png`)
                 .addFields({
                     name: "Pensez à vous renommer : <Prénom> <Nom> et à vous présentez :",
@@ -64,6 +64,6 @@ module.exports.send = async (interaction) => {
                 .setLabel("Se renommer")
                 .setStyle(1)
         )],
-        files: [banner, info, relgemement]
+        files: [banniere.file(), info, relgemement]
     };
 }

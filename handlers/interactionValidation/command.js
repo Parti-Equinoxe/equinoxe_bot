@@ -1,6 +1,6 @@
 const {PermissionsBitField, Collection} = require("discord.js");
 const {userARole} = require("../../api/role.js");
-const roles = require("../../data/utils/roles.json");
+const {roles} = require("../../api/permanent.js");
 
 const cooldown = new Collection();
 

@@ -2,7 +2,7 @@ const {yellow, redBright} = require("cli-color");
 const fs = require("fs");
 
 //const listFile = [];
-const listNameCommand = [];
+//const listNameCommand = [];
 
 module.exports = (client) => {
 	let dirs = fs.readdirSync("./interactions/commands/");
