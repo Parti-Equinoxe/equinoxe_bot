@@ -1,6 +1,7 @@
 const {EmbedBuilder, ButtonBuilder, ActionRowBuilder} = require("discord.js");
 const axios = require('axios');
 const {voteJugementMajoritaire} = require("../../../api/graph.js");
+const {jaune} = require("../../../api/permanent.js");
 module.exports = {
     name: "vote_jugement_majoritaire",
     description: "Permet de tracer un graphique de résultat d'un vote au jugement majoritaire.",
@@ -22,7 +23,7 @@ module.exports = {
     runInteraction: async (client, interaction) => {
         const embed = new EmbedBuilder()
             .setTitle(interaction.options.getString("titre") ?? "Résultat du vote au jugement majoritaire")
-            .setColor("#ffd412")
+            .setColor(jaune)
             .setDescription("Utilise les boutons pour ajouter des données !")
             .setTimestamp();
         if (interaction.options.getAttachment("json") &&interaction.options.getAttachment("json").contentType === "application/json; charset=utf-8") {

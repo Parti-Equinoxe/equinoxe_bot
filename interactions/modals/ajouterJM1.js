@@ -1,4 +1,4 @@
-const {ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, EmbedBuilder, ButtonBuilder} = require("discord.js");
+const {ActionRowBuilder, EmbedBuilder, ButtonBuilder} = require("discord.js");
 module.exports = {
     customID: "ajouterJM1",
     runInteraction: async (client, interaction) => {

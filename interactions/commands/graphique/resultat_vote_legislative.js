@@ -1,7 +1,7 @@
-const {client} = require("../../../index.js");
 const axios = require("axios");
-const {voteJugementMajoritaire, voteLegislative} = require("../../../api/graph.js");
+const {voteLegislative} = require("../../../api/graph.js");
 const {EmbedBuilder} = require("discord.js");
+const {jaune} = require("../../../api/permanent.js");
 module.exports = {
     name: "résultat_vote_legislative",
     description: "Permet de tracer un graphique d'un vote de legislative.",
@@ -34,7 +34,7 @@ module.exports = {
         if (!data.titre) data.titre = interaction.options.getString("titre") ?? "Pas de titre donnée";
         const graph = await voteLegislative(data.titre, data.data);
         const embed = new EmbedBuilder()
-            .setColor("#ffd412")
+            .setColor(jaune)
             .setTimestamp()
             .setImage(`attachment://${graph.name}`);
         return interaction.reply({embeds: [embed], files: [graph]});

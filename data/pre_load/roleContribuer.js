@@ -4,7 +4,7 @@ const {
     ButtonBuilder,
     ChatInputCommandInteraction, parseEmoji, AttachmentBuilder
 } = require("discord.js");
-const roles = require("../utils/roles.json");
+const {banniere, jaune, roles} = require("../../api/permanent.js");
 
 const rolesNotif = [
     {
@@ -44,13 +44,12 @@ const rolesNotif = [
  */
 module.exports.send = async (interaction) => {
     console.log(rolesNotif.map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> : ${role.description}`).join("\n").length);
-    const banner = new AttachmentBuilder('./data/images/equinoxe_banner_hight.png', {name: 'equinoxe_banner.png'});
     const contri = new AttachmentBuilder('./data/images/contribuer.png', {name: 'contribuer.png'});
     return {
         embeds: [new EmbedBuilder()
             .setDescription("# __Contribuez en rejoignant nos équipes opérationnelles :__\nCi-dessous vous trouverez une présentation des différentes équipes accompagnée de postes sur lesquels nous avons besoin de force vive (liste non exhaustive).\nSi vous pensez pouvoir nous aider (même un peu) sur l'un de ces sujets. Utilisez les boutons ci-dessous.")
-            .setColor("#ffd412")
-            .setThumbnail(`attachment://equinoxe_banner.png`)
+            .setColor(jaune)
+            .setThumbnail(banniere.link)
             .setImage(`attachment://contribuer.png`)
             .addFields({
                 name: "__Liste des rôles :__",
@@ -70,6 +69,6 @@ module.exports.send = async (interaction) => {
                 .setLabel(interaction.guild.roles.cache.get(roles[role.roleID]).name)
                 .setStyle(2);
         }))],
-        files: [banner, contri]
+        files: [banniere.file(), contri]
     };
 }

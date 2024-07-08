@@ -1,5 +1,6 @@
 const {AttachmentBuilder} = require("discord.js");
 const {ChartJSNodeCanvas} = require("chartjs-node-canvas");
+const {jaune, noir} = require("./permanent.js");
 const label = ["Éxcellent", "Bien", "Passable", "Insuffisant", "À rejeter", "Abstention"];
 const backgroundColor = [
     'rgb(73,117,40)',
@@ -40,7 +41,7 @@ module.exports.voteJugementMajoritaire = async (titre, data) => {
     const chartJSNodeCanvas = new ChartJSNodeCanvas({
         width: 3200,
         height: 120 * data.length + 400,
-        backgroundColour: 'rgb(25,23,28)',
+        backgroundColour: noir,
         plugins: {requireLegacy: ['chartjs-plugin-datalabels']}
     });
     const img = new AttachmentBuilder()
@@ -89,7 +90,7 @@ module.exports.voteJugementMajoritaire = async (titre, data) => {
                         text: titre,
                         fullSize: true,
                         font: {size: 70},
-                        color: "#ffd412",
+                        color: jaune,
                         padding: {bottom: 40, top: 20}
                     },
                     legend: {
@@ -143,12 +144,12 @@ module.exports.voteLegislative = async (titre, data) => {
         data: data.map((v) => {
             return parseFloat(v.pourcentage.replace("%",""));
         }),
-        backgroundColor: "rgba(255,212,18,0.9)"
+        backgroundColor: jaune
     }
     const chartJSNodeCanvas = new ChartJSNodeCanvas({
         width: 200 * data.length + 400,
         height: 2000,
-        backgroundColour: 'rgb(25,23,28)',
+        backgroundColour: noir,
         plugins: {requireLegacy: ['chartjs-plugin-datalabels']}
     });
     const img = new AttachmentBuilder()
@@ -180,7 +181,7 @@ module.exports.voteLegislative = async (titre, data) => {
                         text: titre,
                         fullSize: true,
                         font: {size: 70},
-                        color: "#ffd412",
+                        color: jaune,
                         padding: {bottom: 40, top: 20}
                     },
                     legend: {

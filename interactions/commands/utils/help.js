@@ -1,5 +1,6 @@
 const {ChatInputCommandInteraction, Client, EmbedBuilder} = require("discord.js");
 const {readdirSync} = require("fs");
+const {noir} = require("../../../api/permanent.js");
 let dirsCategory = readdirSync("./interactions/commands/").filter((file) => !file.includes("."));
 dirsCategory.push("../commands");
 module.exports = {
@@ -77,7 +78,7 @@ module.exports = {
 				.setTitle(`Information sur le groupe de commande : __${cmdName}__`)
 				.setDescription(cmd.description)
 				.addFields(fields)
-				.setColor("#205100")
+				.setColor(noir)
 				.setFooter({text: "💭 <> = obligatoire et [] = optionnel"});
 			return interaction.reply({embeds: [embed]});
 		}
@@ -88,7 +89,7 @@ module.exports = {
 				name: "Information : ",
 				value: `\`\`\`yml\nCatégorie : ${cmd.category !== "sans_categorie" ? cmd.category : "sans catégorie"}\nUsage : ${usage(cmd, cmdName)}\`\`\``
 			}])
-			.setColor("#00514e")
+			.setColor(noir)
 			.setFooter({text: "💭 <> = obligatoire et [] = optionnel"});
 		if (cmd.options) {
 			embed.addFields({

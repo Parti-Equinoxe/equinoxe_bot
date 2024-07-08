@@ -1,4 +1,3 @@
-const {AttachmentBuilder} = require("discord.js");
 const {log} = require("../../../api/utils.js");
 module.exports = {
     name: "copier",

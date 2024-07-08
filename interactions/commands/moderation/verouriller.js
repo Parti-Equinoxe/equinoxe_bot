@@ -1,6 +1,5 @@
-const roles = require("../../../data/utils/roles.json");
 const {log, hasPerm} = require("../../../api/utils.js");
-const {PermissionsBitField, MessagePayload} = require("discord.js");
+const {roles} = require("../../../api/permanent.js");
 module.exports = {
     name: "verrouiller",
     description: "Permet de verrouiller/déverrouiller un salon.",
