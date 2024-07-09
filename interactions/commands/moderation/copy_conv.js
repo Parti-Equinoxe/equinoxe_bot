@@ -40,7 +40,7 @@ module.exports = {
                 }
             }
             return {
-                content: msg.content.slice(0, 1999) ?? "",
+                content: (msg.content ?? "").slice(0, 1999),
                 embeds: msg.embeds ?? [],
                 attachments: msg.attachments.map((a) => a),
                 createdTimestamp: msg.createdTimestamp,
