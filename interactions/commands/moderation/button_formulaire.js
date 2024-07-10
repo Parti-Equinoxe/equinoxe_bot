@@ -1,7 +1,7 @@
 const {ButtonBuilder, ActionRowBuilder} = require("discord.js");
 module.exports = {
-    name: "formulaire_arrivé",
-    description: "Permet de sélectionner un formulaire arrivé.",
+    name: "formulaire_renomer",
+    description: "Permet de utiliser le formulaire pour ce renomer.",
     runInteraction: async (client, interaction) => {
         const btnForm = new ButtonBuilder()
             .setCustomId("accueil:formulaire")
