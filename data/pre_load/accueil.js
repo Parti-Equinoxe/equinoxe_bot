@@ -27,7 +27,7 @@ module.exports.send = async (interaction) => {
                     value: "- Ce discord comme espace de **travail** et de **communication** (si vous avez des difficultés pour l’utiliser, voici un mode d’emploi : [Guide Discord](https://support.discord.com/hc/fr/articles/360045138571-Guide-de-Discord-pour-débutants)\n- Un [**google drive**](https://drive.google.com/drive/folders/167Sjn4wedQJ1B_ToBAQjoSsPlnnUCC7G?usp=sharinf) pour stocker nos documents (*accessible à tous les adhérents*)\n- [Kit de **mobilisation** et de **communication**](https://equinoxe-com.notion.site/Kit-communication-mobilisation-f5f9305769a1423a98d2a192474a1db5) pour vous donner des ressources  pour communiquer sur le parti et mobiliser votre réseau.\n"
                 }, {
                     name: "🔑 Accès :",
-                    value: "- Vous avez accès aux dossiers drive.\n- Pour accéder à d'autre canaux discord (<#867892299346477077>) : <#1206261702606463026>.\n- Pour rejoindre votre groupe what's app locale : <#1276190973105410101>.\n"
+                    value: "- Vous avez accès aux dossiers drive.\n- Pour accéder à d'autre canaux discord (<#867892299346477077>) : <#1206261702606463026>.\n- Pour rejoindre votre groupe what's app local : <#1276190973105410101>.\n"
                 }, {
                     name: "❓Besoin d'aide ?",
                     value: "- Si vous avez besoin d'aide hésitez pas à créer un post ici : <#1249732581872767057>.\n"
