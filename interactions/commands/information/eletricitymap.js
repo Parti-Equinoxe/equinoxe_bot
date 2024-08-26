@@ -41,11 +41,11 @@ module.exports = {
             .setDescription(`## ${data.zone.emoji} __${data.zone.name} :__\n`)
             .setColor(rgbTohex(datatype.carbonIntesityColor.find(c => data.carbonIntensity < c.below).color))
             .setFields([{
-                name: "Production et Consommation électrique :",
+                name: "Production et consommation électrique :",
                 value: `- Consommation/Production : **${numberPretier(data.powerConsumptionTotal * 1000)}W**/**${numberPretier(data.powerProductionTotal * 1000)}W**\n- Import : **${numberPretier(data.powerImportTotal * 1000)}W**\n- Export : **${numberPretier(data.powerExportTotal * 1000)}W**`,
             }, {
                 name: "Emission de CO₂ :",
-                value: `- Intesité carbonne : **${numberPretier(data.carbonIntensity)}gCO₂eq/kWh**\n- Bas Carbon : **${data.fossilFreePercentage}%**\n- Renouvelable : **${data.renewablePercentage}%**`,
+                value: `- Intensité carbonne : **${numberPretier(data.carbonIntensity)}gCO₂eq/kWh**\n- Bas Carbon : **${data.fossilFreePercentage}%**\n- Renouvelable : **${data.renewablePercentage}%**`,
             }])
             .setAuthor({
                 name: "ElectricityMap",
