@@ -1,0 +1,137 @@
+[
+  {
+    "name": "France",
+    "value": "FR",
+    "emoji": "🇫🇷"
+  },
+  {
+    "name": "Allemagne",
+    "value": "DE",
+    "emoji": "🇩🇪"
+  },
+  {
+    "name": "Espagne",
+    "value": "ES",
+    "emoji": "🇪🇸"
+  },
+  {
+    "name": "Belgique",
+    "value": "BE",
+    "emoji": "🇧🇪"
+  },
+  {
+    "name": "Grande-Bretagne",
+    "value": "GB",
+    "emoji": "🇬🇧"
+  },
+  {
+    "name": "Pologne",
+    "value": "PL",
+    "emoji": "🇵🇱"
+  },
+  {
+    "name": "Italie",
+    "value": "IT",
+    "emoji": "🇮🇹"
+  },
+  {
+    "name": "Portugal",
+    "value": "PT",
+    "emoji": "🇵🇹"
+  },
+  {
+    "name": "Irlande",
+    "value": "IE",
+    "emoji": "🇮🇪"
+  },
+  {
+    "name": "Pays-Bas",
+    "value": "NL",
+    "emoji": "🇳🇱"
+  },
+  {
+    "name": "Suisse",
+    "value": "CH",
+    "emoji": "🇨🇭"
+  },
+  {
+    "name": "Luxembourg",
+    "value": "LU",
+    "emoji": "🇱🇺"
+  },
+  {
+    "name": "Suede",
+    "value": "SE",
+    "emoji": "🇸🇪"
+  },
+  {
+    "name": "Finlande",
+    "value": "FI",
+    "emoji": "🇫🇮"
+  },
+  {
+    "name": "Danemark",
+    "value": "DK",
+    "emoji": "🇩🇰"
+  },
+  {
+    "name": "Norvege",
+    "value": "NO",
+    "emoji": "🇳🇴"
+  },
+  {
+    "name": "Islande",
+    "value": "IS",
+    "emoji": "🇮🇸"
+  },
+  {
+    "name": "Slovaquie",
+    "value": "SK",
+    "emoji": "🇸🇰"
+  },
+  {
+    "name": "Tchéquie",
+    "value": "CZ",
+    "emoji": "🇨🇿"
+  },
+  {
+    "name": "Autriche",
+    "value": "AT",
+    "emoji": "🇦🇹"
+  },
+  {
+    "name": "Hongrie",
+    "value": "HU",
+    "emoji": "🇭🇺"
+  },
+  {
+    "name": "Bulgarie",
+    "value": "BG",
+    "emoji": "🇧🇬"
+  },
+  {
+    "name": "Croatie",
+    "value": "HR",
+    "emoji": "🇭🇷"
+  },
+  {
+    "name": "Lettonie",
+    "value": "LV",
+    "emoji": "🇱🇻"
+  },
+  {
+    "name": "Lituanie",
+    "value": "LT",
+    "emoji": "🇱🇹"
+  },
+  {
+    "name": "Estonie",
+    "value": "EE",
+    "emoji": "🇪🇪"
+  },
+  {
+    "name": "Grèce",
+    "value": "GR",
+    "emoji": "🇬🇷"
+  }
+]

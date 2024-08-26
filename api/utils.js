@@ -51,22 +51,17 @@ module.exports.getWebhooks = async (channel, member) => {
 };
 
 /**
- * @param {number | string} nb - le nombre à transformer (K/M)
+ * @param {number | string} nb - le nombre à transformer
  * @returns {string}
  */
 module.exports.numberPretier = (nb) => {
     nb = parseInt(nb);
     const len = nb.toString().length;
-    if (len <= 3) {
-        return nb.toString();
-    }
-    if (len <= 6) {
-        return `${Math.round(nb / 100) / 10}k`;
-    }
-    if (len <= 9) {
-        return `${Math.round(nb / 100000) / 10}M`;
-    }
-    return `${Math.round(nb / 100000000) / 10}G`;
+    if (len <= 3) return nb.toString();
+    if (len <= 6) return `${Math.round(nb / 100) / 10}k`;
+    if (len <= 9) return `${Math.round(nb / 100000) / 10}M`;
+    if (len <= 12) return `${Math.round(nb / 100000000) / 10}G`;
+    return `${Math.round(nb / 100000000000) / 10}T`;
 };
 
 const timeFormats = [
