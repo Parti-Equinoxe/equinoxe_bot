@@ -2,7 +2,7 @@ const {EmbedBuilder} = require("discord.js");
 const axios = require("axios");
 const pays = require("../../../data/electricitymaps/pays.json");
 const {numberPretier} = require("../../../api/utils");
-const {datatype} = require("../../../api/electricitymaps");
+const {datatype, getData, graph, graphProd} = require("../../../api/electricitymaps");
 
 module.exports = {
     name: "électricité",
@@ -22,27 +22,14 @@ module.exports = {
             ephemeral: true
         });
         const zone = pays.find(p => p.value === interaction.options.getString("pays")) ?? pays.find(p => p.value === "FR");
-        const data = (await axios.get(`https://api.electricitymap.org/v3/power-breakdown/latest?zone=${zone.value}`, {headers: {"auth-token": process.env.TOKEN_EM}})).data;
-        data.carbonIntensity = (await axios.get(`https://api.electricitymap.org/v3/carbon-intensity/latest?zone=${zone.value}`, {headers: {"auth-token": process.env.TOKEN_EM}})).data.carbonIntensity;
-        data.zone = pays.find(p => p.value === interaction.options.getString("pays")) ?? pays.find(p => p.value === "FR");
-        const powerProductionBreakdown = [], powerConsumptionBreakdown = [], carbonIntensityBreakdown = [];
-        for (const type of datatype.prodType) {
-            powerProductionBreakdown.push({name: type, value: data.powerProductionBreakdown[type] ?? 0});
-            powerConsumptionBreakdown.push({name: type, value: data.powerConsumptionBreakdown[type] ?? 0});
-            carbonIntensityBreakdown.push({
-                name: type,
-                value: datatype.emissionType[type] * data.powerProductionBreakdown[type]
-            });
-        }
-        data.powerProductionBreakdown = powerProductionBreakdown;
-        data.powerConsumptionBreakdown = powerConsumptionBreakdown;
-        data.carbonIntensityBreakdown = carbonIntensityBreakdown;
+        const data = await getData(zone.value);
+        const graph = await graphProd(data);
         const embed = new EmbedBuilder()
             .setDescription(`## ${data.zone.emoji} __${data.zone.name} :__\n`)
-            .setColor(rgbTohex(datatype.carbonIntesityColor.find(c => data.carbonIntensity < c.below).color))
+            .setColor(rgbTohex(datatype.carbonIntensityColor.find(c => data.carbonIntensity < c.below).color))
             .setFields([{
                 name: "Production et consommation électrique :",
-                value: `- Consommation/Production : **${numberPretier(data.powerConsumptionTotal * 1000)}W**/**${numberPretier(data.powerProductionTotal * 1000)}W**\n- Import : **${numberPretier(data.powerImportTotal * 1000)}W**\n- Export : **${numberPretier(data.powerExportTotal * 1000)}W**`,
+                value: `- Consommation/Production : **${numberPretier(data.powerConsumptionTotal)}W**/**${numberPretier(data.powerProductionTotal)}W**\n- Import : **${numberPretier(data.powerImportTotal)}W**\n- Export : **${numberPretier(data.powerExportTotal)}W**`,
             }, {
                 name: "Emission de CO₂ :",
                 value: `- Intensité carbonne : **${numberPretier(data.carbonIntensity)}gCO₂eq/kWh**\n- Bas Carbon : **${data.fossilFreePercentage}%**\n- Renouvelable : **${data.renewablePercentage}%**`,
@@ -51,11 +38,12 @@ module.exports = {
                 name: "ElectricityMap",
                 url: `https://app.electricitymaps.com/map/zone/${data.zone.value}`/*, iconURL: "https://app.electricitymaps.com/favicon.ico"*/
             })
+            .setImage(`attachment://${graph.name}`)
             .setFooter({text: "Mis à jour"})
             .setTimestamp(new Date(data.updatedAt));
         return interaction.reply({
             //content: `\`\`\`json\n${JSON.stringify(data, null, 2)}\`\`\``,
-            //files: [await graph(data)]
+            files: [graph],
             embeds: [embed]
         });
     },
