@@ -6,7 +6,7 @@ const {salons} = require("../../api/permanent.js");
 
 client.once("ready", async () => {
 	client.user.setPresence({
-		activities: [{name: "status personnalisé", type: ActivityType.Watching}],
+		activities: [{name: "le serveur", type: ActivityType.Watching}],
 		status: Status.Connecting,
 	});
 	await client.application.commands.set(client.commands.map((cmd) => cmd));
