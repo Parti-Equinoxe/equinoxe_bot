@@ -123,7 +123,7 @@ module.exports.datatype = {
 }
 
 module.exports.graphProd = async (dataEM) => {
-    console.log(dataEM);
+    //console.log(dataEM);
     const chartJSNodeCanvas = new ChartJSNodeCanvas({
         width: 1000,
         height: 1000,
