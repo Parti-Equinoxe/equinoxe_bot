@@ -7,11 +7,11 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
         parent: newState.channel.parentId,
         type: 2,
         reason:`Nouveau salon vocal depuis <#${newState.channelId}>`,
-        permissionOverwrites: newState.channel.permissionOverwrites.cache
+        //permissionOverwrites: newState.channel.permissionOverwrites.cache
     });
     await newState.member.voice.setChannel(voc.id, `Nouveau salon vocal depuis <#${newState.channelId}>`);
     await voc.send({
-        content: `:speaker:Vous pouvez inviter des gens dans le vocal avec : \`\`\`\n<#${voc.id}>\`\`\``
+        content: `:speaker: Vous pouvez inviter des gens dans le vocal avec : \`\`\`\n<#${voc.id}>\`\`\`\nCe vocal se supprime automatiquement lorsque tout le monde l'aura quitter.`,
     })
     const button = new ButtonBuilder()
         .setCustomId("accueil:renomervoc")
