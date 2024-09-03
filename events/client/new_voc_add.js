@@ -11,7 +11,7 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
     });
     await newState.member.voice.setChannel(voc.id, `Nouveau salon vocal depuis <#${newState.channelId}>`);
     await voc.send({
-        content: `:speaker: Vous pouvez inviter des gens dans le vocal avec : \`\`\`\n<#${voc.id}>\`\`\`\nCe vocal se supprime automatiquement lorsque tout le monde l'aura quitter.`,
+        content: `:speaker: Vous pouvez inviter des gens dans le vocal avec : \`\`\`\n<#${voc.id}>\`\`\`\nCe vocal se supprime automatiquement lorsque tout le monde l'aura quitter.\nAttention ce salon sera supprimer (*lorsque tout le monde aura quitter*) alors n'oubliez rien dans la discussion !`,
     })
     const button = new ButtonBuilder()
         .setCustomId("accueil:renomervoc")
