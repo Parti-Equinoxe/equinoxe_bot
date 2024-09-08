@@ -28,12 +28,13 @@ module.exports = {
      * @param {Client} client
      */
     runInteraction: async (client, interaction) => {
+        await interaction.deferReply({ephemeral: true});
         const msgName = interaction.options.getString("message");
         const channel = interaction.options.getChannel("salon") ?? interaction.channel;
         if (!pre_load_msgs.includes(msgName)) return interaction.reply({content: `Il n'y a pas de message pré-enregistrer nommé **${msgName}** !`});
         const msg = require(`../../../data/pre_load/${msgName}.js`);
         await channel.send(await msg.send(interaction));
-        return interaction.reply({
+        return interaction.editReply({
             content: `Le message pré-enregistré **${msgName}** a bien été posté dans <#${channel.id}> !`,
             ephemeral: true
         });
