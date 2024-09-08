@@ -30,7 +30,7 @@ const rolesNotif = [
     {
         roleID: "mobilisation",
         emoji: "👉",
-        description: "Pour contribuer àl 'organisation et la formation des militants."
+        description: "Pour contribuer à l'organisation et la formation des militants."
     },
     {
         roleID: "reseaux_partenariats",
