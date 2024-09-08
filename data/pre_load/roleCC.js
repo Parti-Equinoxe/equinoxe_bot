@@ -38,7 +38,7 @@ module.exports.send = async (interaction) => {
     const contri = new AttachmentBuilder('./data/images/contribuer.png', {name: 'contribuer.png'});
     return {
         embeds: [new EmbedBuilder()
-            .setDescription("# __Contribuez en rejoignant nos équipes de création de contenu :__\n*Contrairement à ce qui est marqué pas besoin d'être spécialistes*\nUtilisez les boutons ci-dessous pour rejoindre une équipe.")
+            .setDescription(`# __Contribuez en rejoignant nos équipes de création de contenu :__\nPour participer à la création de contenu visuel, vidéo, audio (podcasts) ou rédactionnel, et à la création de templates pour anticiper les besoins des Groupes Locaux.\n*Contrairement à ce qui est marqué pas besoin d'être spécialistes*\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsable <@&${roles.referent_creation_contenu}>.`)
             .setColor(couleurs.jaune)
             .setThumbnail(banniere.link)
             .setImage(`attachment://contribuer.png`)
