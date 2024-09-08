@@ -4,7 +4,7 @@
 module.exports.rolereact = async (interaction, roleID) => {
     const role = await interaction.guild.roles.fetch(roleID);
     if (!interaction.member.manageable) return interaction.reply({
-        content: ":x: Je n'ai pas la permission de modifier vos roles.",
+        content: ":no_entry_sign: Je n'ai pas la permission de modifier vos roles.",
         ephemeral: true
     });
     if (this.userARole(interaction.member.roles.cache, roleID)) {
