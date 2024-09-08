@@ -25,7 +25,7 @@ const rolesNotif = [
     {
         roleID: "communication",
         emoji: "📡",
-        description: "Pour contribuer à la stratégie de communication, réseaux sociaux, site internet ou à la gestion des relations avec la presse."
+        description: "Pour contribuer à la stratégie de communication, à la gestion des relations avec la presse ou à la création et rédaction de posts pour les réseaux sociaux, le site internet et les mails."
     },
     {
         roleID: "mobilisation",
