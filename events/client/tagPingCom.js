@@ -32,9 +32,6 @@ client.on(Events.ThreadCreate, async (thread) => {
 });
 client.on(Events.ThreadUpdate, async (oldThread, newThread) => {
     if (newThread.parentId !== salons.demande_com && newThread.parentId !== salons.creation_contenu) return;
-    console.log(oldThread.appliedTags.join("") === newThread.appliedTags.join(""));
-    console.log(oldThread.appliedTags);
-    console.log(newThread.appliedTags);
     if (oldThread.appliedTags.join("") === newThread.appliedTags.join("")) return;
     if (!newThread.appliedTags.includes(fait[0]) && !newThread.appliedTags.includes(fait[1])) return;
     await newThread.send({content: "Super bravo à tous !\n:lock: Ce post est maintenant archivé !!"});
