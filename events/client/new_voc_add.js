@@ -22,4 +22,4 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
         content: `<@${newState.member.user.id}>, vous pouvez renomer le salon en utilisant le bouton :`,
         components: [new ActionRowBuilder().addComponents(button)]
     });
-})
+});
