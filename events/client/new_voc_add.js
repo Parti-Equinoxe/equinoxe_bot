@@ -1,6 +1,6 @@
-const {ButtonBuilder, ActionRowBuilder} = require("discord.js");
+const {ButtonBuilder, ActionRowBuilder, Events} = require("discord.js");
 const client = require("../../index").client;
-client.on("voiceStateUpdate", async (oldState, newState) => {
+client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
     if (newState.channel == null || !newState.channel.name.includes("➕")) return;
     const voc = await newState.guild.channels.create({
         name: `🔈│${newState.member.user.username}`,

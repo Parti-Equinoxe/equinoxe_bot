@@ -1,10 +1,10 @@
 const client = require("../../index").client;
 const {blue} = require("cli-color");
-const {ActivityType, Status} = require("discord.js");
+const {ActivityType, Status, Events} = require("discord.js");
 const {getChannel, getGuild} = require("../../api/utils.js");
 const {salons} = require("../../api/permanent.js");
 
-client.once("ready", async () => {
+client.once(Events.ClientReady, async () => {
 	client.user.setPresence({
 		activities: [{name: "le serveur", type: ActivityType.Watching}],
 		status: Status.Connecting,
