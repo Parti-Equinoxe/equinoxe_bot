@@ -3,7 +3,6 @@ const {Events} = require("discord.js");
 const {salons, roles} = require("../../api/permanent");
 const tagToPing = {
     //demande com:
-    "1282299861542375578": roles.equipe_mail,
     "1282284835574120448": roles.equipe_twitter,
     "1282284971305730141": roles.equipe_linkedin,
     "1282285017556324414": roles.equipe_facebook,

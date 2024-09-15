@@ -38,11 +38,6 @@ const rolesNotif = [
         description: "Équipe responsable de gérer YouTube."
     },
     {
-        roleID: "equipe_mail",
-        emoji: "📧",
-        description: "Équipe responsable de gérer l'envoie de mails."
-    },
-    {
         roleID: "equipe_site_internet",
         emoji: "📒",
         description: "Équipe responsable de gérer le site internet."
@@ -58,7 +53,7 @@ module.exports.send = async (interaction) => {
     const contri = new AttachmentBuilder('./data/images/contribuer.png', {name: 'contribuer.png'});
     return {
         embeds: [new EmbedBuilder()
-            .setDescription(`# __Contribuez en rejoignant nos équipes réseaux sociaux :__\nPour gérer la publication et l'interaction avec les communautés sur nos différentes plateformes.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&${roles.referent_com_rs}>, <@&${roles.referent_com_gl}> et <@&${roles.referent_site_internet}>.`)
+            .setDescription(`# __Contribuez en rejoignant nos équipes réseaux sociaux :__\nPour gérer la publication et l'interaction avec les communautés sur nos différentes plateformes.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&${roles.referent_com_rs}> et <@&${roles.referent_com_gl}>.`)
             .setColor(couleurs.jaune)
             .setThumbnail(banniere.link)
             .setImage(`attachment://contribuer.png`)
