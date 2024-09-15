@@ -8,6 +8,7 @@
     "suppleant": "1253488688382345318",
     "reseau_territorial": "1250073483371745360",
     "responsable_reseaux_et_partenariats": "1253488830170923079",
+    "responsable_sg": "1284901677899714640",
     "equinoxe_bot": "1250912657100505190",
     "responsable_communication": "1253488917617967165",
     "booster": "1247668639180656662",
@@ -57,10 +58,10 @@
     "evenementiel": "1260499564524212236",
     "referent_creation_contenu": "1282324756644757597",
     "equipe_site_internet": "1282334234333286513",
-    "equipe_mail": "1282334168268804159",
     "referent_communication_interne": "1284886760681242645",
     "referent_accueil_des_adherents": "1284886931125174312",
     "referent_outils_internes": "1284887082866704416",
     "referent_organisation_du_secretariat": "1284887195349680148",
-    "referent_evenementiel": "1284887494625722399"
+    "referent_evenementiel": "1284887494625722399",
+    "responsable_discord": "1284906645239103638"
 }
