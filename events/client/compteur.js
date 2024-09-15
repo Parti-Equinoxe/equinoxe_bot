@@ -8,3 +8,9 @@ client.on(Events.GuildMemberAdd, async (member) => {
         name: `🌗│${member.guild.memberCount} membres`
     });
 });
+
+client.on(Events.GuildMemberRemove, async (member) => {
+    await (await getChannel(salons.compteur)).edit({
+        name: `🌗│${member.guild.memberCount} membres`
+    });
+});
