@@ -58,7 +58,7 @@ module.exports = {
         const attachment = await discordTranscripts.generateFromMessages(oldChannel.messages.cache.sort((a, b) => b.createdTimestamp - a.createdTimestamp).filter((msg) => !(msg.content === "" && msg.embeds.length === 0 && msg.attachments.size === 0)).map((msg) => msg).slice(0, nb).sort((a, b) => a.createdTimestamp - b.createdTimestamp), oldChannel);
 
         await interaction.editReply({
-            content: `**${msgs.length}/${nb}** messages vont être déplacer vers <#${newChannel.id}> (à une vitesse de 1msg/s) !`,
+            content: `**${msgs.length}/${nb}** messages vont être déplacer vers <#${newChannel.id}> !`,
             ephemeral: true
         });
         const i = await sendMessagesUsers(msgs, newChannel);
