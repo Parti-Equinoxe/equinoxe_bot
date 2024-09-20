@@ -19,7 +19,7 @@ module.exports = {
         const channel = interaction.options.getChannel("salon") ?? interaction.channel;
         //if (channel.isThread()) return interaction.reply({content: "Ce n'est pas un salon de fils !", ephemeral: true});
         const threads = channel.threads.cache.map((t) => t);
-        if (threads.length === 0 || !threads) return interaction.reply({content: ":zero: Il n'y a pas de fils dans ce salon.", ephemeral: true});
+        if (threads.length === 0 || !threads) return interaction.reply({content: ":zero: Il n'y a pas de fils (*actif*) dans ce salon.", ephemeral: true});
         const embed = new EmbedBuilder()
             .setTitle(`:thread: Fils de <#${channel.id}>`)
             .setColor("#8d2cde")
