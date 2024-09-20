@@ -250,6 +250,24 @@ module.exports.log = async (message, titre, member, type = "info") => {
     return (await this.getChannel(salons.log)).send({embeds: [embed]});
 }
 /**
+ * @param {string} message - le message
+ * @param {string} titre - le titre
+ * @param {GuildMember} member - le membre
+ * @param {string} type - le type
+ * @param attachment
+ * @return {Promise}
+ */
+module.exports.logWithImage = async (message, titre, member, type = "info", attachment) => {
+    const embed = new EmbedBuilder()
+        .setColor(colorByCode[type] ?? colorByCode)
+        .setTitle(titre)
+        .setDescription(message)
+        .setAuthor({name: member.nickname ?? member.user.username, iconURL: member.user.displayAvatarURL()})
+        .setImage(attachment.name.includes(".png") ? `attachment://${attachment.name}` : null)
+        .setTimestamp();
+    return (await this.getChannel(salons.log)).send({embeds: [embed], files: [attachment]});
+}
+/**
  * @param {GuildTextBasedChannel} channel - le channel
  * @param {Role.id | string} roleID - l'ID du role
  * @param {string} permission - la permission
