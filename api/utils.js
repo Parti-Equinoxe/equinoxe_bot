@@ -163,21 +163,6 @@ module.exports.logChannel = async (message) => {
     (await this.getChannel(salons.logChannel)).send(message);
 }
 
-module.exports.sendError = async (message) => {
-    (await this.getChannel(salons.crash)).send({
-        content: "<@958057847306985503> <@665266080285196299> !", embeds: [new EmbedBuilder()
-            .setColor("#FF0000")
-            .setDescription(message.slice(0, 4095))
-            .setTimestamp()
-        ],
-        components: [new ActionRowBuilder().addComponents(new ButtonBuilder()
-            .setCustomId("bug:clearerreur")
-            .setEmoji("🗑")
-            .setStyle(4))]
-    }).catch(() => {
-    });
-}
-
 /**
  * @param {Array<{member: GuildMember, content: string, embeds: Object[], attachments: Attachment[], createdTimestamp: number}>} messages - les messages
  * @param {GuildTextBasedChannel} channel - le channel
