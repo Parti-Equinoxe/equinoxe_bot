@@ -1,5 +1,7 @@
 const {ChannelType} = require("discord.js");
 const {getWebhooks, sendMessagesUsers, log, durationFormatter} = require("../../../api/utils.js");
+const discordTranscripts = require("discord-html-transcripts");
+const {logWithImage} = require("../../../api/utils");
 
 module.exports = {
     name: "copier_conversation",
@@ -51,12 +53,14 @@ module.exports = {
             .map((msg) => msg).slice(0, nb)
             .sort((a, b) => a.createdTimestamp - b.createdTimestamp);
 
+        const attachment = await discordTranscripts.generateFromMessages(oldChannel.messages.cache.sort((a, b) => b.createdTimestamp - a.createdTimestamp).filter((msg) => !(msg.content === "" && msg.embeds.length === 0 && msg.attachments.size === 0)).map((msg) => msg).slice(0, nb).sort((a, b) => a.createdTimestamp - b.createdTimestamp), interaction.channel);
+
         await interaction.editReply({
             content: `**${msgs.length}/${nb}** messages vont être déplacer vers <#${newChannel.id}> (à une vitesse de 1msg/s) !`,
             ephemeral: true
         });
         const i = await sendMessagesUsers(msgs, newChannel);
-        await log(`**${i}/${msgs.length}** messages ont été copier depuis <#${oldChannel.id}> vers <#${newChannel.id}> en ${durationFormatter(Date.now() - date)} !`, "Conversation copier", interaction.member, "deplacement");
+        await logWithImage(`**${i}/${msgs.length}** messages ont été copier depuis <#${oldChannel.id}> vers <#${newChannel.id}> en ${durationFormatter(Date.now() - date)} !`, "Conversation copier", interaction.member, "deplacement", attachment);
         return newChannel.send({content: `**${i}/${msgs.length}** messages ont été déplacés depuis <#${oldChannel.id}> en ${durationFormatter(Date.now() - date)}`});
     }
 };

@@ -1,5 +1,7 @@
 const {ChannelType} = require("discord.js");
-const {getWebhooks, sendMessagesUsers, log, durationFormatter} = require("../../../api/utils.js");
+const {sendMessagesUsers, durationFormatter} = require("../../../api/utils.js");
+const discordTranscripts = require("discord-html-transcripts");
+const {logWithImage} = require("../../../api/utils");
 
 module.exports = {
     name: "deplacer_conversation",
@@ -16,7 +18,7 @@ module.exports = {
         description: "Le salon vers le quel déplacer la conversation.",
         type: 7,
         required: true,
-        channelTypes: [0,5,10,11,12,15]
+        channelTypes: [0, 5, 10, 11, 12, 15]
     }],
     /**
      * @param {ChatInputCommandInteraction} interaction
@@ -53,6 +55,8 @@ module.exports = {
             .map((msg) => msg).slice(0, nb)
             .sort((a, b) => a.createdTimestamp - b.createdTimestamp);
 
+        const attachment = await discordTranscripts.generateFromMessages(oldChannel.messages.cache.sort((a, b) => b.createdTimestamp - a.createdTimestamp).filter((msg) => !(msg.content === "" && msg.embeds.length === 0 && msg.attachments.size === 0)).map((msg) => msg).slice(0, nb).sort((a, b) => a.createdTimestamp - b.createdTimestamp), interaction.channel);
+
         await interaction.editReply({
             content: `**${msgs.length}/${nb}** messages vont être déplacer vers <#${newChannel.id}> (à une vitesse de 1msg/s) !`,
             ephemeral: true
@@ -61,8 +65,8 @@ module.exports = {
         const bDinfo = (await oldChannel.bulkDelete(msgs, false)).map((msg) => msg);
         oldChannel.send({
             content: `Les dernier **${bDinfo.length}** messages ont été déplacés ver <#${newChannel.id}> !\nMerci de continuer votre conversation sur l'autre salon.`
-        })
-        await log(`**${i}/${msgs.length}** messages ont été déplacés depuis <#${oldChannel.id}> vers <#${newChannel.id}> en ${durationFormatter(Date.now() - date)} !`, "Déplacement de conversation", interaction.member, "deplacement");
+        });
+        await logWithImage(`**${i}/${msgs.length}** messages ont été déplacés depuis <#${oldChannel.id}> vers <#${newChannel.id}> en ${durationFormatter(Date.now() - date)} !`, "Déplacement de conversation", interaction.member, "deplacement", attachment);
         return newChannel.send({content: `**${i}/${msgs.length}** messages ont été déplacés depuis <#${oldChannel.id}> en ${durationFormatter(Date.now() - date)}`});
     }
 };
