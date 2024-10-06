@@ -1,6 +1,5 @@
 path=""
 #/srv/dev-disk-by-uuid-6fe24527-a91e-4769-858b-49e3823fe193/server/bot_equinoxe
-token="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"
 echo "Starting download ..."
 #download
 if [ -f "$path/output.zip" ]; then
@@ -17,7 +16,7 @@ if [ -d "$path/code" ]; then
 fi
 mkdir "$path/code"
 
-curl -H "Authorization: token $token" -H "Accept: application/vnd.github.v3.raw" -o "$path/output.zip" -L https://api.github.com/repos/Youritch/equinoxe_bot/zipball
+curl -H "Authorization: token $TOKEN_REPO" -H "Accept: application/vnd.github.v3.raw" -o "$path/output.zip" -L https://api.github.com/repos/Youritch/equinoxe_bot/zipball
 
 unzip -q "$path/output.zip" -d "$path/download"
 
