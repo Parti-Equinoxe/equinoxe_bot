@@ -34,7 +34,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
         if (Date.now() - interaction.createdTimestamp > 3000 && !interaction.deferred) console.log(redBright.bold(`/!\\ Cette interaction a mis plus de 3000ms (${Date.now() - interaction.createdTimestamp}ms)\nL'utilisation de "interaction.deferReply();" est conseiller.`));
         if (interaction.responded || interaction.replied || interaction.deferred) return interaction.editReply({content: "Une erreur s'est produite !" + cmdPing});
         (await getChannel(salons.test_bot)).send({
-            content: `## Erreur dans ${interaction.commandName ?? interaction.customId ?? "inconnue"} (${cmdPing}) :\n> User : <@${interaction.user.id}> dans <#${interaction.channelId}>\n\`\`\`console\n${err.stack}\`\`\``,
+            content: `## Erreur dans ${interaction.commandName ?? interaction.customId ?? "inconnue"}${cmdPing} :\n> User : <@${interaction.user.id}> dans <#${interaction.channelId}>\n\`\`\`console\n${err.stack}\`\`\``,
             allowedMentions: {repliedUser: false}
         });
         return interaction.reply({content: "Une erreur s'est produite !" + cmdPing, ephemeral: true});
