@@ -1,0 +1,12 @@
+{
+  "blacklist": [
+    "admin_site_internet",
+    "administrateur",
+    "vice_presidente",
+    "moderation",
+    "bureau",
+    "tresorier",
+    "secretaire_departemental",
+    "coordination_programme"
+  ]
+}

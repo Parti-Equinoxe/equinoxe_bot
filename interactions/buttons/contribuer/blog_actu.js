@@ -1,5 +1,5 @@
-const {rolereact} = require("../../../api/role.js");
 const {roles} = require("../../../api/permanent.js");
+const {rolereact} = require("../../../api/role.js");
 module.exports = {
     customID: "blog_actu",
     runInteraction: async (client, interaction) => {
