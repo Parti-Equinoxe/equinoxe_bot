@@ -34,7 +34,7 @@ module.exports.send = async (interaction) => {
     const contri = new AttachmentBuilder('./data/images/contribuer.png', {name: 'contribuer.png'});
     return {
         embeds: [new EmbedBuilder()
-            .setDescription(`# __Contribuez en rejoignant nos équipes transversales du pôle programme :__\nPour gérer la communication, les formations ou les outils et méthodes utiliser par les équipes thématiques ainsi que le rest du pôle programme.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&${roles.responsable_programme}> et <@&${roles.coordination_programme}>.`)
+            .setDescription(`# __Contribuez en rejoignant nos équipes transversales du pôle programme :__\nPour gérer la communication, les formations ou les outils et méthodes utilisés par les équipes thématiques ainsi que le reste du pôle programme.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&${roles.responsable_programme}> et <@&${roles.coordination_programme}>.`)
             .setColor(couleurs.jaune)
             .setThumbnail(banniere.link)
             .setImage(`attachment://contribuer.png`)

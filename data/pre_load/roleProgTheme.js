@@ -8,16 +8,6 @@ const {banniere, couleurs, roles} = require("../../api/permanent.js");
 
 const rolesNotif = [
     {
-        roleID: "international",
-        emoji: "🌍",
-        description: "Équipe responsable de gérer LinkedIn."
-    },
-    {
-        roleID: "numerique",
-        emoji: "🖥️",
-        description: "Équipe responsable de gérer Instagram."
-    },
-    {
         roleID: "agriculture_environement",
         emoji: "🌾",
         description: "Équipe responsable de gérer Facebook."
@@ -28,14 +18,24 @@ const rolesNotif = [
         description: "Équipe responsable de gérer Twitter."
     },
     {
+        roleID: "sante",
+        emoji: "🫀",
+        description: "Équipe responsable de gérer YouTube."
+    },
+    {
         roleID: "economie",
         emoji: "💰",
         description: "Équipe responsable de gérer TikTok."
     },
     {
-        roleID: "sante",
-        emoji: "🫀",
-        description: "Équipe responsable de gérer YouTube."
+        roleID: "international",
+        emoji: "🌍",
+        description: "Équipe responsable de gérer LinkedIn."
+    },
+    {
+        roleID: "numerique",
+        emoji: "🖥️",
+        description: "Équipe responsable de gérer Instagram."
     },
     {
         roleID: "energie",
@@ -79,7 +79,7 @@ module.exports.send = async (interaction) => {
     const contri = new AttachmentBuilder('./data/images/contribuer.png', {name: 'contribuer.png'});
     return {
         embeds: [new EmbedBuilder()
-            .setDescription(`# __Contribuez en rejoignant nos équipes réseaux sociaux :__\nPour gérer la publication et l'interaction avec les communautés sur nos différentes plateformes.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&${roles.referent_com_rs}> et <@&${roles.referent_com_gl}>.`)
+            .setDescription(`# __Contribuez en rejoignant les équipes thématiques :__\nPour aider à la création et au maintient du programme, par thème.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&${roles.responsable_programme}>, <@&${roles.coordination_programme}> et les responsables thématiques.`)
             .setColor(couleurs.jaune)
             .setThumbnail(banniere.link)
             .setImage(`attachment://contribuer.png`)
