@@ -98,7 +98,6 @@ function actionRaw(rolesNotif, interaction) {
     const raws = Math.min(Math.ceil(rolesNotif.length / nbPerRow), 5);
     for (let index = 0; index < raws; index++) {
         tab.push(new ActionRowBuilder().addComponents(rolesNotif.slice(nbPerRow * index, nbPerRow * (index + 1)).map((role) => {
-            console.log(role);
             return new ButtonBuilder()
                 .setCustomId(`contribuer:${role.roleID}`)
                 .setEmoji(parseEmoji(role.emoji))
