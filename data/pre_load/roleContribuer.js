@@ -5,12 +5,13 @@ const {
     ChatInputCommandInteraction, parseEmoji, AttachmentBuilder
 } = require("discord.js");
 const {banniere, couleurs, roles} = require("../../api/permanent.js");
+const {salons} = require("../../api/permanent");
 
 const rolesNotif = [
     {
         roleID: "programme",
         emoji: "📒",
-        description: "Pour contribuer à la création du programme."
+        description: `Pour contribuer à la création du programme. Passez dans <#${salons.info_programme}> pour voir les informations sur le pôle et choisir vos thèmes.`
     },
     {
         roleID: "blog_actu",

@@ -10,63 +10,63 @@ const rolesNotif = [
     {
         roleID: "agriculture_environement",
         emoji: "🌾",
-        description: "Équipe responsable portant sur l’agriculture, l’alimentation, l’environnement, la mer, les forêts, la biodiversité."
+        description: "Équipe responsable du programme portant sur l’agriculture, l’alimentation, l’environnement, la mer, les forêts, la biodiversité."
     },
     {
         roleID: "social",
         emoji: "👫",
-        description: "Équipe responsable portant sur es questions sociales et sociétales: droits animaux et humains, égalité homme-femme, discriminations, personnes âgées, retraites, handicap, culture, sport, enfance, famille."
+        description: "Équipe responsable du programme portant sur es questions sociales et sociétales: droits animaux et humains, égalité homme-femme, discriminations, personnes âgées, retraites, handicap, culture, sport, enfance, famille."
     },
     {
         roleID: "sante",
         emoji: "🫀",
-        description: "Équipe responsable portant sur les questions de santé, de ses acteurs, de ses infrastructures, de l'accès au système de santé ainsi que de son organisation."
+        description: "Équipe responsable du programme portant sur les questions de santé, de ses acteurs, de ses infrastructures, de l'accès au système de santé ainsi que de son organisation."
     },
     {
         roleID: "economie",
         emoji: "💰",
-        description: "Équipe responsable portant sur les questions économiques, la fiscalité, le travail, le commerce extérieur, le tourisme, l’industrie, ainsi que les questions d'inégalités économiques."
+        description: "Équipe responsable du programme portant sur les questions économiques, la fiscalité, le travail, le commerce extérieur, le tourisme, l’industrie, ainsi que les questions d'inégalités économiques."
     },
     {
         roleID: "international",
         emoji: "🌍",
-        description: "Équipe responsable portant sur les relations, coopérations et politiques internationales et européennes, et sur la défense."
+        description: "Équipe responsable du programme portant sur les relations, coopérations et politiques internationales et européennes, et sur la défense."
     },
     {
         roleID: "numerique",
         emoji: "🖥️",
-        description: "Équipe responsable portant sur le numérique et l’intelligence artificielle: risques et opportunités, impact sociétal et environnemental, règlementations, transformation numérique de la fonction publique, inégalité numérique."
+        description: "Équipe responsable du programme portant sur le numérique et l’intelligence artificielle: risques et opportunités, impact sociétal et environnemental, règlementations, transformation numérique de la fonction publique, inégalité numérique."
     },
     {
         roleID: "energie",
         emoji: "⚡",
-        description: "Équipe responsable portant sur les modalités de production, de stockage, de transport et de consommation de l'énergie."
+        description: "Équipe responsable du programme portant sur les modalités de production, de stockage, de transport et de consommation de l'énergie."
     },
     {
         roleID: "democratie",
         emoji: "🗽",
-        description: "Équipe responsable portant sur les questions de gouvernance et de démocratie, le renouveau démocratique, les modalités d’élection, le référendum, les conventions citoyennes."
+        description: "Équipe responsable du programme portant sur les questions de gouvernance et de démocratie, le renouveau démocratique, les modalités d’élection, le référendum, les conventions citoyennes."
     },
     {
         roleID: "cohesion",//securite-justice
         emoji: "🤝",
-        description: "Équipe responsable portant sur la sécurité intérieure, la justice, l'immigration, le droit d’asile."
+        description: "Équipe responsable du programme portant sur la sécurité intérieure, la justice, l'immigration, le droit d’asile."
     },
     {
         roleID: "education",
         emoji: "📖",
-        description: "Équipe responsable portant sur l'éducation, l'enseignement supérieur, la recherche et la formation tout au long de la vie."
+        description: "Équipe responsable du programme portant sur l'éducation, l'enseignement supérieur, la recherche et la formation tout au long de la vie."
     },
     {
         roleID: "transport",
         emoji: "🚅",
-        description: "Équipe responsable portant sur les modalités, les équipements, les infrastructures de transport et de mobilité."
+        description: "Équipe responsable du programme portant sur les modalités, les équipements, les infrastructures de transport et de mobilité."
     }
     ,
     {
         roleID: "logement",
         emoji: "🏘️",
-        description: "Équipe responsable portant sur ’accès au logement, la rénovation énergétique, l’urbanisme et l’aménagement du territoire (en lien avec transport, économie, environnement)."
+        description: "Équipe responsable du programme portant sur ’accès au logement, la rénovation énergétique, l’urbanisme et l’aménagement du territoire (en lien avec transport, économie, environnement)."
     }
 ];
 const nbPerRow = 3;
