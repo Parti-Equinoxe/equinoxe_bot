@@ -16,7 +16,7 @@ const rolesNotif = [
     {
         roleID: "blog_actu",
         emoji: "✍",
-        description: "Pour contribuer à la rédaction d'articles sur l'actualité publiés sur le site internet."
+        description: "Pour contribuer à la rédaction d'articles sur l'actualité."
     },
     {
         roleID: "secretariat_general",
@@ -32,6 +32,11 @@ const rolesNotif = [
         roleID: "mobilisation",
         emoji: "👉",
         description: "Pour contribuer à l'organisation et la formation des militants."
+    },
+    {
+        roleID: "relecteur",
+        emoji: "✅",
+        description: "Pour contribuer à la relecture et à la corrections des posts et articles."
     },
     {
         roleID: "reseaux_partenariats",
@@ -58,19 +63,22 @@ module.exports.send = async (interaction) => {
                 value: rolesNotif.map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> : ${role.description}`).join("\n"),
             })
             .setFooter({text: "Cliquez sur les boutons ci-dessous pour vous ajouter/retirer des roles."})],
-        components: [new ActionRowBuilder().addComponents(rolesNotif.slice(0, nbPerRow).map((role) => {
-            return new ButtonBuilder()
-                .setCustomId(`contribuer:${role.roleID}`)
-                .setEmoji(parseEmoji(role.emoji))
-                .setLabel(interaction.guild.roles.cache.get(roles[role.roleID]).name)
-                .setStyle(2);
-        })), new ActionRowBuilder().addComponents(rolesNotif.slice(nbPerRow, nbPerRow * 2).map((role) => {
-            return new ButtonBuilder()
-                .setCustomId(`contribuer:${role.roleID}`)
-                .setEmoji(parseEmoji(role.emoji))
-                .setLabel(interaction.guild.roles.cache.get(roles[role.roleID]).name)
-                .setStyle(2);
-        }))],
+        components: actionRaw(rolesNotif, interaction),
         files: [banniere.file(), contri]
     };
+}
+
+function actionRaw(rolesNotif, interaction) {
+    const tab = [];
+    const raws = Math.min(Math.ceil(rolesNotif.length / nbPerRow), 5);
+    for (let index = 0; index < raws; index++) {
+        tab.push(new ActionRowBuilder().addComponents(rolesNotif.slice(nbPerRow * index, nbPerRow * (index + 1)).map((role) => {
+            return new ButtonBuilder()
+                .setCustomId(`contribuer:${role.roleID}`)
+                .setEmoji(parseEmoji(role.emoji))
+                .setLabel(interaction.guild.roles.cache.get(roles[role.roleID]).name)
+                .setStyle(2);
+        })));
+    }
+    return tab;
 }
