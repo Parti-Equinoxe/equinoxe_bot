@@ -34,7 +34,7 @@ console.log(greenBright.bold.underline("Lancement du bot :"));
 client.config = configFile;
 
 //config bdd :
-if (configFile.bdd) {
+if (configFile.bdd && false) {
 	require("./api/bdd.js");
 }
 
