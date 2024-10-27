@@ -5,6 +5,14 @@ module.exports = {
      * @param {Client} client
      */
     runInteraction: async (client, interaction) => {
+        if (!interaction.member) {
+            console.log("Modal: Accueil.js :");
+            console.log(interaction);
+            return interaction.reply({
+                content: ":x: Une erreur est survenue.",
+                ephemeral: true
+            });
+        }
         const nom = interaction.fields.getTextInputValue("nom");
         const prenom = interaction.fields.getTextInputValue("prenom");
         if (!prenom || !nom) return interaction.reply({
