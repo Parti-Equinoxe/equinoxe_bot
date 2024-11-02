@@ -14,13 +14,12 @@ module.exports = {
     runInteraction: async (client, interaction) => {
         const role = interaction.options.getRole("role");
         console.log(role.members.map((member) => member.user.id).length);
-        let texte = role.members.map((member) => `<@${member.user.id}>`).join("\n");
-        if (texte.length === 0) texte = "Aucun membre n'a ce rôle.";
-        if (texte.length > 2000) texte = texte.slice(0, 2000) + "...";
+        let textes = role.members.map((member) => `<@${member.user.id}>`);
+        if (textes.length === 0) textes = ["Aucun membre n'a ce rôle."];
         const embed = new EmbedBuilder()
             .setColor(couleurs.jaune)
             .setTitle(`Membres avec le rôle ${role.name} :`)
-            .setDescription(texte)
+            .setDescription(textes.slice(0, 15).join("\n") + textes.length > 15 ? `\n**${textes.length - 15}** autres membres` : "")
             .setTimestamp();
         return interaction.reply({embeds: [embed], ephemeral: true});
     },
