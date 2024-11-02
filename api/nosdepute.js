@@ -3,7 +3,6 @@
 const axios = require("axios");
 module.exports.getDeputes = async () => {
     const data = (await axios.get("https://www.nosdeputes.fr/recherche/?object_name=Parlementaire&format=json&count=500")).data;
-    console.log(data);
     /*for (const d of data) {
 
     }*/
@@ -20,7 +19,6 @@ module.exports.searchDepute = async (nom) => {
             nom: info.nom,
         });
     }
-    console.log(result);
     return result;
 }
 module.exports.getDeputeInfoByID = async (id) => {
@@ -30,7 +28,6 @@ module.exports.getDeputeInfoByID = async (id) => {
 }
 module.exports.getDeputeInfoBySlug = async (slug) => {
     const data = (await axios.get(` https://www.nosdeputes.fr/${slug}/json`)).data;
-    console.log(data);
     if (!data) return false;
     return data.depute;
 }
