@@ -17,7 +17,6 @@ module.exports = {
         await interaction.deferReply();
         const result = (await searchDepute(interaction.options.getString("nom")))[0] ?? false;
         const info = await getDeputeInfoBySlug(result.slug);
-        console.log(info.sites_web)
         const embed = new EmbedBuilder()
             .setTitle(info.nom)
             .setDescription(`Place dans l'hémicycle : **${info.place_en_hemicycle}**`)
