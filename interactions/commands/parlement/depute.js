@@ -50,7 +50,11 @@ module.exports = {
         const focusedOptions = interaction.options.getFocused(true).value;
         const choiceRaw = await searchDepute(focusedOptions);
         const choices = choiceRaw.map((c) => ({name: c.nom, value: c.slug}));
-        await interaction.respond(choices);
+        try {
+            await interaction.respond(choices);
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
 //NosDéputés.fr
