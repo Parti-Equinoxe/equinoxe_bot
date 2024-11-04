@@ -31,6 +31,10 @@ module.exports = {
     ],
     devOnly: true,
     runInteraction: async (client, interaction) => {
+        if (process.env.DEV_MODE === "true") return interaction.reply({
+            content: `:x: Commande disponible seulement en mode dev.`,
+            ephemeral: true
+        });
         const type = interaction.options.getString("champs");
         const registered = Object.values(require(`../../../data/utils/${type}.json`));
         console.log(registered);
