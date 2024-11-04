@@ -8,6 +8,10 @@ module.exports.getDeputes = async () => {
     }*/
 }
 //https://www.npmjs.com/package/node-ical
+/**
+ * @param {string} nom - le nom du deputé
+ * @return {[{slug: string, nom: string}]}
+ */
 module.exports.searchDepute = async (nom) => {
     const data = (await axios.get(`https://www.nosdeputes.fr/recherche/${nom}?object_name=Parlementaire&format=json&count=15`)).data;
     let result = [];
@@ -21,11 +25,19 @@ module.exports.searchDepute = async (nom) => {
     }
     return result;
 }
+/**
+ * @param {string} id - l'id du depute
+ * @return {Object} l'info du députe
+ */
 module.exports.getDeputeInfoByID = async (id) => {
     const data = (await axios.get(`https://www.nosdeputes.fr//api/document/Parlementaire/${id}/json`)).data;
     if (!data) return false;
     return data.depute;
 }
+/**
+ * @param {string} slug - le slug du depute
+ * @return {Object} l'info du députe
+ */
 module.exports.getDeputeInfoBySlug = async (slug) => {
     const data = (await axios.get(` https://www.nosdeputes.fr/${slug}/json`)).data;
     if (!data) return false;
