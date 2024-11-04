@@ -1,0 +1,10 @@
+{
+  "roles": {
+    "SG - Coordination": ["secretariat_general","organisation_du_secretariat"],
+    "SG - Accueil adhérents": ["secretariat_general","accueil_des_adherents"],
+    "SG - Admin site": ["secretariat_general","admin_site_internet"],
+    "SG - Com Interne": ["secretariat_general","communication_interne"],
+    "SG - Événementiel": ["secretariat_general","evenementiel"],
+    "SG - Outils internes": ["secretariat_general","outils_internes"]
+  }
+}
