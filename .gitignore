@@ -3,3 +3,4 @@ node_modules/
 .idea/
 data/bdd/lien_gl.json
 data/bdd/liste_depart.json
+/service-account-key.json
