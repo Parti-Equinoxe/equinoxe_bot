@@ -18,7 +18,7 @@
     "discord.js": "14.12.1",
     "dotenv": "16.4.5",
     "googleapis": "^144.0.0",
-    "mysql2": "^3.10.2",
+    "mysql2": "^3.11.4",
     "remove-accents": "^0.5.0"
   },
   "devDependencies": {
