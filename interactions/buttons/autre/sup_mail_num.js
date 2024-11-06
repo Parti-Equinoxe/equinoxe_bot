@@ -5,7 +5,9 @@ module.exports = {
      * @param {Client} client
      */
     runInteraction: async (client, interaction) => {
-        if (!interaction.message.reference) return;
+        console.log("sup_mail_num");
+        console.log(interaction.message.reference);
+        if (!interaction.message.reference) return interaction.message.delete();
         const msg = await interaction.channel.messages.fetch(interaction.message.reference.messageId).catch(() => null);
         if (!msg) return;
         if (interaction.user.id !== msg.author.id) return interaction.reply({
