@@ -1,23 +1,39 @@
-# __Informations sur le pôle communication :__
-Pour rejoindre une équipe, regardez les messages ci-dessous.
-## Les travaux du pôle communication :
-### :mobile_phone: Réseaux sociaux :
-- Créer des posts pour faire connaitre Équinoxe, informer et partager.
-- Animer en répondant aux commentaires.
-=> <@&1282324541195944026>
-### :email: Communication des groupes locaux :
-- Aider les groupes locaux à communiquer avec leurs membres.
-- Rédiger des mails d'informations.
-- Coordonner les demandes de communication des Groupes Locaux
-- Assurer le lien entre le pôle contenu et les GL
-=> <@&1282324445465415691>
-### :flags: Création de contenu :
-- Créer le contenu partagé sur les platformes.
-- Créer les affiches et les tracts pour les campagnes.
-- Monter les vidéos et les podcasts.
+## 👋 Bienvenue dans le pôle communication d’Équinoxe !
+Nous sommes ravis de te voir rejoindre notre équipe dynamique !
+Ce salon est là pour t’orienter et te donner toutes les infos pour bien démarrer.
+Suis les étapes ci-dessous pour découvrir comment fonctionne le pôle communication, les équipes qui le composent, et comment t'impliquer.
+### 🌐 Drive
+Sur le drive tu trouveras plein d’infos pour te familiariser avec le fonctionnement général du pôle. 
+Pour avoir accès au drive, envoie ton adresse mail au responsable com. 
+### ✅ Inscription dans les équipes
+Une fois que tu as une vue d'ensemble, inscris-toi dans l’équipe (ou les équipes) qui t’intéressent via notre Tableau de bord sur le drive puis prends le rôle correspondant sur discord ! Pense aussi à passer dans <#883025814709485579> pour te présenter !
+### 💡 Tu veux créer du contenu ?
+L’équipe 🎥 Création de Contenu est responsable de tous les supports visuels, vidéos et rédactionnels.
+Viens discuter dans <#1282285583976235091> pour proposer des idées ou rejoindre une campagne en cours !
 => <@&1282324756644757597>
-### :ledger: Site internet :
-- Rédiger les articles du parti.
-- S'occuper des pages des événements.
-- Maintenir les pages du site internet.
+### 📱 Animation des Réseaux Sociaux
+Si tu es passionné(e) par les réseaux sociaux, rejoins l’équipe 📱 Animation Réseaux Sociaux !
+Ton rôle consistera à gérer nos comptes, créer des posts, et animer les échanges avec notre communauté.
+Si ça t'intéresse, n'oublie pas d’aller lire notre charte éditoriale et à te mettre en contact avec la personne responsable !
+(*l’animation des réseaux est un rôle sensible, il peut y avoir un processus de vérification avant d’accéder à un compte Équinoxe*)
+=> <@&1282324541195944026>
+### 🔗 Com Groupes Locaux (GL)
+Pour les initiatives locales, l’équipe 🔗 Com GL soutient les Groupes Locaux et aide à adapter nos messages aux réalités du terrain.
+Un espace Notion appelé *Wikinoxe* est en cours de création pour partager les bonnes pratiques des réseaux locaux.
+=> <@&1282324445465415691>
+### 📒 Site Internet
+Enfin, l’équipe 📒 Site Internet travaille à la mise à jour du site d’Équinoxe.
+Si tu es à l’aise avec WordPress ou la gestion de contenu, cette équipe est faite pour toi !
 => <@&1282324186869792890>
+### ⚙️ Outils de communication
+Nous travaillons avec plusieurs outils pour bien coordonner nos actions : 
+- **Discord**
+- [Google Drive](https://drive.google.com/drive/folders/1P6NxmYbgF_vGY4hLGY_vIgHxYlcwED_9?usp=sharing)
+- [Miro](https://miro.com/welcomeonboard/eDRXbWtTVzkvSGN0MVBwMVRuSEV0eExRQ2VqdWJWeFVvUWY4RXdzWnhDVmgrWEtiQWh3UXU2Vy9kRFJjVmhYUDd4dDRJTU45T3BZeHRVdEpYOHZjTitSbXl0cDFVQmtvWGZjNUJaRkJjL24yemRlWm91SUJvY2wvUm5wclJPUjMhZQ==?share_link_id=598145380883)
+- **Google Calendar :**
+  - [Création de contenu](https://calendar.google.com/calendar/u/0?cid=NjhiZWQ0NDVjMjIzMjM3NDM1NTg4YzA3OGYwZmJhNTY0MDE4OTAxNTAxZWY1OTQzMzY3NzRkNjQyNGYzMjJhMkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t)
+  - [Site internet](https://calendar.google.com/calendar/u/0?cid=MGU5YWI1MmFhMWNkZTM3Y2ZhZDEyOGMxOWNlZmZlMjUxYTNlMWFiNDk0OWY3M2JkMzc2NmQxZDg4Y2Y4NzQ3NUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t)
+  - [Calendrier éditorial](https://calendar.google.com/calendar/u/0?cid=YzFhY2E4NjAwNDJiY2I5NjEzY2FhZDZkNjY1MDhmN2E1Nzk2YjYzNjE1NDAzMzMyOThiMGQ5MDFlNjYxMDBhMUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t)
+### 💬 Rester connecté et poser des questions
+N’hésite jamais à poser des questions ou partager tes idées !
+Pour toute aide, contacte directement notre responsable du pôle com : <@975722069637615647> (Discord : `alexia_demontgolfier`) ou <@&1253488917617967165>.
