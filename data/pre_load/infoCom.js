@@ -7,6 +7,26 @@ const {
 const {readFileSync} = require("fs");
 const {banniere, couleurs, roles} = require("../../api/permanent.js");
 
+const rolesNotif = [
+    {
+        roleID: "com_rs",
+        emoji: "📱",
+    },
+    {
+        roleID: "com_gl",
+        emoji: "🔗",
+    },
+    {
+        roleID: "equipe_site_internet",
+        emoji: "📒",
+    },
+    {
+        roleID: "relecteur",
+        emoji: "✅",
+    },
+];
+const nbPerRow = 2;
+
 /**
  * @param {ChatInputCommandInteraction} interaction
  */
@@ -30,7 +50,23 @@ module.exports.send = async (interaction) => {
                 name: "# :flags: Création de contenu :",
                 value: "- Créer le contenu partager sur les platformes.\n- Créer les affiches et les tracts pour les campagnes.\n- Monter les vidéos et les podcasts."
             }])*/
-            /*.setFooter({text: "Cliquez sur les boutons ci-dessous pour vous ajouter/retirer des roles."})*/],
-        files: [banniere.file(), info]
+            .setFooter({text: "Cliquez sur les boutons ci-dessous pour vous ajouter/retirer des roles."})],
+        files: [banniere.file(), info],
+        components: actionRaw(rolesNotif, interaction)
     };
+}
+
+function actionRaw(rolesNotif, interaction) {
+    const tab = [];
+    const raws = Math.min(Math.ceil(rolesNotif.length / nbPerRow), 5);
+    for (let index = 0; index < raws; index++) {
+        tab.push(new ActionRowBuilder().addComponents(rolesNotif.slice(nbPerRow * index, nbPerRow * (index + 1)).map((role) => {
+            return new ButtonBuilder()
+                .setCustomId(`contribuer:${role.roleID}`)
+                .setEmoji(parseEmoji(role.emoji))
+                .setLabel(interaction.guild.roles.cache.get(roles[role.roleID]).name)
+                .setStyle(2);
+        })));
+    }
+    return tab;
 }
