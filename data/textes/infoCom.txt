@@ -9,29 +9,29 @@ Pour avoir accès au drive, envoie ton adresse mail au responsable com.
 Une fois que tu as une vue d'ensemble, inscris-toi dans l’équipe (ou les équipes) qui t’intéressent via notre [**Tableau de bord**](https://drive.google.com/drive/folders/1P6NxmYbgF_vGY4hLGY_vIgHxYlcwED_9?usp=sharing) sur le drive puis prends le rôle correspondant sur discord !
 Pense aussi à passer dans <#883025814709485579> pour te présenter !
 ### 💡 Tu veux créer du contenu ?
-L’équipe 🎥 Création de Contenu est responsable de tous les supports visuels, vidéos et rédactionnels.
+L’équipe **Création de Contenu** est responsable de tous les supports visuels, vidéos et rédactionnels.
 Viens discuter dans <#1282285583976235091> pour proposer des idées ou rejoindre une campagne en cours !
 *Récupère tes rôles dans le message plus bas !*
 => <@&1282324756644757597>
 ### 📱 Animation des Réseaux Sociaux
-Si tu es passionné(e) par les réseaux sociaux, rejoins l’équipe 📱 Animation Réseaux Sociaux !
+Si tu es passionné(e) par les réseaux sociaux, rejoins l’équipe **Animation Réseaux Sociaux** !
 Ton rôle consistera à gérer nos comptes, créer des posts, et animer les échanges avec notre communauté.
 Si ça t'intéresse, n'oublie pas d’aller lire notre charte éditoriale et à te mettre en contact avec la personne responsable !
 *Récupère ton rôle avec le bouton <@&1307311695764389939> !*
 (*l’animation des réseaux est un rôle sensible, il peut y avoir un processus de vérification avant d’accéder à un compte Équinoxe*)
 => <@&1282324541195944026>
 ### 🔗 Com Groupes Locaux (GL)
-Pour les initiatives locales, l’équipe 🔗 Com GL soutient les Groupes Locaux et aide à adapter nos messages aux réalités du terrain.
+Pour les initiatives locales, l’équipe **Com GL** soutient les Groupes Locaux et aide à adapter nos messages aux réalités du terrain.
 Un espace Notion appelé *Wikinoxe* est en cours de création pour partager les bonnes pratiques des réseaux locaux.
 *Récupère ton rôle avec le bouton <@&1307311945191522325> !*
 => <@&1282324445465415691>
 ### 📒 Site Internet
-Enfin, l’équipe 📒 Site Internet travaille à la mise à jour du site d’Équinoxe.
+Enfin, l’équipe **Site Internet** travaille à la mise à jour du site d’Équinoxe.
 Si tu es à l’aise avec WordPress ou la gestion de contenu, cette équipe est faite pour toi !
 *Récupère ton rôle avec le bouton <@&1307313573755879454> !*
 => <@&1282324186869792890>
-### ✅ Équipe des relecteurs et relectrices
-L’équipe des relecteur s'occupe de relire les posts avant qu'ils ne soient envoyés, pour éviter les erreurs de grammaire, d'orthographe ou de typographie.
+### ✅ Relecture des posts
+L’équipe des **relecteurs et relectrices** s'occupe de relire les posts avant qu'ils ne soient envoyés, pour éviter les erreurs de grammaire, d'orthographe ou de typographie.
 *Récupère ton rôle avec le bouton <@&1297855613904224328> ou dans <#1206261702606463026> !*
 ### ⚙️ Outils de communication
 Nous travaillons avec plusieurs outils pour bien coordonner nos actions : 
