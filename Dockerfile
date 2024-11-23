@@ -5,9 +5,11 @@ RUN apt-get -y update && apt-get dist-upgrade -y &&\
     rm -rf /var/lib/apt/lists/* &&\
     useradd -m debian && mkdir /equinoxe && chown debian:debian /equinoxe -R
 
-WORKDIR /equinoxe
+
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 VOLUME /equinoxe/bdd
 USER debian
+RUN git clone https://github.com/Parti-Equinoxe/equinoxe_bot /equinoxe/bot && cd /equinoxe/bot/src && npm install
+WORKDIR /equinoxe/bot
 ENTRYPOINT ["/docker-entrypoint.sh"]
