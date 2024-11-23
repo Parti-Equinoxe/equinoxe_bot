@@ -10,7 +10,7 @@ module.exports = (client) => {
 	if (files.length === 0) return;
 	console.log(greenBright.underline("Selects chargés :"));
 	files.forEach((file) => {
-		//if (fileList.includes(file)) console.log(redBright.bold(`>> Le select ${file} est déjà chargé, ou un deuxième fichier select à le même nom !`));
+		//if (fileList.includes(file)) console.log(redBright.bold(`>> Le selects ${file} est déjà chargé, ou un deuxième fichier selects à le même nom !`));
 		//fileList.push(file);
 		const select = require(`../../interactions/selects/${file}`);
 		if (select) {
