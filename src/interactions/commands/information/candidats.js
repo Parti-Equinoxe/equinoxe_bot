@@ -1,4 +1,4 @@
-const {banniere, jaune, roles} = require("../../../api/permanent.js");
+const {banniere, roles, couleurs} = require("../../../api/permanent.js");
 const {EmbedBuilder} = require("discord.js");
 module.exports = {
     name: "candidats",
@@ -6,7 +6,7 @@ module.exports = {
     runInteraction: async (client, interaction) => {
         const candidats = await interaction.guild.roles.fetch(roles.candidat);
         const embed = new EmbedBuilder()
-            .setColor(jaune)
+            .setColor(couleurs.jaune)
             .setTitle("Candidats au législative 2024 :")
             .setDescription(candidats.members.map((m) => `- <@&${m.user.id}>`).join("\n").slice(0, 4000))
             .setTimestamp()
