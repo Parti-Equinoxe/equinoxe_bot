@@ -49,7 +49,7 @@ client.modals = new Collection();
 module.exports.client = client;
 
 // https://stackoverflow.com/questions/72332485/err-ossl-unsupported-when-trying-to-use-google-spreadsheet-library-with-typscript
-process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n");
+process.env.GOOGLE_PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n");
 
 
 //Chargement en mémoire des handlers :
