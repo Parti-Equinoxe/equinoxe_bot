@@ -16,6 +16,6 @@ module.exports = {
 		interaction.reply("Shutdown du bot !");
 		console.log(redBright.bold(`>> Shutdown (par ${interaction.user.username})! <<`));
 		await client.destroy();
-		process.exit(1);
+		process.exit(2);
 	},
 };
