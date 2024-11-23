@@ -59,10 +59,10 @@ client.login(process.env.TOKEN).catch((reason) => {
     switch (reason.code) {
         case "ENOTFOUND":
             console.log(redBright("> Erreur de connection (vérifier votre connection à internet) !"));
-            break;
+            process.exit(1);
         case "TokenInvalid":
             console.log(redBright("> Token invalide (vérifier votre token sur https://discord.com/developers/applications et dans le fichier .ENV) !"));
-            break;
+            process.exit(1);
         default:
             if (process.env.DEBUG === "false") console.log(reason);
             break;
