@@ -4,6 +4,7 @@ const {roles} = require("../../../api/permanent");
 module.exports = {
     name: "calendrier",
     description: "Permet d'obtenir les prochaines réunions prévu.",
+    devOnly: true,
     /**
      * @param {ChatInputCommandInteraction} interaction
      * @param {Client} client
