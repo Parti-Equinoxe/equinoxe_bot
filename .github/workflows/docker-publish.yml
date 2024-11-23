@@ -35,4 +35,6 @@ jobs:
         with:
           push: true
           platforms: linux/amd64,linux/arm64
+          cache-from: type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/equinoxe-bot:buildcache
+          cache-to: type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/equinoxe-bot:buildcache,mode=max
           tags: ${{ vars.DOCKERHUB_USERNAME }}/equinoxe-bot:latest
