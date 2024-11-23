@@ -20,7 +20,7 @@ jobs:
 
       # Étape 3 : Login to Docker Hub
       - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ env.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PAT }}
@@ -30,4 +30,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ env.DOCKER_USERNAME }}/equinoxe-bot:latest
+          tags: ${{ env.DOCKERHUB_USERNAME }}/equinoxe-bot:latest
