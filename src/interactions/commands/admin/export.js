@@ -31,7 +31,7 @@ module.exports = {
     ],
     devOnly: true,
     runInteraction: async (client, interaction) => {
-        if (process.env.DEV_MODE === "true") return interaction.reply({
+        if (process.env.DEV_MODE === "true" || !client.config.dev.include(interaction.user.id)) return interaction.reply({
             content: `:x: Commande disponible seulement en mode dev.`,
             ephemeral: true
         });

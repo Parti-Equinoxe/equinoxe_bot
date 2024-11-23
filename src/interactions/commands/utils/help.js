@@ -1,6 +1,8 @@
 const {ChatInputCommandInteraction, Client, EmbedBuilder} = require("discord.js");
 const {readdirSync} = require("fs");
 const {couleurs} = require("../../../api/permanent.js");
+const {userARole} = require("../../../api/role");
+const {roles} = require("../../../api/permanent");
 let dirsCategory = readdirSync("./interactions/commands/").filter((file) => !file.includes("."));
 dirsCategory.push("../commands");
 module.exports = {
@@ -28,7 +30,7 @@ module.exports = {
 			}]);
 			
 			for (let category of dirsCategory) {
-				if (category !== "admin" || client.config.owner.includes(interaction.user.id)) {
+				if (category !== "admin" || (userARole(interaction.member.roles.cache, roles.administrateur) || userARole(interaction.member.roles.cache, roles.bureau))) {
 					if (category === "../commands") category = "sans_categorie";
 					const cmdsUtilisable = client.commands.filter((cmd) => cmd.category === category.toLowerCase()).map((cmd) => {
 						const cmdID = client.application.commands.cache.find((x) => x.name === cmd.name).id;
@@ -107,7 +109,7 @@ module.exports = {
 	runAutocomplete: async (client, interaction) => {
 		const focusedOptions = interaction.options.getFocused(true);
 		let choices = client.commands?.map((c) => {
-			if (c.category !== "admin" || client.config.owner.includes(interaction.user.id)) {
+			if (c.category !== "admin" || (userARole(interaction.member.roles.cache, roles.administrateur) || userARole(interaction.member.roles.cache, roles.bureau))) {
 				return c.name;
 			}
 		});

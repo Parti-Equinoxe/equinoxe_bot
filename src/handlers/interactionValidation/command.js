@@ -12,15 +12,15 @@ module.exports = async (client, interaction) => {
         return [false, {content: `Cette commande ne peut pas être fait en en MP !Allez sur **un serveur** pour fait votre commande.`}];
     }
     //Vérifie si l'utilisateur est du staff pour les cmd de moderation
-    if (["moderation", "gestion"].includes(cmd.category) && !(userARole(interaction.member.roles.cache, roles.moderation) || !userARole(interaction.member.roles.cache, roles.secretariat_general) || !userARole(interaction.member.roles.cache, roles.bureau))) {
+    if (["moderation", "gestion"].includes(cmd.category) && !(userARole(interaction.member.roles.cache, roles.moderation) || userARole(interaction.member.roles.cache, roles.secretariat_general) || userARole(interaction.member.roles.cache, roles.bureau))) {
         return [false, {
             content: ":no_entry_sign: Vous ne faite pas partie de l'équipe de modération.",
             ephemeral: true
         }];
     }
     //Vérifie si l'utilisateur est owner en cas de commande admin
-    if (cmd.category === "admin" && !client.config.owner.includes(interaction.user.id)) {
-        return [false, {content: "Vous êtes pas administrateur du bot !", ephemeral: true}];
+    if (cmd.category === "admin" && !(userARole(interaction.member.roles.cache, roles.administrateur) || userARole(interaction.member.roles.cache, roles.bureau))) {
+        return [false, {content: ":no_entry_sign: Vous êtes pas administrateur du bot !", ephemeral: true}];
     }
     //Vérifie si l'utilisateur est owner en cas de commande dev only
     if (cmd.devOnly && !client.config.dev.includes(interaction.user.id)) {
