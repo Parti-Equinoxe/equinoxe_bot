@@ -2,8 +2,8 @@ const {redBright} = require("cli-color");
 const {ChatInputCommandInteraction, Client} = require("discord.js");
 
 module.exports = {
-	name: "stop",
-	description: "Une commande pour stopper le bot.",
+	name: "reboot",
+	description: "Une commande pour redémarrer le bot et mettre à jour son code.",
 	/**
 	 * @param {ChatInputCommandInteraction} interaction
 	 * @param {Client} client
@@ -13,9 +13,9 @@ module.exports = {
 			content: `:x: Commande indisponible en mode dev.`,
 			ephemeral: true
 		});
-		interaction.reply("Shutdown du bot !");
-		console.log(redBright.bold(`>> Shutdown (par ${interaction.user.username})! <<`));
+		interaction.reply("Redémarrage du bot !");
+		console.log(redBright.bold(`>> Reboot (par ${interaction.user.username})! <<`));
 		await client.destroy();
-		process.exit(1);
+		process.exit(0);
 	},
 };
