@@ -33,7 +33,7 @@ const auth = new google.auth.GoogleAuth({
  * @return {Promise<Array<{{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>}>>}
  */
 module.exports.nextWeek = async (calID = "SG-CO") => {
-    if (calID === "SG-IO") return [];
+    if (calID === "SG-OI") return [];
     const calendar = google.calendar({version: 'v3', auth});
     const timeMin = new Date();
     timeMin.setDate(timeMin.getDate() + 1); // start from tomorrow
