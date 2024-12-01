@@ -32,14 +32,15 @@ const auth = new google.auth.GoogleAuth({
 /**
  * @return {Promise<Array<{{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>}>>}
  */
-module.exports.nextWeek = async () => {
+module.exports.nextWeek = async (calID = "SG-CO") => {
+    if (calID === "SG-IO") return [];
     const calendar = google.calendar({version: 'v3', auth});
     const timeMin = new Date();
     timeMin.setDate(timeMin.getDate() + 1); // start from tomorrow
     const timeMax = new Date();
     timeMax.setDate(timeMax.getDate() + 7);
     const resp = await calendar.events.list({
-        calendarId: 'secretariat.general.equinoxe@gmail.com',
+        calendarId: calendarConfig.list.find(c => c.id === calID).calendarID,
         timeMin: timeMin.toISOString(),
         timeMax: timeMax.toISOString(),
         singleEvents: true,
@@ -48,6 +49,7 @@ module.exports.nextWeek = async () => {
     console.log(resp.data);
     const value = resp.data.items.map((event) => {
         return {
+            calID: calID,
             id: event.id,
             created: new Date(event.created),
             updated: new Date(event.updated),
@@ -55,9 +57,8 @@ module.exports.nextWeek = async () => {
             end: new Date(event.end.dateTime),
             name: event.summary,
             description: event.description,
-            roles: calendarConfig.roles[event.summary] ?? []
+            roles: calendarConfig.roles[calID] ?? []
         }
     });
-    //console.log(value);
     return value;
 }

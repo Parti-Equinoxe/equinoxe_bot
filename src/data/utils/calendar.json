@@ -1,10 +1,72 @@
 {
   "roles": {
-    "SG - Coordination": ["secretariat_general","organisation_du_secretariat"],
-    "SG - Accueil adhérents": ["secretariat_general","accueil_des_adherents"],
-    "SG - Admin site": ["secretariat_general","admin_site_internet"],
-    "SG - Com Interne": ["secretariat_general","communication_interne"],
-    "SG - Événementiel": ["secretariat_general","evenementiel"],
-    "SG - Outils internes": ["secretariat_general","outils_internes"]
-  }
+    "SG-CO": [
+      "secretariat_general",
+      "organisation_du_secretariat"
+    ],
+    "SG-AA": [
+      "secretariat_general",
+      "accueil_des_adherents"
+    ],
+    "SG-AS": [
+      "secretariat_general",
+      "admin_site_internet"
+    ],
+    "SG-CI": [
+      "secretariat_general",
+      "communication_interne"
+    ],
+    "SG-EV": [
+      "secretariat_general",
+      "evenementiel"
+    ],
+    "SG-OI": [
+      "secretariat_general",
+      "outils_internes"
+    ]
+  },
+  "list": [
+    {
+      "name": "SG - Coordination",
+      "color": "#cb8745",
+      "id": "SG-CO",
+      "calendarID": "secretariat.general.equinoxe@gcalendarID.com",
+      "role": "organisation_du_secretariat"
+    },
+    {
+      "name": "SG - Accueil adhérents",
+      "color": "#FFFF00",
+      "id": "SG-AA",
+      "calendarID": "cd8749fba3dd8887e40306d1097e103d99d7abf83da9f565ab6d0331e3a7f199@group.calendar.google.com",
+      "role": "accueil_des_adherents"
+    },
+    {
+      "name": "SG - Admin site",
+      "color": "#FF0000",
+      "id": "SG-AS",
+      "calendarID": "c36b651b0bf2d9f800339e6a15610e356dcad7883451660f26fbfa367b61c5ca@group.calendar.google.com",
+      "role": "admin_site_internet"
+    },
+    {
+      "name": "SG - Com Interne",
+      "color": "#4CAF50",
+      "id": "SG-CI",
+      "calendarID": "be05c27384f74c9db41e299af101d944962b8a7e34789c99f6e71eee1b77f151@group.calendar.google.com",
+      "role": "communication_interne"
+    },
+    {
+      "name": "SG - Événementiel",
+      "color": "#FFA500",
+      "id": "SG-EV",
+      "calendarID": "bb7a81bb9559168d62b5b1add838bc54d42c9a4edd53befbf2b03de9a978c510@group.calendar.google.com",
+      "role": "evenementiel"
+    },
+    {
+      "name": "SG - Outils interne",
+      "color": "#2196F3",
+      "id": "SG-OI",
+      "calendarID": "5f57ce78894380f361e8f26eedb947adc4d7c5f4eff228028b5c089604a7a9fa@group.calendar.google.com",
+      "role": "outils_internes"
+    }
+  ]
 }
