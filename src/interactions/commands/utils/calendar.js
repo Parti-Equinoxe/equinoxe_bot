@@ -34,10 +34,8 @@ module.exports = {
             ephemeral: true
         });
         await interaction.deferReply();
-        console.log(filter);
         const events = [];
         for (const id of filter) events.push(await nextWeek(id));
-        console.log(events);
         const embedAll = new EmbedBuilder()
             .setTitle("Réunion à venir :")
             .setColor(calendarConfig.list.find(c => c.id === filter[0]).color)
