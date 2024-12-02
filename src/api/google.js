@@ -3,7 +3,8 @@ const {writeFileSync, existsSync} = require("fs");
 const {blueBright} = require("cli-color");
 const calendarConfig = require("../data/utils/calendar.json");
 const {EmbedBuilder} = require("discord.js");
-const {roles} = require("./permanent");
+const {roles, salons} = require("./permanent");
+const {getChannel} = require("./utils");
 
 function saveAuthFile() {
     const sak = {
@@ -56,11 +57,17 @@ function eventsFormater(events) {
  * @return {Promise<Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}>>}
  */
 module.exports.nextWeek = async (calID) => {
+    const timeMin = this.weekTimeEnd(new Date(), 1);
+    const timeMax = this.weekTimeEnd(timeMin, 1);
+    return await this.getEvents(calID, timeMin, timeMax);
+}
+/**
+ * @param {String} calID
+ * @return {Promise<Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}>>}
+ */
+module.exports.thisWeek = async (calID) => {
     const timeMin = new Date();
-    //console.log(timeMin.getDay());
-    timeMin.setDate(timeMin.getDate() + 1); // start from tomorrow
-    const timeMax = new Date();
-    timeMax.setDate(timeMax.getDate() + 7);
+    const timeMax = this.weekTimeEnd(timeMin, 1);
     return await this.getEvents(calID, timeMin, timeMax);
 }
 
@@ -71,7 +78,6 @@ module.exports.nextWeek = async (calID) => {
  * @return {Promise<Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}>>}
  */
 module.exports.getEvents = async (calID, start, end) => {
-    if (calID === "SG-OI") return [];
     const calendar = google.calendar({version: 'v3', auth});
     const resp = await calendar.events.list({
         calendarId: calendarConfig.list.find(c => c.id === calID).calendarID,
@@ -109,4 +115,31 @@ module.exports.embedEvent = (event) => {
         .setDescription(`Le <t:${Math.round(event.start.getTime() / 1000)}:D> de <t:${Math.round(event.start.getTime() / 1000)}:t> à <t:${Math.round(event.end.getTime() / 1000)}:t>.\n> ${event.description ?? "Pas de description."}\nÉquipe : <@&${roles[event.calendar.role]}>`)
         .setColor(event.calendar.color)
         .setTimestamp();
+}
+
+module.exports.rappel = async () => {
+    let count = 0;
+    for (const cal of calendarConfig.list) {
+        const timeMin = new Date();
+        const timeMax = this.weekTimeEnd(timeMin, 1);
+
+        const events = await this.getEvents(cal.id, timeMin, timeMax);
+        if (events.length === 0) continue;
+
+        const channel = await getChannel(salons[events[0].calendar.channel]);
+        const embeds = events.slice(0, 10).map(cal => this.embedEvent(cal))
+        await channel.send({
+            content: `## Réunion(s) du <t:${Math.round(timeMin.getTime() / 1000)}:d> au <t:${Math.round(timeMax.getTime() / 1000)}:d>`,
+            embeds: embeds
+        });
+        count+=embeds.length;
+    }
+    return count;
+}
+
+module.exports.weekTimeEnd = (start, nb = 1) => {
+    const timeMax = new Date(start);
+    timeMax.setDate(timeMax.getDate() + 7 * nb - start.getDay());
+    timeMax.setHours(23, 59, 59);
+    return timeMax;
 }

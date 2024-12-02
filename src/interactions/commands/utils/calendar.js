@@ -1,5 +1,4 @@
-const {nextWeek, embedEvents, embedEvent} = require("../../../api/google");
-const {EmbedBuilder} = require("discord.js");
+const {embedEvents, thisWeek, weekTimeEnd} = require("../../../api/google");
 const {roles} = require("../../../api/permanent");
 const calendarConfig = require("../../../data/utils/calendar.json");
 const {userARole} = require("../../../api/role");
@@ -11,8 +10,7 @@ const choices = calendarConfig.list.map((c) => {
 });
 module.exports = {
     name: "calendrier",
-    description: "Permet d'obtenir les prochaines réunions prévues.",
-    devOnly: true,
+    description: "Permet d'obtenir les prochaines réunions prévues (semaine prochaine).",
     options: [
         {
             name: "nom",
@@ -34,14 +32,16 @@ module.exports = {
             ephemeral: true
         });
         await interaction.deferReply();
+        const timeMin = new Date();
+        const timeMax = weekTimeEnd(timeMin, 1);
         const events = [];
-        for (const id of filter) events.push(await nextWeek(id));
+        for (const id of filter) events.push(await thisWeek(id));
         if (events.flat().length === 0) return interaction.editReply({
-            content: ":x: Pas de calendrier trouvé à partir de vos rôles !\nVous pouvez regarder les calendrier en spécifiant leur nom.",
+            content: `:x: Pas de réunion trouvée du <t:${Math.round(timeMin.getTime() / 1000)}:d> au <t:${Math.round(timeMax.getTime() / 1000)}:d> !`,
         });
-        console.log(events);
+
         const embeds = events.slice(0, 10).map(cal => embedEvents(cal.slice(0, 10))
-            .setTitle("Réunion à venir :"));
+            .setDescription(`## Réunion(s) du <t:${Math.round(timeMin.getTime() / 1000)}:d> au <t:${Math.round(timeMax.getTime() / 1000)}:d>`));
         return interaction.editReply({
             embeds: embeds
         });
