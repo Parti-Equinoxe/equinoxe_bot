@@ -36,8 +36,6 @@ client.config = configFile;
 if (configFile.bdd) {
     require("./api/bdd.js");
 }
-//Demarrage connection Google API :
-require("./api/google.js");
 
 //Création des collections discords pour les handlers :
 client.commands = new Collection();
@@ -69,5 +67,9 @@ client.login(process.env.TOKEN).catch((reason) => {
     }
     if (process.env.DEBUG === "true") console.log(reason);
 });
+
+//Demarrage connection Google API :
+require("./api/google.js");
+require("./api/cron.js").launch();
 
 //"node-html-to-image": "^3.4.0",
