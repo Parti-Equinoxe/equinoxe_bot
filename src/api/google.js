@@ -2,6 +2,8 @@ const {google} = require("googleapis");
 const {writeFileSync, existsSync} = require("fs");
 const {blueBright} = require("cli-color");
 const calendarConfig = require("../data/utils/calendar.json");
+const {EmbedBuilder} = require("discord.js");
+const {roles} = require("./permanent");
 
 function saveAuthFile() {
     const sak = {
@@ -31,13 +33,13 @@ const auth = new google.auth.GoogleAuth({
 
 /**
  * @param events
- * @return {Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calID: string}>}
+ * @return {Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}>}
  */
 function eventsFormater(events) {
-    const calID = calendarConfig.list.find(c => c.name === events.summary).id;
+    const cal = calendarConfig.list.find(c => c.name === events.summary);
     return events.items.map((event) => {
         return {
-            calID: calID,
+            calendar: cal,
             id: event.id,
             created: new Date(event.created),
             updated: new Date(event.updated),
@@ -45,18 +47,17 @@ function eventsFormater(events) {
             end: new Date(event.end.dateTime),
             name: event.summary,
             description: event.description,
-            roles: calendarConfig.roles[calID] ?? []
         }
     });
 }
 
 /**
  * @param {String} calID
- * @return {Promise<Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calID: string}>>}
+ * @return {Promise<Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}>>}
  */
 module.exports.nextWeek = async (calID) => {
     const timeMin = new Date();
-    console.log(timeMin.getDay());
+    //console.log(timeMin.getDay());
     timeMin.setDate(timeMin.getDate() + 1); // start from tomorrow
     const timeMax = new Date();
     timeMax.setDate(timeMax.getDate() + 7);
@@ -67,7 +68,7 @@ module.exports.nextWeek = async (calID) => {
  * @param {String} calID
  * @param {Date} start
  * @param {Date} end
- * @return {Promise<Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calID: string}>>}
+ * @return {Promise<Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}>>}
  */
 module.exports.getEvents = async (calID, start, end) => {
     if (calID === "SG-OI") return [];
@@ -79,6 +80,33 @@ module.exports.getEvents = async (calID, start, end) => {
         singleEvents: true,
         orderBy: 'startTime',
     });
-    console.log(resp.data);
+    //console.log(resp.data);
     return eventsFormater(resp.data);
+}
+/**
+ * @param {Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}>} events
+ * @return {EmbedBuilder}
+ */
+module.exports.embedEvents = (events) => {
+    events.sort((a, b) => a.start.getTime() - b.start.getTime());
+    return new EmbedBuilder()
+        .setColor(events[0].calendar.color)
+        .setFields(events.slice(0, 20).map((event) => {
+            return {
+                name: event.name,
+                value: `Le <t:${Math.round(event.start.getTime() / 1000)}:D> de <t:${Math.round(event.start.getTime() / 1000)}:t> à <t:${Math.round(event.end.getTime() / 1000)}:t>.\n> ${event.description ?? "Pas de description."}\nÉquipe : <@&${roles[event.calendar.role]}>`
+            }
+        }))
+        .setTimestamp();
+}
+/**
+ * @param {{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}} event
+ * @return {EmbedBuilder}
+ */
+module.exports.embedEvent = (event) => {
+    return new EmbedBuilder()
+        .setTitle(event.name)
+        .setDescription(`Le <t:${Math.round(event.start.getTime() / 1000)}:D> de <t:${Math.round(event.start.getTime() / 1000)}:t> à <t:${Math.round(event.end.getTime() / 1000)}:t>.\n> ${event.description ?? "Pas de description."}\nÉquipe : <@&${roles[event.calendar.role]}>`)
+        .setColor(event.calendar.color)
+        .setTimestamp();
 }

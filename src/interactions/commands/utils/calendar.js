@@ -1,4 +1,4 @@
-const {nextWeek} = require("../../../api/google");
+const {nextWeek, embedEvents, embedEvent} = require("../../../api/google");
 const {EmbedBuilder} = require("discord.js");
 const {roles} = require("../../../api/permanent");
 const calendarConfig = require("../../../data/utils/calendar.json");
@@ -36,21 +36,14 @@ module.exports = {
         await interaction.deferReply();
         const events = [];
         for (const id of filter) events.push(await nextWeek(id));
-        const embedAll = new EmbedBuilder()
-            .setTitle("Réunion à venir :")
-            .setColor(calendarConfig.list.find(c => c.id === filter[0]).color)
-            .setFields(events.flat().slice(0, 10).map((event) => {
-                const cal = calendarConfig.list.find(c => c.id === event.calID);
-                console.log(cal)
-                return {
-                    name: event.name,
-                    value: `Le <t:${Math.round(event.start.getTime() / 1000)}:D> de <t:${Math.round(event.start.getTime() / 1000)}:t> à <t:${Math.round(event.end.getTime() / 1000)}:t>.\n> ${event.description ?? "Pas de description."}\nÉquipe${/*event.roles.length > 1 ? "s" : */""} : <@&${/*event.roles.length !== 0 ? event.roles.map(r => "<@&" + roles[r] + ">").join(", ") : "Pas d'équipe spécifié."*/roles[cal.role]}>`
-                }
-            }))
-            .setTimestamp();
-
+        if (events.flat().length === 0) return interaction.editReply({
+            content: ":x: Pas de calendrier trouvé à partir de vos rôles !\nVous pouvez regarder les calendrier en spécifiant leur nom.",
+        });
+        console.log(events);
+        const embeds = events.slice(0, 10).map(cal => embedEvents(cal.slice(0, 10))
+            .setTitle("Réunion à venir :"));
         return interaction.editReply({
-            embeds: [embedAll]
+            embeds: embeds
         });
     },
 }
