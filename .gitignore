@@ -1,8 +1,9 @@
 **/node_modules/
 **/*-lock.json
 **/.DS_store
-**/.idea/
+**/.idea
 src/data/bdd/lien_gl.json
 src/data/bdd/liste_depart.json
 /service-account-key.json
 src/service-account-key.json
+**/*.iml

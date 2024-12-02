@@ -22,7 +22,7 @@ async function alert(message){
         .setLabel("Ignorer")
         .setStyle(3);
     return message.reply({
-        content: `:warning: Il n'est pas conseillé de partager **${mail ? "un email" : ""}${mail && num ? " ou " : ""}${num ? "un numéro de téléphone" : ""}**.\n Vous pouvez utiliser le bouton ci-dessous pour supprimer le message.`,
+        content: `:warning: Il n'est pas conseillé de partager **${mail ? "un email" : ""}${mail && num ? " ou " : ""}${num ? "un numéro de téléphone" : ""}**.\n Vous pouvez utiliser le bouton ci-dessous pour ignorer cette alerte ou pour supprimer votre message.`,
         components: [new ActionRowBuilder().addComponents(btnIgn).addComponents(btnSup)]
     });
 }

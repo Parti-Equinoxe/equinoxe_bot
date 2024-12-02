@@ -5,16 +5,16 @@ const {logWithImage} = require("../../../api/utils");
 
 module.exports = {
     name: "copier_conversation",
-    description: "Permet de déplacer une conversation (x dernier messages).",
+    description: "Permet de copier une conversation (x dernier messages, depuis le salon où la commande est lancée).",
     options: [{
         name: "nombre",
-        description: "Le nombre de message à copier. (max 100)",
+        description: "Le nombre de messages à copier. (max 100)",
         type: 4,
         maxValue: 100,
         required: true,
     }, {
         name: "salon",
-        description: "Le salon vers le quel coller la conversation.",
+        description: "Le salon où coller la conversation.",
         type: 7,
         required: true,
         channelTypes: [0, 5, 10, 11, 12, 15]
