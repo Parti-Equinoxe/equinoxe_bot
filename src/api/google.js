@@ -30,24 +30,12 @@ const auth = new google.auth.GoogleAuth({
 });
 
 /**
- * @return {Promise<Array<{{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>}>>}
+ * @param events
+ * @return {Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calID: string}>}
  */
-module.exports.nextWeek = async (calID = "SG-CO") => {
-    if (calID === "SG-OI") return [];
-    const calendar = google.calendar({version: 'v3', auth});
-    const timeMin = new Date();
-    timeMin.setDate(timeMin.getDate() + 1); // start from tomorrow
-    const timeMax = new Date();
-    timeMax.setDate(timeMax.getDate() + 7);
-    const resp = await calendar.events.list({
-        calendarId: calendarConfig.list.find(c => c.id === calID).calendarID,
-        timeMin: timeMin.toISOString(),
-        timeMax: timeMax.toISOString(),
-        singleEvents: true,
-        orderBy: 'startTime',
-    });
-    console.log(resp.data);
-    const value = resp.data.items.map((event) => {
+function eventsFormater(events) {
+    const calID = calendarConfig.list.find(c => c.name === events.summary).id;
+    return events.items.map((event) => {
         return {
             calID: calID,
             id: event.id,
@@ -60,5 +48,37 @@ module.exports.nextWeek = async (calID = "SG-CO") => {
             roles: calendarConfig.roles[calID] ?? []
         }
     });
-    return value;
+}
+
+/**
+ * @param {String} calID
+ * @return {Promise<Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calID: string}>>}
+ */
+module.exports.nextWeek = async (calID) => {
+    const timeMin = new Date();
+    console.log(timeMin.getDay());
+    timeMin.setDate(timeMin.getDate() + 1); // start from tomorrow
+    const timeMax = new Date();
+    timeMax.setDate(timeMax.getDate() + 7);
+    return await this.getEvents(calID, timeMin, timeMax);
+}
+
+/**
+ * @param {String} calID
+ * @param {Date} start
+ * @param {Date} end
+ * @return {Promise<Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calID: string}>>}
+ */
+module.exports.getEvents = async (calID, start, end) => {
+    if (calID === "SG-OI") return [];
+    const calendar = google.calendar({version: 'v3', auth});
+    const resp = await calendar.events.list({
+        calendarId: calendarConfig.list.find(c => c.id === calID).calendarID,
+        timeMin: start.toISOString(),
+        timeMax: end.toISOString(),
+        singleEvents: true,
+        orderBy: 'startTime',
+    });
+    console.log(resp.data);
+    return eventsFormater(resp.data);
 }
