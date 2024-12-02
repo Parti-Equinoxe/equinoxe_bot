@@ -10,7 +10,7 @@ client.on(Events.MessageUpdate, (old, newM) => alert(newM))
 
 async function alert(message){
     if (message.author.bot) return;
-    const mail = message.content.match(regExMail), num = (message.content.match(regExNum);
+    const mail = message.content.match(regExMail), num = message.content.match(regExNum);
     if (!mail && !num) return;
     const btnSup = new ButtonBuilder()
         .setCustomId("autre:sup_mail_num")
