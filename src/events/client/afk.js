@@ -3,5 +3,5 @@ const client = require("../../index").client;
 const { Events } = require('discord.js');
 client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
     if (newState.channelId !== salons.afk) return;
-    await newState.disconnect("Le membre est en AFK !");
+    await newState.disconnect("Le membre est AFK !");
 });

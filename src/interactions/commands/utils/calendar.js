@@ -11,12 +11,12 @@ const choices = calendarConfig.list.map((c) => {
 });
 module.exports = {
     name: "calendrier",
-    description: "Permet d'obtenir les prochaines réunions prévu.",
+    description: "Permet d'obtenir les prochaines réunions prévues.",
     devOnly: true,
     options: [
         {
             name: "nom",
-            description: "Le nom de l'équipe ou du calendrier.",
+            description: "Le nom de l'équipe ou du calendrier à afficher.",
             type: 3,
             choices: choices
         }

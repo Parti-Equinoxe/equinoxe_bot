@@ -10,13 +10,13 @@ module.exports = {
 	options: [
 		{
 			name: "commande",
-			description: "La commande dont vous voulez voire les informations.",
+			description: "La commande dont vous voulez voir les informations.",
 			type: 3,
 			required: false,
 			autocomplete: true,
 		},
 	],
-	description: "Une commande d'aide, avec la liste des commandes et leurs spécificités.",
+	description: "La commande d'aide, avec la liste des commandes et leurs spécificités.",
 	/**
 	 * @param {ChatInputCommandInteraction} interaction
 	 * @param {Client} client
