@@ -47,6 +47,38 @@
       "calendarID": "5f57ce78894380f361e8f26eedb947adc4d7c5f4eff228028b5c089604a7a9fa@group.calendar.google.com",
       "role": "outils_internes",
       "channel": "outils_internes"
+    },
+    {
+      "name": "COM - Création Contenu",
+      "color": "#4caf50",
+      "id": "COM-CC",
+      "calendarID": "68bed445c223237435588c078f0fba564018901501ef594336774d6424f322a2@group.calendar.google.com",
+      "role": "communication_interne",
+      "channel": "equipe_com"
+    },
+    {
+      "name": "COM - Réseau Sociaux",
+      "color": "#9357cc",
+      "id": "COM-RS",
+      "calendarID": "communication.externe.equinoxe@gmail.com",
+      "role": "com_rs",
+      "channel": "equipe_com"
+    },
+    {
+      "name": "COM - Site Internet",
+      "color": "#ffd412",
+      "id": "COM-SI",
+      "calendarID": "0e9ab52aa1cde37cfad128c19ceffe251a3e1ab4949f73bd3766d1d88cf87475@group.calendar.google.com",
+      "role": "equipe_site_internet",
+      "channel": "site_internet"
+    },
+    {
+      "name": "COM - Calendrier Éditorial",
+      "color": "#4cc0ea",
+      "id": "COM-CE",
+      "calendarID": "c1aca860042bcb9613caad6d66508f7a5796b6361540333298b0d901e66100a1@group.calendar.google.com",
+      "role": "communication_interne",
+      "channel": "relecture"
     }
   ]
 }
