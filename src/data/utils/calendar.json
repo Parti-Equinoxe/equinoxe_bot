@@ -53,7 +53,7 @@
       "color": "#4caf50",
       "id": "COM-CC",
       "calendarID": "68bed445c223237435588c078f0fba564018901501ef594336774d6424f322a2@group.calendar.google.com",
-      "role": "communication_interne",
+      "role": "communication",
       "channel": "equipe_com"
     },
     {
@@ -77,7 +77,7 @@
       "color": "#4cc0ea",
       "id": "COM-CE",
       "calendarID": "c1aca860042bcb9613caad6d66508f7a5796b6361540333298b0d901e66100a1@group.calendar.google.com",
-      "role": "communication_interne",
+      "role": "communication",
       "channel": "relecture"
     }
   ]
