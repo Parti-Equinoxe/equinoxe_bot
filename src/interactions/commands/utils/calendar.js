@@ -39,7 +39,8 @@ module.exports = {
         if (events.flat().length === 0) return interaction.editReply({
             content: `:x: Pas de réunion trouvée du <t:${Math.round(timeMin.getTime() / 1000)}:d> au <t:${Math.round(timeMax.getTime() / 1000)}:d> !`,
         });
-
+        console.log(events);
+        console.log("####");
         const embeds = events.slice(0, 10).map(cal => embedEvents(cal.slice(0, 10))
             .setDescription(`## Réunion(s) du <t:${Math.round(timeMin.getTime() / 1000)}:d> au <t:${Math.round(timeMax.getTime() / 1000)}:d>`));
         return interaction.editReply({
