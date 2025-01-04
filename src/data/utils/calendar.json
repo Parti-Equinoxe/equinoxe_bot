@@ -79,6 +79,14 @@
       "calendarID": "c1aca860042bcb9613caad6d66508f7a5796b6361540333298b0d901e66100a1@group.calendar.google.com",
       "role": "communication",
       "channel": "relecture"
+    },
+    {
+      "name": "PROG - Réunions Programme",
+      "color": "#3159de",
+      "id": "PROG-CE",
+      "calendarID": "programme.equinoxe@gmail.com",
+      "role": "programme",
+      "channel": "equipe_programme"
     }
   ]
 }
