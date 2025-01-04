@@ -38,6 +38,7 @@ const auth = new google.auth.GoogleAuth({
  */
 function eventsFormater(events) {
     const cal = calendarConfig.list.find(c => c.name === events.summary);
+    console.log(cal);
     return events.items.map((event) => {
         return {
             calendar: cal,
