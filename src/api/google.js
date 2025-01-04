@@ -38,7 +38,6 @@ const auth = new google.auth.GoogleAuth({
  */
 function eventsFormater(events) {
     const cal = calendarConfig.list.find(c => c.name === events.summary);
-    console.log(cal);
     return events.items.map((event) => {
         return {
             calendar: cal,
@@ -95,7 +94,6 @@ module.exports.getEvents = async (calID, start, end) => {
  */
 module.exports.embedEvents = (events) => {
     events.sort((a, b) => a.start.getTime() - b.start.getTime());
-    console.log(events);
     return new EmbedBuilder()
         .setColor(events[0].calendar.color)
         .setFields(events.slice(0, 20).map((event) => {
