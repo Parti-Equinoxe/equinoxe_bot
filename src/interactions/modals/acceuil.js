@@ -1,3 +1,4 @@
+const {getGuild} = require("../../api/utils");
 module.exports = {
     customID: "accueil",
     /**
@@ -5,14 +6,7 @@ module.exports = {
      * @param {Client} client
      */
     runInteraction: async (client, interaction) => {
-        if (!interaction.member) {
-            console.log("Modal: Accueil.js :");
-            console.log(interaction);
-            return interaction.reply({
-                content: ":x: Une erreur est survenue.",
-                ephemeral: true
-            });
-        }
+        const member = await (await getGuild()).members.fetch(interaction.user.id);
         const nom = interaction.fields.getTextInputValue("nom");
         const prenom = interaction.fields.getTextInputValue("prenom");
         if (!prenom || !nom) return interaction.reply({
@@ -20,11 +14,11 @@ module.exports = {
             ephemeral: true
         });
         const department = parseInt(interaction.fields.getTextInputValue("departement"));
-        if (!interaction.member.manageable) return interaction.reply({
+        if (!member.manageable) return interaction.reply({
             content: ":no_entry_sign: Je n'est pas les permissions pour modifier votre profil.",
             ephemeral: true
         });
-        await interaction.member.setNickname(`${prenom} ${nom}` + (department && department > 1 && department < 1000 ? ` - ${department}` : ""), "Formulaire d'accueil");
+        await member.setNickname(`${prenom} ${nom}` + (department && department > 1 && department < 1000 ? ` - ${department}` : ""), "Formulaire d'accueil");
         return interaction.reply({content: ":white_check_mark: Votre profil a bien été mis à jour !", ephemeral: true});
     },
 };
