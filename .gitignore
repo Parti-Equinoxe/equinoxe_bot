@@ -7,3 +7,4 @@ src/data/bdd/liste_depart.json
 /service-account-key.json
 src/service-account-key.json
 **/*.iml
+.env
