@@ -6,6 +6,28 @@ const {EmbedBuilder} = require("discord.js");
 const {roles, salons} = require("./permanent");
 const {getChannel} = require("./utils");
 
+/**
+ * @typedef {{
+ *       name: string,
+ *       color: `#${string}`,
+ *       id: string,
+ *       calendarID: string,
+ *       role: string,
+ *       channel: string
+ *     }} CalendarConfig
+ * @typedef {{id: string,
+ *      created: Date,
+ *      updated: Date,
+ *      start: Date,
+ *      end: Date,
+ *      name: string,
+ *      description: string,
+ *      calendar: CalendarConfig,
+ *      fullDay: boolean
+ *    }} CalendarEvent
+ */
+
+
 function saveAuthFile() {
     const sak = {
         type: "service_account",
@@ -34,7 +56,7 @@ const auth = new google.auth.GoogleAuth({
 
 /**
  * @param events
- * @return {Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}>}
+ * @return {Array<CalendarEvent>}
  */
 function eventsFormater(events) {
     const cal = calendarConfig.list.find(c => c.name === events.summary);
@@ -44,17 +66,18 @@ function eventsFormater(events) {
             id: event.id,
             created: new Date(event.created),
             updated: new Date(event.updated),
-            start: new Date(event.start.dateTime),
-            end: new Date(event.end.dateTime),
+            start: new Date(event.start.dateTime ?? event.start.date),
+            end: new Date(event.end.dateTime ?? event.end.date),
             name: event.summary,
             description: event.description,
+            fullDay: !!event.start.date,
         }
     });
 }
 
 /**
  * @param {String} calID
- * @return {Promise<Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}>>}
+ * @return {Promise<Array<CalendarEvent>>}
  */
 module.exports.nextWeek = async (calID) => {
     const timeMin = this.weekTimeEnd(new Date(), 1);
@@ -63,7 +86,7 @@ module.exports.nextWeek = async (calID) => {
 }
 /**
  * @param {String} calID
- * @return {Promise<Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}>>}
+ * @return {Promise<Array<CalendarEvent>>}
  */
 module.exports.thisWeek = async (calID) => {
     const timeMin = new Date();
@@ -75,7 +98,7 @@ module.exports.thisWeek = async (calID) => {
  * @param {String} calID
  * @param {Date} start
  * @param {Date} end
- * @return {Promise<Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}>>}
+ * @return {Promise<Array<CalendarEvent>>}
  */
 module.exports.getEvents = async (calID, start, end) => {
     const calendar = google.calendar({version: 'v3', auth});
@@ -89,7 +112,7 @@ module.exports.getEvents = async (calID, start, end) => {
     return eventsFormater(resp.data);
 }
 /**
- * @param {Array<{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}>} events
+ * @param {Array<CalendarEvent>} events
  * @return {EmbedBuilder}
  */
 module.exports.embedEvents = (events) => {
@@ -97,25 +120,33 @@ module.exports.embedEvents = (events) => {
     return new EmbedBuilder()
         .setColor(events[0].calendar.color)
         .setFields(events.slice(0, 20).map((event) => {
+            let textDate = `Le <t:${Math.round(event.start.getTime() / 1000)}:D> de <t:${Math.round(event.start.getTime() / 1000)}:t> à <t:${Math.round(event.end.getTime() / 1000)}:t>`;
+            if (event.fullDay) textDate = `Le <t:${Math.round(event.start.getTime() / 1000)}:D>` + (event.end.getTime() - event.start.getTime() > 86400000 ? ` au <t:${Math.round(event.end.getTime() / 1000)}:D>` : "");
             return {
                 name: event.name,
-                value: `Le <t:${Math.round(event.start.getTime() / 1000)}:D> de <t:${Math.round(event.start.getTime() / 1000)}:t> à <t:${Math.round(event.end.getTime() / 1000)}:t>.\n> ${event.description ?? "Pas de description."}\nÉquipe : <@&${roles[event.calendar.role]}>`
+                value: `${textDate}.\n> ${event.description ?? "Pas de description."}\nÉquipe : <@&${roles[event.calendar.role]}>`
             }
         }))
         .setTimestamp();
 }
 /**
- * @param {{id: string, created: Date, updated: Date, start: Date, end: Date, name: string, description: string, roles: Array<String>, calendar: Object}} event
+ * @param {CalendarEvent} event
  * @return {EmbedBuilder}
  */
 module.exports.embedEvent = (event) => {
+    let textDate = `Le <t:${Math.round(event.start.getTime() / 1000)}:D> de <t:${Math.round(event.start.getTime() / 1000)}:t> à <t:${Math.round(event.end.getTime() / 1000)}:t>`;
+    if (event.fullDay) textDate = `Le <t:${Math.round(event.start.getTime() / 1000)}:D>` + (event.end.getTime() - event.start.getTime() > 86400000 ? ` au <t:${Math.round(event.end.getTime() / 1000)}:D>` : "");
     return new EmbedBuilder()
         .setTitle(event.name)
-        .setDescription(`Le <t:${Math.round(event.start.getTime() / 1000)}:D> de <t:${Math.round(event.start.getTime() / 1000)}:t> à <t:${Math.round(event.end.getTime() / 1000)}:t>.\n> ${event.description ?? "Pas de description."}\nÉquipe : <@&${roles[event.calendar.role]}>`)
+        .setDescription(`${textDate}.\n> ${event.description ?? "Pas de description."}\nÉquipe : <@&${roles[event.calendar.role]}>`)
         .setColor(event.calendar.color)
         .setTimestamp();
 }
 
+/**
+ * Envoie les events dans leurs salons respectifs, est utilise par cron
+ * @return {Promise<number>}
+ */
 module.exports.rappel = async () => {
     let count = 0;
     for (const cal of calendarConfig.list) {
@@ -131,11 +162,15 @@ module.exports.rappel = async () => {
             content: `## Réunion(s) du <t:${Math.round(timeMin.getTime() / 1000)}:d> au <t:${Math.round(timeMax.getTime() / 1000)}:d>`,
             embeds: embeds
         });
-        count+=embeds.length;
+        count += embeds.length;
     }
     return count;
 }
-
+/**
+ * @param {Date} start
+ * @param {number} nb
+ * @return {Date}
+ */
 module.exports.weekTimeEnd = (start, nb = 1) => {
     const timeMax = new Date(start);
     timeMax.setDate(timeMax.getDate() + 7 * nb - start.getDay());
