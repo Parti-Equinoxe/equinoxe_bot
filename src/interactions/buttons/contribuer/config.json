@@ -8,6 +8,15 @@
     "tresorier",
     "secretaire_departemental",
     "coordination_programme",
-    "president"
+    "president",
+    "comite_ethique",
+    "tire_au_sort",
+    "suppleant",
+    "secretaire_regional",
+    "secretariat_general",
+    "reseau_territorial",
+    "reseaux_partenariats",
+    "candidat",
+    "adherent"
   ]
 }
