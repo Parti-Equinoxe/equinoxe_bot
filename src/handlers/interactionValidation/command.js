@@ -11,8 +11,15 @@ module.exports = async (client, interaction) => {
     if (!cmd.mp && channel.isDMBased()) {
         return [false, {content: `Cette commande ne peut pas être fait en en MP !Allez sur **un serveur** pour fait votre commande.`}];
     }
+    //Vérifie si l'utilisateur est du CE
+    if ("ce" === cmd.category && !(userARole(interaction.member.roles.cache, roles.comite_ethique))) {
+        return [false, {
+            content: ":no_entry_sign: Vous ne faite pas partie du Comité d'Éthique.",
+            ephemeral: true
+        }];
+    }
     //Vérifie si l'utilisateur est du staff pour les cmd de moderation
-    if (["moderation", "gestion"].includes(cmd.category) && !(userARole(interaction.member.roles.cache, roles.moderation) || userARole(interaction.member.roles.cache, roles.secretariat_general) || userARole(interaction.member.roles.cache, roles.bureau))) {
+    if (["moderation", "gestion"].includes(cmd.category) && !(userARole(interaction.member.roles.cache, roles.moderation) /*|| userARole(interaction.member.roles.cache, roles.secretariat_general)*/ || userARole(interaction.member.roles.cache, roles.bureau))) {
         return [false, {
             content: ":no_entry_sign: Vous ne faite pas partie de l'équipe de modération.",
             ephemeral: true
