@@ -15,6 +15,8 @@ const {getChannel} = require("./utils");
  *       role: string,
  *       channel: string
  *     }} CalendarConfig
+ */
+/**
  * @typedef {{id: string,
  *      created: Date,
  *      updated: Date,
@@ -155,7 +157,7 @@ module.exports.rappel = async () => {
 
         const events = await this.getEvents(cal.id, timeMin, timeMax);
         if (events.length === 0) continue;
-
+        console.log(events);
         const channel = await getChannel(salons[events[0].calendar.channel]);
         const embeds = events.slice(0, 10).map(cal => this.embedEvent(cal))
         await channel.send({
