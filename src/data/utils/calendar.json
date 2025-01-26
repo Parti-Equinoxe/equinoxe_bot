@@ -1,14 +1,6 @@
 {
   "list": [
     {
-      "name": "SG - Coordination",
-      "color": "#cb8745",
-      "id": "SG-CO",
-      "calendarID": "secretariat.general.equinoxe@gmail.com",
-      "role": "organisation_du_secretariat",
-      "channel": "orga_secretariat"
-    },
-    {
       "name": "SG - Accueil adhérents",
       "color": "#FFFF00",
       "id": "SG-AA",

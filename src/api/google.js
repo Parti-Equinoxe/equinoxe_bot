@@ -179,3 +179,14 @@ module.exports.weekTimeEnd = (start, nb = 1) => {
     timeMax.setHours(23, 59, 59);
     return timeMax;
 }
+
+/*
+     {
+      "name": "SG - Coordination",
+      "color": "#cb8745",
+      "id": "SG-CO",
+      "calendarID": "secretariat.general.equinoxe@gmail.com",
+      "role": "organisation_du_secretariat",
+      "channel": "orga_secretariat"
+    },
+ */
