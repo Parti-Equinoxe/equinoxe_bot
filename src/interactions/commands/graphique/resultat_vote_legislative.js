@@ -1,6 +1,6 @@
 const axios = require("axios");
 const {voteLegislative} = require("../../../api/graph.js");
-const {EmbedBuilder} = require("discord.js");
+const {EmbedBuilder, MessageFlags} = require("discord.js");
 const {couleurs} = require("../../../api/permanent.js");
 module.exports = {
     name: "résultat_vote_legislative",
@@ -19,14 +19,14 @@ module.exports = {
     runInteraction: async (client, interaction) => {
         if (interaction.options.getAttachment("json").contentType !== "application/json; charset=utf-8") return interaction.reply({
             content: ":x: Le fichier doit être au format JSON !",
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
         const dataUrl = await axios({
             url: interaction.options.getAttachment("json").attachment.toString("utf-8"),
             method: 'GET',
             responseType: 'json',
         }).catch(error => {
-            interaction.reply({content: ":inbox_tray: Le fichier n'a pas pu être téléchargé.", ephemeral: true});
+            interaction.reply({content: ":inbox_tray: Le fichier n'a pas pu être téléchargé.", flags: [MessageFlags.Ephemeral]});
             return false;
         });
         if (!dataUrl) return;

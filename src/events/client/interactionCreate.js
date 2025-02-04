@@ -1,4 +1,4 @@
-const {client} = require("./../../index.js");
+const {client, MessageFlags} = require("./../../index.js");
 const {redBright} = require("cli-color");
 const debug = process.env.DEBUG === "true";
 const interType = {
@@ -22,7 +22,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     const inter = await interType[interaction.type](client, interaction);
     if (!inter[0]) return interaction.reply(inter[1] ?? {
         content: "Cette action ne semble pas exister !",
-        ephemeral: true
+        flags: [MessageFlags.Ephemeral]
     });
     try {
         await inter[1](client, interaction);
@@ -43,6 +43,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
             content: `## Erreur dans ${interaction.commandName ?? interaction.customId ?? "inconnue"}${cmdPing ?? " (" + interName[interaction.type] + ")"} :\n> User : <@${interaction.user.id}> dans <#${interaction.channelId}>\n\`\`\`console\n${err.stack}\`\`\``,
             allowedMentions: {repliedUser: false}
         });
-        return interaction.reply({content: "Une erreur s'est produite !" + cmdPing ?? "", ephemeral: true});
+        return interaction.reply({
+            content: "Une erreur s'est produite !" + cmdPing ?? "",
+            flags: [MessageFlags.Ephemeral]
+        });
     }
 });

@@ -2,12 +2,14 @@ const {embedEvents, thisWeek, weekTimeEnd} = require("../../../api/google");
 const {roles} = require("../../../api/permanent");
 const calendarConfig = require("../../../data/utils/calendar.json");
 const {userARole} = require("../../../api/role");
+const {ChatInputCommandInteraction, Client, MessageFlags} = require("discord.js");
 const choices = calendarConfig.list.map((c) => {
     return {
         name: c.name,
         value: c.id
     }
 });
+
 module.exports = {
     name: "calendrier",
     description: "Permet d'obtenir les prochaines réunions prévues (semaine prochaine).",
@@ -29,7 +31,7 @@ module.exports = {
         }).filter(c => c) ?? false].flat();
         if (!filter[0] || filter.length === 0) return interaction.reply({
             content: ":x: Pas de calendrier trouvé à partir de vos rôles !\nVous pouvez regarder les calendrier en spécifiant leur nom.",
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
         await interaction.deferReply();
         const timeMin = new Date();

@@ -1,4 +1,4 @@
-const {EmbedBuilder} = require("discord.js");
+const {EmbedBuilder, MessageFlags} = require("discord.js");
 const {couleurs} = require("../../../api/permanent");
 module.exports = {
     name: "role",
@@ -21,6 +21,6 @@ module.exports = {
             .setTitle(`${role.members.map((member) => member.user.id).length} membres avec le rôle ${role.name} :`)
             .setDescription(textes.slice(0, 15).join("\n") + (textes.length > 15 ? `\n**${textes.length - 15}** autres membres` : ""))
             .setTimestamp();
-        return interaction.reply({embeds: [embed], ephemeral: true});
+        return interaction.reply({embeds: [embed], flags: [MessageFlags.Ephemeral]});
     },
 }

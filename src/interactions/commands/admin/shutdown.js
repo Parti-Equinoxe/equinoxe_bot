@@ -1,5 +1,5 @@
 const {redBright} = require("cli-color");
-const {ChatInputCommandInteraction, Client} = require("discord.js");
+const {ChatInputCommandInteraction, Client, MessageFlags} = require("discord.js");
 
 module.exports = {
 	name: "stop",
@@ -11,9 +11,9 @@ module.exports = {
 	runInteraction: async (client, interaction) => {
 		if (process.env.DEV_MODE === "true") return interaction.reply({
 			content: `:x: Commande indisponible en mode dev.`,
-			ephemeral: true
+			flags: [MessageFlags.Ephemeral]
 		});
-		interaction.reply("Shutdown du bot !");
+		await interaction.reply("Shutdown du bot !");
 		console.log(redBright.bold(`>> Shutdown (par ${interaction.user.username})! <<`));
 		await client.destroy();
 		process.exit(2);

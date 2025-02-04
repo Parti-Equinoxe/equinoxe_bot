@@ -1,4 +1,6 @@
 const {log} = require("../../../api/utils.js");
+const {MessageFlags} = require("discord.js");
+
 module.exports = {
     name: "copier",
     description: "Permet de copier les permission d'un salon vers un autre.",
@@ -36,7 +38,7 @@ module.exports = {
         await log(`Les permissions de <#${channel_permission.id}> on été appliquées au salon <#${channel.id}>.`, "Copie de permission :", interaction.member, "warning");
         return interaction.reply({
             content: `:white_check_mark: Les permissions de <#${channel_permission.id}> ont bien été appliquées au salon <#${channel.id}> !`,
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         })
     }
 }

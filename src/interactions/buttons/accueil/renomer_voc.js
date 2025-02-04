@@ -1,4 +1,4 @@
-const {ModalBuilder, TextInputStyle, TextInputBuilder, ActionRowBuilder} = require("discord.js");
+const {ModalBuilder, TextInputStyle, TextInputBuilder, ActionRowBuilder, MessageFlags} = require("discord.js");
 module.exports = {
     customID: "renomervoc",
     /**
@@ -8,7 +8,7 @@ module.exports = {
     runInteraction: async (client, interaction) => {
         if (!interaction.message.mentions.users.map(u => u.id).includes(interaction.user.id)) return interaction.reply({
             content: ":no_entry_sign: Vous n'avez pas la permission de modifier ce vocal.",
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
         const modal = new ModalBuilder()
             .setCustomId("renomervoc")

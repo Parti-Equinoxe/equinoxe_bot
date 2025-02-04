@@ -4,6 +4,7 @@ const dsg = {
     roles: "roles",
     salons: "channels"
 }
+const {MessageFlags} = require("discord.js");
 const tests = {
     roles: (r) => true,
     salons: (r) => !r.isThread() && r.parentId !== "1250122963085430936" && r.parentId !== null
@@ -33,7 +34,7 @@ module.exports = {
     runInteraction: async (client, interaction) => {
         if (process.env.DEV_MODE === "true" || !client.config.dev.include(interaction.user.id)) return interaction.reply({
             content: `:x: Commande disponible seulement en mode dev.`,
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
         const type = interaction.options.getString("champs");
         const registered = Object.values(require(`../../../data/utils/${type}.json`));
@@ -53,7 +54,7 @@ module.exports = {
         writeFileSync(`./data/utils/${type}.json`, JSON.stringify(file, null, 4));
         return interaction.reply({
             content: `**${data.length}** ${type} ajouté`,
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
     }
 }

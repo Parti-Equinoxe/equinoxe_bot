@@ -1,4 +1,4 @@
-const {EmbedBuilder} = require("discord.js");
+const {EmbedBuilder, MessageFlags} = require("discord.js");
 const axios = require("axios");
 const pays = require("../../../data/electricitymaps/pays.json");
 const {numberPretier} = require("../../../api/utils");
@@ -19,7 +19,7 @@ module.exports = {
     runInteraction: async (client, interaction) => {
         if ((await axios.get("https://api.electricitymap.org/health")).data.status !== "ok") return interaction.reply({
             content: ":x: L'API [ElectricityMap](https://app.electricitymaps.com/map) n'est pas accessible. Merci de revenire plus tard.",
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
         const zone = pays.find(p => p.value === interaction.options.getString("pays")) ?? pays.find(p => p.value === "FR");
         const data = await getData(zone.value);

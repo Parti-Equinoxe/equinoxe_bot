@@ -1,4 +1,4 @@
-const {ButtonComponent, ButtonBuilder, ActionRowBuilder} = require("discord.js");
+const {ButtonComponent, ButtonBuilder, ActionRowBuilder, MessageFlags} = require("discord.js");
 module.exports = {
     customID: "renomervoc",
     /**
@@ -8,7 +8,7 @@ module.exports = {
     runInteraction: async (client, interaction) => {
         if (!interaction.message.mentions.users.map(u => u.id).includes(interaction.user.id)) return interaction.reply({
             content: ":no_entry_sign: Vous n'avez pas la permission de modifier ce vocal.",
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
         const nom = interaction.fields.getTextInputValue("nom");
         const channel = await interaction.guild.channels.fetch(interaction.channelId);
@@ -18,7 +18,7 @@ module.exports = {
         await interaction.message.delete();
         return interaction.reply({
             content: `Le vocal a bien été renommer en <#${interaction.channelId}>`,
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
     },
 };

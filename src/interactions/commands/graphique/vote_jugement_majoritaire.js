@@ -1,4 +1,4 @@
-const {EmbedBuilder, ButtonBuilder, ActionRowBuilder} = require("discord.js");
+const {EmbedBuilder, ButtonBuilder, ActionRowBuilder, MessageFlags} = require("discord.js");
 const axios = require('axios');
 const {voteJugementMajoritaire} = require("../../../api/graph.js");
 const {couleurs} = require("../../../api/permanent.js");
@@ -34,7 +34,7 @@ module.exports = {
                 method: 'GET',
                 responseType: 'json',
             }).catch(error => {
-               interaction.reply({content: ":inbox_tray: Le fichier n'a pas pu être téléchargé.", ephemeral: true});
+               interaction.reply({content: ":inbox_tray: Le fichier n'a pas pu être téléchargé.", flags: [MessageFlags.Ephemeral]});
                return false;
             });
             if (!dataUrl) return;

@@ -1,4 +1,5 @@
 const {getGuild} = require("../../api/utils");
+const {MessageFlags} = require("discord.js");
 module.exports = {
     customID: "accueil",
     /**
@@ -11,14 +12,14 @@ module.exports = {
         const prenom = interaction.fields.getTextInputValue("prenom");
         if (!prenom || !nom) return interaction.reply({
             content: "Veuillez entrer votre nom et votre prénom, cependant vous n'êtes pas obligé de remplir ce formulaire.",
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
         const department = parseInt(interaction.fields.getTextInputValue("departement"));
         if (!member.manageable) return interaction.reply({
             content: ":no_entry_sign: Je n'est pas les permissions pour modifier votre profil.",
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
         await member.setNickname(`${prenom} ${nom}` + (department && department > 1 && department < 1000 ? ` - ${department}` : ""), "Formulaire d'accueil");
-        return interaction.reply({content: ":white_check_mark: Votre profil a bien été mis à jour !", ephemeral: true});
+        return interaction.reply({content: ":white_check_mark: Votre profil a bien été mis à jour !", flags: [MessageFlags.Ephemeral]});
     },
 };

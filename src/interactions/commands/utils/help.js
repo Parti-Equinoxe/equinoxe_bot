@@ -1,8 +1,7 @@
-const {ChatInputCommandInteraction, Client, EmbedBuilder} = require("discord.js");
+const {ChatInputCommandInteraction, Client, EmbedBuilder, MessageFlags} = require("discord.js");
 const {readdirSync} = require("fs");
-const {couleurs} = require("../../../api/permanent.js");
+const {couleurs, roles} = require("../../../api/permanent.js");
 const {userARole} = require("../../../api/role");
-const {roles} = require("../../../api/permanent");
 let dirsCategory = readdirSync("./interactions/commands/").filter((file) => !file.includes("."));
 dirsCategory.push("../commands");
 module.exports = {
@@ -57,7 +56,7 @@ module.exports = {
 		const cmd = client.commands.get(cmdName);
 		if (!cmd) return interaction.reply({
 			content: `:x: \`${cmdName}\` n\'est pas une commande valide !`,
-			ephemeral: true
+			flags: [MessageFlags.Ephemeral]
 		});
 		//usage :
 		

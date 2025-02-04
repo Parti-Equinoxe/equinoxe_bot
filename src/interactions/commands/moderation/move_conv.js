@@ -1,7 +1,6 @@
-const {ChannelType} = require("discord.js");
-const {sendMessagesUsers, durationFormatter} = require("../../../api/utils.js");
+const {MessageFlags} = require("discord.js");
+const {sendMessagesUsers, durationFormatter, logWithImage} = require("../../../api/utils.js");
 const discordTranscripts = require("discord-html-transcripts");
-const {logWithImage} = require("../../../api/utils");
 
 module.exports = {
     name: "deplacer_conversation",
@@ -26,7 +25,7 @@ module.exports = {
      */
     runInteraction: async (client, interaction) => {
         const date = Date.now();
-        await interaction.deferReply({ephemeral: true});
+        await interaction.deferReply({flags: [MessageFlags.Ephemeral]});
         const nb = interaction.options.getInteger("nombre");
         const newChannel = interaction.options.getChannel("salon");
         const oldChannel = interaction.channel;
@@ -59,7 +58,7 @@ module.exports = {
 
         await interaction.editReply({
             content: `**${msgs.length}/${nb}** messages vont être déplacer vers <#${newChannel.id}> !`,
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
         const i = await sendMessagesUsers(msgs, newChannel);
         const bDinfo = (await oldChannel.bulkDelete(msgs, false)).map((msg) => msg);

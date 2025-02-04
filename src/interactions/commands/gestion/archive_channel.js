@@ -1,5 +1,5 @@
 const categories = require("../../../data/utils/categories.json");
-const {ChannelType} = require("discord.js");
+const {ChannelType,MessageFlags} = require("discord.js");
 
 module.exports = {
     name: "archive",
@@ -20,11 +20,11 @@ module.exports = {
         const channel = interaction.options.getChannel("salon");
         /*if (channel.) return interaction.reply({
             content: ":page_facing_up: Le salon doit être un salon texte !",
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });*/
         if (channel.parentId === categories.archive) return interaction.reply({
             content: ":page_facing_up: Ce salon est déjà archivé.",
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
         await channel.setParent(categories.archive, {lockPermissions: true});
         //await channel.lockPermissions();
@@ -37,7 +37,7 @@ module.exports = {
         });*/
         return interaction.reply({
             content: `:lock: Le salon <#${channel.id}> a bien été archivé.`,
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
     }
 };

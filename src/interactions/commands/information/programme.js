@@ -1,4 +1,4 @@
-const {EmbedBuilder} = require("discord.js");
+const {EmbedBuilder, MessageFlags} = require("discord.js");
 const {salons} = require("../../../api/permanent");
 const programmeID = "861575978156687370";
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
         const forum = channel.isThread() ? (await interaction.guild.channels.fetch(channel.parentId)) : channel;
         if (forum.parentId !== programmeID) return interaction.reply({
             content: ":x: Ce salon n'est pas un canal du pôle programme.",
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
         const fields = [];
         if (channel.isThread()) {
@@ -52,6 +52,6 @@ module.exports = {
             .setDescription(`Pour participer aux discussions : <#${salons.contribuer}>`)
             .setFields(fields)
             .setTimestamp();
-        return interaction.reply({embeds: [embed], ephemeral: true});
+        return interaction.reply({embeds: [embed], flags: [MessageFlags.Ephemeral]});
     },
 }

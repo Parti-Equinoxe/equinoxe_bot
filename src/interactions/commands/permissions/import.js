@@ -1,6 +1,7 @@
 const axios = require("axios");
 const {writeFileSync} = require("fs");
 const {log, simplify} = require("../../../api/utils.js");
+const {MessageFlags} = require("discord.js");
 module.exports = {
     name: "import",
     description: "Permet d'appliquer les permission d'un salon.",
@@ -32,9 +33,9 @@ module.exports = {
      */
     runInteraction: async (client, interaction) => {
         if (interaction.options.getAttachment("permission").contentType !== "application/json; charset=utf-8") {
-            return interaction.reply({content: ":x: Le fichier doit être au format JSON !", ephemeral: true});
+            return interaction.reply({content: ":x: Le fichier doit être au format JSON !", flags: [MessageFlags.Ephemeral]});
         }
-        await interaction.deferReply({ephemeral: true});
+        await interaction.deferReply({flags: [MessageFlags.Ephemeral]});
         const dataUrl = await axios({
             url: interaction.options.getAttachment("permission").attachment.toString("utf-8"),
             method: 'GET',
@@ -55,7 +56,6 @@ module.exports = {
         });
         writeFileSync("./data/utils/permissions_set.json", JSON.stringify(permissions_set, null, 4));
         await log(`__**${nom} :**__\n> ${description}`, "Set de permission importé :", interaction.member, "success");
-        console.log("ui")
         return interaction.editReply({content: ":white_check_mark: Le set de permission a bien été importé.",});
     },
 }

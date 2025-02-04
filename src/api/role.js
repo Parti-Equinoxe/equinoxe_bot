@@ -1,25 +1,26 @@
+const {MessageFlags} = require("discord.js");
+const {getChannel, getGuild} = require("./utils");
+const {salons} = require("./permanent");
 /**
  * @param {ButtonInteraction} interaction
  */
-const {getChannel, getGuild} = require("./utils");
-const {salons} = require("./permanent");
 module.exports.rolereact = async (interaction, roleID) => {
     const role = await interaction.guild.roles.fetch(roleID);
     if (!interaction.member.manageable) return interaction.reply({
         content: ":no_entry_sign: Je n'ai pas la permission de modifier vos roles.",
-        ephemeral: true
+        flags: [MessageFlags.Ephemeral]
     });
     if (this.userARole(interaction.member.roles.cache, roleID)) {
         await interaction.member.roles.remove(role);
-        await interaction.reply({
+        return interaction.reply({
             content: `Le role <@&${roleID}> vous a bien été retiré.`,
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
     } else {
         await interaction.member.roles.add(role);
-        await interaction.reply({
+        return interaction.reply({
             content: `Le role <@&${roleID}> vous a bien été ajouté.`,
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
     }
 }

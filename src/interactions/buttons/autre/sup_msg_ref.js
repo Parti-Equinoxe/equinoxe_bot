@@ -1,3 +1,4 @@
+const {MessageFlags} = require("discord.js");
 module.exports = {
     customID: "sup_msg_ref",
     /**
@@ -12,12 +13,12 @@ module.exports = {
         if (!msg) return;
         if (interaction.user.id !== msg.author.id) return interaction.reply({
             content: `:no_entry_sign: Vous n'avez pas la permission de supprimer ce message.`,
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
         await interaction.message.delete();
         return interaction.reply({
             content: ":white_check_mark: L'avertissement a bien été supprimée.",
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral]
         });
     },
 };
