@@ -1,6 +1,8 @@
 /**
  * @param {ButtonInteraction} interaction
  */
+const {getChannel, getGuild} = require("./utils");
+const {salons} = require("./permanent");
 module.exports.rolereact = async (interaction, roleID) => {
     const role = await interaction.guild.roles.fetch(roleID);
     if (!interaction.member.manageable) return interaction.reply({
@@ -29,4 +31,12 @@ module.exports.rolereact = async (interaction, roleID) => {
  */
 module.exports.userARole = (rolesUser, roleID) => {
     return rolesUser.has(roleID);//.valueOf().some((role) => role == roleID); //faut pas mettre "===" car ils ont pas le même type
+};
+
+/**
+ */
+module.exports.channelRoleCounter = async () => {
+    await (await getChannel(salons.compteur)).edit({
+        name: `🌗│${(await getGuild()).memberCount} membres`
+    });
 };
