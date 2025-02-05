@@ -1,4 +1,5 @@
-const {client, MessageFlags} = require("./../../index.js");
+const {client} = require("./../../index.js");
+const {MessageFlags} = require("discord.js");
 const {redBright} = require("cli-color");
 const debug = process.env.DEBUG === "true";
 const interType = {
