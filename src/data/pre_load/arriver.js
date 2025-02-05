@@ -25,7 +25,7 @@ module.exports.send = async () => {
                     value: `- Respectez la vie privée : Ne partagez jamais vos **adresses e-mail ou numéros de téléphone** dans les salons publics.\n- Protection des documents : Ne postez pas de liens Drive ou autres documents confidentiels dans les salons publics.\n- Si tu as besoin d'aide <#${salons.aide_questions}>`
                 }, {
                     name: "Participer à une Réunion d’accueil 🤝",
-                    value: "- Les [réunions d’accueil](https://us02web.zoom.us/j/86054314608?pwd=RnFqRFVEbHRXaVVkR0V1dEFCRHhtUT09) des nouveaux adhérents et sympathisants se déroulent :\n - Le premier dimanche de chaque mois à 19h00\n - Le troisième mercredi de chaque mois à 12h30"
+                    value: "- Les réunions d’accueil des nouveaux adhérents et sympathisants se déroulent :\n - [Le premier dimanche de chaque mois à 19h00](https://us02web.zoom.us/j/87353318442?pwd=44HcaChnQkd2zNIaSgZ6Nw4X40jHf9.1)\n - [Le troisième mercredi de chaque mois à 12h30](https://us02web.zoom.us/j/86436461575?pwd=aE2B5noC6QyP6S7qgM9GVI5MbFtaQP.1)"
                 }, {
                     name: "Ressources importantes 🔗",
                     value: "- [Manifeste du parti](https://drive.google.com/file/d/1vgSE_hrin1K2FYVhMIPSl4Vs6StKerv8/view?usp=drive_link)\n- [Les podcasts d'Équinoxe](https://parti-equinoxe.fr/nos-podcasts/)\n- Tu es sur ta boucle WhatsApp ? https://discord.com/channels/861570273400717313/1276190973105410101"
