@@ -1,6 +1,6 @@
 const {MessageFlags} = require("discord.js");
 const {getChannel, getGuild} = require("./utils");
-const {salons} = require("./permanent");
+const {salons, roles} = require("./permanent");
 /**
  * @param {ButtonInteraction} interaction
  */
@@ -38,6 +38,9 @@ module.exports.userARole = (rolesUser, roleID) => {
  */
 module.exports.channelRoleCounter = async () => {
     await (await getChannel(salons.compteur)).edit({
-        name: `🌗│${(await getGuild()).memberCount} membres`
+        name: `🌓│${(await getGuild()).memberCount} membres`
+    });
+    await (await getChannel(salons.compteur_adh)).edit({
+        name: `🌓│${(await getGuild()).roles.cache.get(roles.adherent).members.size} connectés`
     });
 };
