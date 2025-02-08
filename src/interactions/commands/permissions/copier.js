@@ -33,12 +33,12 @@ module.exports = {
                 deny: p.deny.toArray()
             }
         });
-        console.log(permissions);
+        //console.log(permissions);
         await channel.permissionOverwrites.set(permissions,`Copie de permission depuis ${channel_permission.name}`);
         await log(`Les permissions de <#${channel_permission.id}> on été appliquées au salon <#${channel.id}>.`, "Copie de permission :", interaction.member, "warning");
         return interaction.reply({
             content: `:white_check_mark: Les permissions de <#${channel_permission.id}> ont bien été appliquées au salon <#${channel.id}> !`,
             flags: [MessageFlags.Ephemeral]
-        })
+        });
     }
 }
