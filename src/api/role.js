@@ -35,6 +35,9 @@ module.exports.userARole = (rolesUser, roleID) => {
 };
 
 /**
+ * Permet de mettre a jour les compteurs (salons)\
+ * **Le bot doit avoir comme perm sur le salon : Voir et Se connecter**
+ * @returns {Promise<void>}
  */
 module.exports.channelRoleCounter = async () => {
     await (await getChannel(salons.compteur)).edit({
