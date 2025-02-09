@@ -33,7 +33,7 @@ module.exports = {
                 deny: p.deny.toArray()
             };
         });
-        const new_perm = permission.filter(p => p.id === roles.adherent).map(p=>{
+        const new_perm = permission.filter(p => p.id === roles.adherent).map(p => {
             return {
                 id: "1325177770824957952",
                 allow: p.allow,
@@ -41,7 +41,15 @@ module.exports = {
             }
         });
         permission.push(...new_perm);
-        await channel.permissionOverwrites.set(permission,`Copies des permissions vers <@&1325177770824957952>`);
+        try {
+            await channel.permissionOverwrites.set(permission, `Copies des permissions vers <@&1325177770824957952>`);
+        } catch (e) {
+            console.log(e);
+            return interaction.reply({
+                content: `:no_entry_sign: Je n'ai pas les permissions de modifier ce salon.`,
+                flags: [MessageFlags.Ephemeral]
+            });
+        }
         await log(`Les permissions pour le nouveau role adhérent on été appliquées au salon <#${channel.id}>.`, "Maj de permission :", interaction.member, "warning");
         return interaction.reply({
             content: `:white_check_mark: Les permissions pour le nouveau role adhérent ont bien été appliquées au salon <#${channel.id}> !`,
