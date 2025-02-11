@@ -27,6 +27,7 @@ const client = new Client({
     ],
     partials: [Partials.Channel, Partials.User, Partials.Reaction, Partials.Message, Partials.GuildMember, Partials.GuildScheduledEvent, Partials.ThreadMember],
 });
+const version = "1.0.0";
 
 console.log(greenBright.bold.underline("Lancement du bot :"));
 
@@ -50,7 +51,7 @@ module.exports.client = client;
 ["command", "event", "button", "select", "modal"].forEach(async (handler) => {
     await require(`./handlers/preload/${handler}`)(client);
 });
-console.log(greenBright.bold.underline("Connection à discord…"));
+console.log(greenBright.bold.underline("Connection à discord… (v" + version + ")"));
 //Connection du bot :
 client.login(process.env.TOKEN).catch((reason) => {
     console.log(redBright.bold("La connection à discord à échoué !"));
