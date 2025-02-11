@@ -47,3 +47,36 @@ module.exports.channelRoleCounter = async () => {
         name: `🌓│${(await getGuild()).roles.cache.get(roles.adherent).members.size} connectés`
     });
 };
+
+/**
+ * Met a jour les roles (sympathisant) en fct de adherent
+ * @param member
+ * @return {Promise<void>}
+ */
+module.exports.updateRoleMember = async (member) => {
+    try {
+        const adh = module.exports.userARole(member.roles.cache, roles.adherent);
+        const symp = module.exports.userARole(member.roles.cache, roles.sympathisant);
+        if ((adh && !symp) || (!adh && symp)) return;
+        if (adh && symp) {
+            await member.roles.remove(roles.sympathisant);
+        }
+        if (!adh && !symp) {
+            await member.roles.add(roles.sympathisant);
+        }
+    } catch (e) {
+        console.log(`>> Erreur de mise à jour de role pour ${member.nickname ?? member.user.username} (${member.id}) : ${e}`);
+    }
+}
+
+/**
+ * Verif que les sympathisants / adherents ont bien le bon role
+ * @param members
+ * @return {Promise<void>}
+ */
+module.exports.verifRoles = async (members) => {
+    for (const member of members) {
+        if (member.user.bot) continue;
+        await this.updateRoleMember(member);
+    }
+}

@@ -29,7 +29,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
         await inter[1](client, interaction);
         if (debug) console.log(`> ${Date.now() - interaction.createdTimestamp}ms`);
     } catch (err) {
-        if (!err) return;
         console.log(redBright.bold(`>> Erreur dans ${interaction.commandName ?? interaction.customId ?? "inconnue"} (${interName[interaction.type] ?? "inconnu"}) :`));
         console.log(err);
         let cmdPing = null;
