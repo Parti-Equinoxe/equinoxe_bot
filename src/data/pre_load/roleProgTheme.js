@@ -15,7 +15,7 @@ const rolesNotif = [
     {
         roleID: "social",
         emoji: "👫",
-        description: "Équipe responsable du programme portant sur es questions sociales et sociétales: droits animaux et humains, égalité homme-femme, discriminations, personnes âgées, retraites, handicap, culture, sport, enfance, famille."
+        description: "Équipe responsable du programme portant sur les questions sociales et sociétales: droits animaux et humains, égalité homme-femme, discriminations, personnes âgées, retraites, handicap, culture, sport, enfance, famille."
     },
     {
         roleID: "sante",
@@ -66,7 +66,7 @@ const rolesNotif = [
     {
         roleID: "logement",
         emoji: "🏘️",
-        description: "Équipe responsable du programme portant sur ’accès au logement, la rénovation énergétique, l’urbanisme et l’aménagement du territoire (en lien avec transport, économie, environnement)."
+        description: "Équipe responsable du programme portant sur l’accès au logement, la rénovation énergétique, l’urbanisme et l’aménagement du territoire (en lien avec transport, économie, environnement)."
     }
 ];
 const nbPerRow = 3;
@@ -81,7 +81,7 @@ module.exports.send = async (interaction) => {
     const contri = new AttachmentBuilder('./data/images/contribuer.png', {name: 'contribuer.png'});
     return {
         embeds: [new EmbedBuilder()
-            .setDescription(`# __Contribuez en rejoignant les équipes thématiques :__\nPour aider à la création et au maintient du programme, par thème.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&${roles.responsable_programme}>, <@&${roles.coordination_programme}> et les responsables thématiques.`)
+            .setDescription(`# __Contribuez en rejoignant les équipes thématiques :__\nPour aider à la création et au maintien du programme, par thème.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&${roles.responsable_programme}> et les responsables thématiques.`)
             .setColor(couleurs.jaune)
             .setThumbnail(banniere.link)
             .setImage(`attachment://contribuer.png`)
