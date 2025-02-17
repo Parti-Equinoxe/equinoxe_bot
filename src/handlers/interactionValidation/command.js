@@ -9,7 +9,7 @@ module.exports = async (client, interaction) => {
     if (!cmd) return [false, {content: "Cette commande ne semble pas exister !", flags: [MessageFlags.Ephemeral]}];
     const channel = interaction.channel ?? (await interaction.guild.channels.fetchActiveThreads()).threads.get(interaction.channelId);
     if (!cmd.mp && channel.isDMBased()) {
-        return [false, {content: `Cette commande ne peut pas être fait en en MP !Allez sur **un serveur** pour fait votre commande.`}];
+        return [false, {content: `Cette commande ne peut pas être fait en en MP ! Allez sur **un serveur** pour fait votre commande.`}];
     }
     //Vérifie si l'utilisateur est du CE
     if ("ce" === cmd.category && !(userARole(interaction.member.roles.cache, roles.comite_ethique))) {

@@ -42,6 +42,7 @@ module.exports = (client) => {
     });
 };
 
+//genere les fichiers des buttons (contribuer)
 function roleReact() {
     const contribuer = fs.readdirSync("./interactions/buttons/contribuer").filter((file) => file.endsWith(".js")).map((file) => file.replace(".js", ""));
     const listeRoles = Object.keys(roles).filter((role)=> !role.includes("responsable") && !role.includes("referent")).filter((role) => !configRoleReact.includes(role) && !contribuer.includes(role));
