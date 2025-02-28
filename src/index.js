@@ -3,6 +3,7 @@ require("dotenv").config();
 const {Client, GatewayIntentBits, Partials, Collection} = require("discord.js");
 const {greenBright, redBright} = require("cli-color");
 const configFile = require("./config.json");
+const configHandler = require("./data/configHandler.js");
 const client = new Client({
     intents: [
         GatewayIntentBits.DirectMessageReactions,
@@ -33,6 +34,7 @@ console.log(greenBright.bold.underline("Lancement du bot :"));
 
 //Mise en cache de la config :
 client.config = configFile;
+client.configHandler = new configHandler(configFile);
 //config bdd :
 if (configFile.bdd) {
     require("./api/bdd.js");

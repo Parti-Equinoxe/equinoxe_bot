@@ -1,7 +1,30 @@
 {
   "dev": [
-	"665266080285196299"
+	  "665266080285196299"
   ],
   "bdd": false,
-  "guildID": "861570273400717313"
+  "guildID": "861570273400717313",
+  "postPing": {
+    "alias<salon>:creation_contenu": {
+      "pingNewPost": {
+          "1282285783788552327": "alias<roles>:equipe_graphiste",
+          "1282285835278094399": "alias<roles>:equipe_monteur",
+          "1282285936754954250": "alias<roles>:equipe_redacteur",
+          "1282285978542805086": "alias<roles>:equipe_audio"
+      },
+      "messageNewPost": ":wrench: %pings%\nIl ya du travail !!",
+      "pingDonePost": [
+        "1282349736413888624",
+        "1282349676657512549"
+      ],
+      "messageDonePost": "Super bravo à tous !\n:lock: Ce post est maintenant archivé !!"
+    },
+    "alias<salon>:demande_mail": {
+      "pingDonePost": [
+        "1282349736413888624",
+        "1287319737239601203"
+      ],
+      "messageDonePost": "Super bravo à tous !\n:lock: Ce post est maintenant archivé !!"
+    }
+  }
 }

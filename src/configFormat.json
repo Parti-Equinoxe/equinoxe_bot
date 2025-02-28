@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://parti-equinoxe.fr/discord-bot/configFormat.json",
+  "title": "Discord Bot Configuration",
+  "description": "La configuration pour le Bot Discord de Equinoxe.",
+  "type": "object",
+  "properties": {
+        "dev": {
+            "description": "TODO",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^(?:alias<\\w+>:.+)|\\d+$"
+            }
+        },
+        "bdd": {
+            "description": "TODO",
+            "type": "boolean"
+        },
+        "guildID": {
+            "description": "TODO, changer en integer ?",
+            "type": "string",
+            "pattern": "^(?:alias<\\w+>:.+)|\\d+$"
+        },
+        "postPing": {
+            "description": "Une liste de salons forum, avec leur configuration respectif, dont lesquelles le bot doit observer les tags et mentionnée les groupes.",
+            "type": "object",
+            "patternProperties": {
+                "^(?:alias<\\w+>:.+)|\\d+$": {
+                    "description": "L'id d'un salon forum et sa configuration.",
+                    "type": "object",
+                    "properties": {
+                        "pingNewPost": {
+                            "description": "Une liste d'id d'un tag associé à l'id d'un groupe. Quand le tag est présent à la création d'un fil, le groupe est alors mentionné dans le fil.",
+                            "type": "object",
+                            "patternProperties": {
+                                "^(?:alias<\\w+>:.+)|\\d+$": {
+                                    "description": "L'id d'un tag (en clée) et l'id d'un groupe (en valeur).",
+                                    "type": "string",
+                                    "pattern": "^(?:alias<\\w+>:.+)|\\d+$"
+                                }
+                            }
+                        },
+                        "messageNewPost": {
+                            "description": "Le message à envoyer lors de la création d'un fil. %pings% est remplacé par la liste des groupes mentionnés.",
+                            "type": "string"
+                        },
+                        "pingDonePost": {
+                            "description": "Une liste d'id de tag qui cause l'archivage du fil quand ajouter.",
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "pattern": "^(?:alias<\\w+>:.+)|\\d+$"
+                            }
+                        },
+                        "messageDonePost": {
+                            "description": "Le message à envoyer lors de l'archivage d'un fil.",
+                            "type": "string"
+                        }
+                    },
+                    "dependentRequired": {
+                        "messageNewPost": ["pingNewPost"],
+                        "pingDonePost": ["pingNewPost"]
+                    }
+                }
+            }
+        }
+    }
+}
