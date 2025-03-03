@@ -35,7 +35,7 @@ module.exports = {
         });
         const new_perm = permission.filter(p => p.id === roles.adherent).map(p => {
             return {
-                id: "1325177770824957952",
+                id: "1325177770824957952",//adh connecte
                 allow: p.allow,
                 deny: p.deny
             }
