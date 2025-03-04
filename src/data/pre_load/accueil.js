@@ -40,7 +40,7 @@ module.exports.send = async (interaction) => {
                 .setImage(`attachment://reglement.png`)
                 .addFields({
                     name: "Pensez à vous renommer : <Prénom> <Nom> et à vous présenter :",
-                    value: "- Cela permet **une meilleure intégration** ainsi qu'__une plus grande transparence__ de plus autant __assumer vos avis__. *Vous pouvez utiliser le bouton ci-dessous pour vous renommer.*\n- <#862077093226610688> pour vous présenter.\n"
+                    value: "- Cela permet **une meilleure intégration** ainsi qu'__une plus grande transparence__. De plus autant __assumer vos avis__. *Vous pouvez utiliser le bouton ci-dessous pour vous renommer.*\n- <#862077093226610688> pour vous présenter.\n"
                 }, {
                     name: "Ni insulte, ni attaque personnelle :",
                     value: "- On discute des **idées** et __non des personnes__.\n- On peut **déconstruire des arguments** ou **proposer des contre-arguments** __sans s'attaquer aux personnes__ les proposant.\n- Ainsi, **les insultes** ou **attaques personnelles** ne sont pas tolérées, *la modération veille au grain !*\n"
