@@ -45,7 +45,7 @@ module.exports.channelRoleCounter = async () => {
         name: `🌓│${(await getGuild()).memberCount} membres`
     });
     await (await getChannel(salons.compteur_adh)).edit({
-        name: `🌓│${(await getGuild()).roles.cache.get(roles.adherent).members.size} connectés`
+        name: `🌓│${(await getGuild()).roles.cache.get(roles.adherent).members.size} adhérents`
     });
 };
 
