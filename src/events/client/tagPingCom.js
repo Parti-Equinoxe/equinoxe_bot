@@ -52,7 +52,7 @@ client.on(Events.ThreadCreate, async (thread) => {
 
 client.on(Events.ThreadUpdate, async (oldThread, newThread) => {
     let config = {};
-    if (!client.configHandler.tryGetFrist((key, value) => key == thread.parentId, config, "postPing"))
+    if (!client.configHandler.tryGetFrist((key, value) => key == newThread.parentId, config, "postPing"))
         return;
     if (config.value.pingDonePost === undefined)
         return;

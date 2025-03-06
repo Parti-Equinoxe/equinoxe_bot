@@ -1,9 +1,10 @@
 //Template made with love by Here-Template (https://github.com/here-template)
 require("dotenv").config();
-const {Client, GatewayIntentBits, Partials, Collection} = require("discord.js");
+const { Client, GatewayIntentBits, Partials, Collection } = require("discord.js");
+const configPath = "./config.json";
 const {greenBright, redBright} = require("cli-color");
-const configFile = require("./config.json");
-const configHandler = require("./data/configHandler.js");
+const configFile = require(configPath);
+const configHandler = require("./api/configHandler.js");
 const client = new Client({
     intents: [
         GatewayIntentBits.DirectMessageReactions,
@@ -34,7 +35,7 @@ console.log(greenBright.bold.underline("Lancement du bot :"));
 
 //Mise en cache de la config :
 client.config = configFile;
-client.configHandler = new configHandler(configFile);
+client.configHandler = new configHandler(configPath);
 //config bdd :
 if (configFile.bdd) {
     require("./api/bdd.js");
