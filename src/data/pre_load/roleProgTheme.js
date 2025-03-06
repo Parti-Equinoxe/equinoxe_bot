@@ -8,95 +8,64 @@ const {banniere, couleurs, roles} = require("../../api/permanent.js");
 
 const rolesNotif = [
     {
-        roleID: "agriculture_environement",
+        roleID: "environement",
         emoji: "🌾",
-        description: "Équipe responsable du programme portant sur l’agriculture, l’alimentation, l’environnement, la mer, les forêts, la biodiversité."
+        description: "> Agriculture & Alimentation\n> Forêts & milieux naturels\n> Pêche & Domaine Maritime\n> Biodiversité."
     },
     {
         roleID: "social",
-        emoji: "👫",
-        description: "Équipe responsable du programme portant sur les questions sociales et sociétales: droits animaux et humains, égalité homme-femme, discriminations, personnes âgées, retraites, handicap, culture, sport, enfance, famille."
-    },
-    {
-        roleID: "sante",
-        emoji: "🫀",
-        description: "Équipe responsable du programme portant sur les questions de santé, de ses acteurs, de ses infrastructures, de l'accès au système de santé ainsi que de son organisation."
+        emoji: "🙆",
+        description: "> Logement\n> Santé\n> Éducation\n> Culture"
     },
     {
         roleID: "economie",
         emoji: "💰",
-        description: "Équipe responsable du programme portant sur les questions économiques, la fiscalité, le travail, le commerce extérieur, le tourisme, l’industrie, ainsi que les questions d'inégalités économiques."
+        description: "> Système économique, monétaire et financier\n> Administrations & Finances Publiques\n> Entreprises\n> Travail & Emploi"
     },
     {
         roleID: "international",
         emoji: "🌍",
-        description: "Équipe responsable du programme portant sur les relations, coopérations et politiques internationales et européennes, et sur la défense."
+        description: "> Défense\n> Union européenne\n> Géopolitique & diplomatie\n> Flux migratoires"
     },
     {
-        roleID: "numerique",
-        emoji: "🖥️",
-        description: "Équipe responsable du programme portant sur le numérique et l’intelligence artificielle: risques et opportunités, impact sociétal et environnemental, règlementations, transformation numérique de la fonction publique, inégalité numérique."
-    },
-    {
-        roleID: "energie",
-        emoji: "⚡",
-        description: "Équipe responsable du programme portant sur les modalités de production, de stockage, de transport et de consommation de l'énergie."
+        roleID: "technique",
+        emoji: "🔧",
+        description: "> Énergie\n> Numérique\n> Industrie\n> Transport"
     },
     {
         roleID: "democratie",
         emoji: "🗽",
-        description: "Équipe responsable du programme portant sur les questions de gouvernance et de démocratie, le renouveau démocratique, les modalités d’élection, le référendum, les conventions citoyennes."
+        description: "> Institutions\n> Citoyenneté & Identité\n> Justice\n> Médias"
     },
     {
-        roleID: "cohesion",//securite-justice
+        roleID: "cohesion",
         emoji: "🤝",
-        description: "Équipe responsable du programme portant sur la sécurité intérieure, la justice, l'immigration, le droit d’asile."
-    },
-    {
-        roleID: "education",
-        emoji: "📖",
-        description: "Équipe responsable du programme portant sur l'éducation, l'enseignement supérieur, la recherche et la formation tout au long de la vie."
-    },
-    {
-        roleID: "transport",
-        emoji: "🚅",
-        description: "Équipe responsable du programme portant sur les modalités, les équipements, les infrastructures de transport et de mobilité."
-    }
-    ,
-    {
-        roleID: "logement",
-        emoji: "🏘️",
-        description: "Équipe responsable du programme portant sur l’accès au logement, la rénovation énergétique, l’urbanisme et l’aménagement du territoire (en lien avec transport, économie, environnement)."
+        description: "> Sécurité & Appareil judiciaire\n> Immigration\n> Discriminations\n> Laïcité"
     }
 ];
-const nbPerRow = 3;
+const nbPerRow = 4;
 
 /**
  * @param {ChatInputCommandInteraction} interaction
  */
 module.exports.send = async (interaction) => {
-    console.log(rolesNotif.slice(0, 4).map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> : ${role.description}`).join("\n").length);
-    console.log(rolesNotif.slice(4, 7).map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> : ${role.description}`).join("\n").length);
-    console.log(rolesNotif.slice(7, 12).map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> : ${role.description}`).join("\n").length);
+    console.log(rolesNotif.slice(0, nbPerRow).map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> : ${role.description}`).join("\n").length);
+    console.log(rolesNotif.slice(nbPerRow, nbPerRow*2).map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> : ${role.description}`).join("\n").length);
     const contri = new AttachmentBuilder('./data/images/contribuer.png', {name: 'contribuer.png'});
     return {
         embeds: [new EmbedBuilder()
-            .setDescription(`# __Contribuez en rejoignant les équipes thématiques :__\nPour aider à la création et au maintien du programme, par thème.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&${roles.responsable_programme}> et les responsables thématiques.`)
+            .setDescription(`# __Contribuez en rejoignant les équipes thématiques :__\nPour aider à la création et au maintien du programme, par thème.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&${roles.responsable_programme}>.`)
             .setColor(couleurs.jaune)
             .setThumbnail(banniere.link)
             .setImage(`attachment://contribuer.png`)
             .addFields({
-                    name: "__Liste des rôles :__",
-                    value: rolesNotif.slice(0, 4).map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> : ${role.description}`).join("\n"),
-                },
+                    name: "__Liste des rôles (domaines) :__",
+                    value: rolesNotif./*slice(0, nbPerRow).*/map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> :\n${role.description}`).join("\n"),
+                }/*,
                 {
                     name: "** **",
-                    value: rolesNotif.slice(4, 7).map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> : ${role.description}`).join("\n"),
-                },
-                {
-                    name: "** **",
-                    value: rolesNotif.slice(7, 12).map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> : ${role.description}`).join("\n"),
-                })
+                    value: rolesNotif.slice(nbPerRow, nbPerRow*2).map((role) => `- ${role.emoji}・<@&${roles[role.roleID]}> :\n${role.description}`).join("\n"),
+                }*/)
             .setFooter({text: "Cliquez sur les boutons ci-dessous pour vous ajouter/retirer des roles."})],
         components: actionRaw(rolesNotif, interaction),
         files: [banniere.file(), contri]
