@@ -1,6 +1,7 @@
-const {MessageFlags} = require("discord.js");
+const {MessageFlags, Snowflake, ButtonInteraction} = require("discord.js");
 const {getChannel, getGuild} = require("./utils");
 const {salons, roles} = require("./permanent");
+const {client} = require("../index");
 /**
  * @param {ButtonInteraction} interaction
  */
@@ -44,7 +45,7 @@ module.exports.channelRoleCounter = async () => {
         name: `🌓│${(await getGuild()).memberCount} membres`
     });
     await (await getChannel(salons.compteur_adh)).edit({
-        name: `🌓│${(await getGuild()).roles.cache.get(roles.adherent).members.size} connectés`
+        name: `🌓│${(await getGuild()).roles.cache.get(roles.adherent).members.size} adhérent(e)s`
     });
 };
 
@@ -79,4 +80,27 @@ module.exports.verifRoles = async (members) => {
         if (member.user.bot) continue;
         await this.updateRoleMember(member);
     }
+}
+
+/**
+ * Met à jour les perms du role @sympathisant sur celles de @everyone
+ * @param {Snowflake | String} channelID
+ */
+module.exports.majPermSymp = async (channelID) => {
+    const channel = await getChannel(channelID);
+    const perms = channel.permissionOverwrites.cache.map(p => {
+        return {
+            id: p.id, // nouveau role id
+            allow: p.allow.toArray(),
+            deny: p.deny.toArray()
+        };
+    }).filter(p => p.id !== roles.sympathisant);//role @everyone
+    const perm_everyone = perms.find(p => p.id === client.config.guildID);
+    if (!perm_everyone) return;
+    perms.push({
+        id: roles.sympathisant,
+        allow: perm_everyone.allow,
+        deny: perm_everyone.deny
+    });
+    await channel.permissionOverwrites.set(perms,`Copies des permissions de @everyone vers sympathisant`);
 }
