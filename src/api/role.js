@@ -118,7 +118,7 @@ module.exports.majPermSymp = async (channelID) => {
     const channel = await getChannel(channelID);
     const perms = channel.permissionOverwrites.cache.map(p => {
         return {
-            id: p.id, // nouveau role id
+            id: p.id,
             allow: p.allow.toArray(),
             deny: p.deny.toArray()
         };
@@ -131,4 +131,27 @@ module.exports.majPermSymp = async (channelID) => {
         deny: perm_everyone.deny
     });
     await channel.permissionOverwrites.set(perms, `Copies des permissions de @everyone vers sympathisant`);
+}
+
+/**
+ * Met à jour les perms du role @sympathisant sur celles de @everyone
+ * @param {Snowflake | String} channelID
+ */
+module.exports.majPermInvite = async (channelID) => {
+    const channel = await getChannel(channelID);
+    const perms = channel.permissionOverwrites.cache.map(p => {
+        return {
+            id: p.id,
+            allow: p.allow.toArray(),
+            deny: p.deny.toArray()
+        };
+    }).filter(p => p.id !== roles.invite);
+    const perm_everyone = perms.find(p => p.id === roles.adherent);
+    if (!perm_everyone) return;
+    perms.push({
+        id: roles.invite,
+        allow: perm_everyone.allow,
+        deny: perm_everyone.deny
+    });
+    await channel.permissionOverwrites.set(perms, `Copies des permissions de adherent vers invite`);
 }
