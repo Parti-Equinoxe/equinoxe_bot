@@ -6,6 +6,11 @@ const {client} = require("../index");
  * @param {ButtonInteraction} interaction
  */
 module.exports.rolereact = async (interaction, roleID) => {
+    const adh = module.exports.userARole(interaction.member.roles.cache, roles.adherent);
+    if (!adh) return interaction.reply({
+        content: `:no_entry_sign: Vous devez être adhérent(e) et avoir lié votre compte (<#${salons.a_lire_adherents}>) pour pouvoir prendre des rôles.`,
+        flags: [MessageFlags.Ephemeral]
+    })
     const role = await interaction.guild.roles.fetch(roleID);
     if (!interaction.member.manageable) return interaction.reply({
         content: ":no_entry_sign: Je n'ai pas la permission de modifier vos roles.",
@@ -14,13 +19,13 @@ module.exports.rolereact = async (interaction, roleID) => {
     if (this.userARole(interaction.member.roles.cache, roleID)) {
         await interaction.member.roles.remove(role);
         return interaction.reply({
-            content: `Le role <@&${roleID}> vous a bien été retiré.`,
+            content: `Le role <@&${roleID}> vous a bien été **retiré**.`,
             flags: [MessageFlags.Ephemeral]
         });
     } else {
         await interaction.member.roles.add(role);
         return interaction.reply({
-            content: `Le role <@&${roleID}> vous a bien été ajouté.`,
+            content: `Le role <@&${roleID}> vous a bien été **ajouté**.`,
             flags: [MessageFlags.Ephemeral]
         });
     }
@@ -58,15 +63,37 @@ module.exports.updateRoleMember = async (member) => {
     try {
         const adh = module.exports.userARole(member.roles.cache, roles.adherent);
         const symp = module.exports.userARole(member.roles.cache, roles.sympathisant);
-        if ((adh && !symp) || (!adh && symp)) return;
-        if (adh && symp) {
+        const invite = module.exports.userARole(member.roles.cache, roles.invite);
+        const autorise = adh || invite;
+        if ((autorise && !symp) || (!autorise && symp)) return;
+        if (autorise && symp) {
             await member.roles.remove(roles.sympathisant);
         }
-        if (!adh && !symp) {
+        if (!autorise && !symp) {
             await member.roles.add(roles.sympathisant);
         }
     } catch (e) {
         console.log(`>> Erreur de mise à jour de role pour ${member.nickname ?? member.user.username} (${member.id}) : ${e}`);
+    }
+}
+
+/**
+ * Supprime les roles (si sympathisant)
+ * @param member
+ * @return {Promise<void>}
+ */
+module.exports.removeRoleMember = async (member) => {
+    try {
+        const symp = module.exports.userARole(member.roles.cache, roles.sympathisant);
+        if (!symp) return;
+        if (member.roles.cache.size === 1) return;
+        for (const role of member.roles.cache) {
+            if (role.id === roles.sympathisant) continue;
+            console.log(role.name);
+            //await member.roles.remove(role); @TODO a activer
+        }
+    } catch (e) {
+        console.log(`>> Erreur de suppression de role pour ${member.nickname ?? member.user.username} (${member.id}) : ${e}`);
     }
 }
 
@@ -79,6 +106,7 @@ module.exports.verifRoles = async (members) => {
     for (const member of members) {
         if (member.user.bot) continue;
         await this.updateRoleMember(member);
+        await this.removeRoleMember(member);
     }
 }
 
@@ -102,5 +130,5 @@ module.exports.majPermSymp = async (channelID) => {
         allow: perm_everyone.allow,
         deny: perm_everyone.deny
     });
-    await channel.permissionOverwrites.set(perms,`Copies des permissions de @everyone vers sympathisant`);
+    await channel.permissionOverwrites.set(perms, `Copies des permissions de @everyone vers sympathisant`);
 }
