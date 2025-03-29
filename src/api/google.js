@@ -1,20 +1,31 @@
-const {google} = require("googleapis");
-const {writeFileSync, existsSync} = require("fs");
-const {blueBright} = require("cli-color");
-const calendarConfig = require("../data/utils/calendar.json");
-const {EmbedBuilder} = require("discord.js");
-const {roles, salons} = require("./permanent");
-const {getChannel} = require("./utils");
+const { google } = require("googleapis");
+const { writeFileSync, existsSync } = require("fs");
+const { blueBright } = require("cli-color");
+const { EmbedBuilder } = require("discord.js");
+const { getChannel } = require("./utils.js");
 
+// je suis pas certaint du nom Calendar, cella ne serrait pas plus un evenemnt qu'un callendrier ? @Youritch
+// Calendrier > Evenements > Datess/Sessionss
+// Cella pourrait peut être rendre moins confusant avec le caledrier google ?
 /**
  * @typedef {{
  *       name: string,
  *       color: `#${string}`,
- *       id: string,
  *       calendarID: string,
  *       role: string,
  *       channel: string
- *     }} CalendarConfig
+ *     }} Calendar
+ */
+/**
+ * @typedef {{
+ *   [key: string]: {
+ *     name: string,
+ *     color: `#${string}`,
+ *     calendarID: string,
+ *     role: string,
+ *     channel: string
+ *   }
+ * }} CalendarsConfig
  */
 /**
  * @typedef {{id: string,
@@ -24,7 +35,7 @@ const {getChannel} = require("./utils");
  *      end: Date,
  *      name: string,
  *      description: string,
- *      calendar: CalendarConfig,
+ *      calendar: Calendar,
  *      fullDay: boolean
  *    }} CalendarEvent
  */
@@ -57,14 +68,14 @@ const auth = new google.auth.GoogleAuth({
 });
 
 /**
- * @param events
+ * @param events les evenements google associer au calendrier
+ * @param calendar le calendrier associer aux evenements
  * @return {Array<CalendarEvent>}
  */
-function eventsFormater(events) {
-    const cal = calendarConfig.list.find(c => c.name === events.summary);
+function eventsFormater(events, calendar) {
     return events.items.map((event) => {
         return {
-            calendar: cal,
+            calendar: calendar,
             id: event.id,
             created: new Date(event.created),
             updated: new Date(event.updated),
@@ -78,40 +89,40 @@ function eventsFormater(events) {
 }
 
 /**
- * @param {String} calID
+ * @param {Calendar} calendar
  * @return {Promise<Array<CalendarEvent>>}
  */
-module.exports.nextWeek = async (calID) => {
+module.exports.nextWeek = async (calendar) => {
     const timeMin = this.weekTimeEnd(new Date(), 1);
     const timeMax = this.weekTimeEnd(timeMin, 1);
-    return await this.getEvents(calID, timeMin, timeMax);
+    return await this.getEvents(calendar, timeMin, timeMax);
 }
 /**
- * @param {String} calID
+ * @param {String} calendar
  * @return {Promise<Array<CalendarEvent>>}
  */
-module.exports.thisWeek = async (calID) => {
+module.exports.thisWeek = async (calendar) => {
     const timeMin = new Date();
     const timeMax = this.weekTimeEnd(timeMin, 1);
-    return await this.getEvents(calID, timeMin, timeMax);
+    return await this.getEvents(calendar, timeMin, timeMax);
 }
 
 /**
- * @param {String} calID
+ * @param {Calendar} calendar
  * @param {Date} start
  * @param {Date} end
  * @return {Promise<Array<CalendarEvent>>}
  */
-module.exports.getEvents = async (calID, start, end) => {
-    const calendar = google.calendar({version: 'v3', auth});
-    const resp = await calendar.events.list({
-        calendarId: calendarConfig.list.find(c => c.id === calID).calendarID,
+module.exports.getEvents = async (calendar, start, end) => {
+    const googleCalendar = google.calendar({version: 'v3', auth});
+    const resp = await googleCalendar.events.list({
+        calendarId: calendar.calendarID,
         timeMin: start.toISOString(),
         timeMax: end.toISOString(),
         singleEvents: true,
         orderBy: 'startTime',
     });
-    return eventsFormater(resp.data);
+    return eventsFormater(resp.data, calendar);
 }
 /**
  * @param {Array<CalendarEvent>} events
@@ -126,13 +137,13 @@ module.exports.embedEvents = (events) => {
             if (event.fullDay) textDate = `Le <t:${Math.round(event.start.getTime() / 1000)}:D>` + (event.end.getTime() - event.start.getTime() > 86400000 ? ` au <t:${Math.round(event.end.getTime() / 1000)}:D>` : "");
             return {
                 name: event.name,
-                value: `${textDate}.\n> ${event.description ?? "Pas de description."}\nÉquipe : <@&${roles[event.calendar.role]}>`
+                value: `${textDate}.\n> ${event.description ?? "Pas de description."}\nÉquipe : <@&${event.calendar.role}>`
             }
         }))
         .setTimestamp();
 }
 /**
- * @param {CalendarEvent} event
+ * @param {} event
  * @return {EmbedBuilder}
  */
 module.exports.embedEvent = (event) => {
@@ -140,26 +151,27 @@ module.exports.embedEvent = (event) => {
     if (event.fullDay) textDate = `Le <t:${Math.round(event.start.getTime() / 1000)}:D>` + (event.end.getTime() - event.start.getTime() > 86400000 ? ` au <t:${Math.round(event.end.getTime() / 1000)}:D>` : "");
     return new EmbedBuilder()
         .setTitle(event.name)
-        .setDescription(`${textDate}.\n> ${event.description ?? "Pas de description."}\nÉquipe : <@&${roles[event.calendar.role]}>`)
+        .setDescription(`${textDate}.\n> ${event.description ?? "Pas de description."}\nÉquipe : <@&${event.calendar.role}>`)
         .setColor(event.calendar.color)
         .setTimestamp();
 }
 
 /**
  * Envoie les events dans leurs salons respectifs, est utilise par cron
+ * @param {CalendarConfig} calendars
  * @return {Promise<number>}
  */
-module.exports.rappel = async () => {
+module.exports.rappel = async (calendars) => {
     let count = 0;
-    for (const cal of calendarConfig.list) {
+    for (const calendar of Object.values(calendars)) {
         const timeMin = new Date();
         const timeMax = this.weekTimeEnd(timeMin, 1);
 
-        const events = await this.getEvents(cal.id, timeMin, timeMax);
+        const events = await this.getEvents(calendar, timeMin, timeMax);
         if (events.length === 0) continue;
         console.log(events);
-        const channel = await getChannel(salons[events[0].calendar.channel]);
-        const embeds = events.slice(0, 10).map(cal => this.embedEvent(cal))
+        const channel = await getChannel(events[0].calendar.channel);
+        const embeds = events.slice(0, 10).map(cal => this.embedEvent(cal));
         await channel.send({
             content: `## Réunion(s) du <t:${Math.round(timeMin.getTime() / 1000)}:d> au <t:${Math.round(timeMax.getTime() / 1000)}:d>`,
             embeds: embeds
@@ -179,14 +191,3 @@ module.exports.weekTimeEnd = (start, nb = 1) => {
     timeMax.setHours(23, 59, 59);
     return timeMax;
 }
-
-/*
-     {
-      "name": "SG - Coordination",
-      "color": "#cb8745",
-      "id": "SG-CO",
-      "calendarID": "secretariat.general.equinoxe@gmail.com",
-      "role": "organisation_du_secretariat",
-      "channel": "orga_secretariat"
-    },
- */

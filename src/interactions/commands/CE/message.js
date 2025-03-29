@@ -1,4 +1,3 @@
-const categories = require("../../../data/utils/categories.json");
 const {ChannelType, EmbedBuilder, MessageFlags} = require("discord.js");
 const {couleurs} = require("../../../api/permanent");
 

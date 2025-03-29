@@ -1,5 +1,6 @@
-const {EmbedBuilder, MessageFlags} = require("discord.js");
-const {salons} = require("../../../api/permanent");
+const { EmbedBuilder, MessageFlags } = require("discord.js");
+const client = require("../../../index.js").client;
+const { setEmbed } = require("../../../api/prefabMessage.js");
 const programmeID = "861575978156687370";
 module.exports = {
     name: "programme",
@@ -13,7 +14,14 @@ module.exports = {
             channelTypes: [11, 15],
         }
     ],
-    runInteraction: async (client, interaction) => {
+    runInteraction: async (_, interaction) => {
+        const config = {};
+        if (!client.configHandler.tryGet("ProgrammeAwnser", config)) {
+            return interaction.reply({
+                content: "Cette commande n'a pas été configurer/activer.",
+                flags: [MessageFlags.Ephemeral]
+            });
+        }
         const channel = interaction.options.getChannel("recherche");
         const forum = channel.isThread() ? (await interaction.guild.channels.fetch(channel.parentId)) : channel;
         if (forum.parentId !== programmeID) return interaction.reply({
@@ -46,12 +54,11 @@ module.exports = {
                 fields.push({name: t.name, value: t.value});
             });
         }
-        const embed = new EmbedBuilder()
-            //.setColor(jaune)
-            .setTitle("Programme :")
-            .setDescription(`Pour participer aux discussions : <#${salons.contribuer}>`)
-            .setFields(fields)
-            .setTimestamp();
+        const embed = new EmbedBuilder();
+        setEmbed(embed, config.value);
+        for (const field of fields.fields) {
+            embed.addFields(field);
+        }
         return interaction.reply({embeds: [embed], flags: [MessageFlags.Ephemeral]});
     },
 }

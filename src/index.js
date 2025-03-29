@@ -4,8 +4,55 @@ const { Client, GatewayIntentBits, Partials, Collection } = require("discord.js"
 const configPath = "./config.json";
 const {greenBright, redBright} = require("cli-color");
 const configFile = require(configPath);
-const configHandler = require("./api/configHandler.js");
-const client = new Client({
+const ConfigHandler = require("./api/configHandler.js");
+
+// Asure une documentation pour le client.
+// Si il au autre solution que d'héritée l'Client je suis preneur
+class CustomClient extends Client {
+    constructor(options) {
+        super(options);
+
+        //Mise en cache de la config :
+        /**
+         * L'objet de configuration chargé depuis le fichier de configuration.
+         * @type {Object}
+         */
+        this.config = configFile;
+
+        /**
+         * L'instance du gestionnaire de configuration pour gérer le fichier de configuration.
+         * @type {ConfigHandler}
+         */
+        this.configHandler = new ConfigHandler(configPath);
+
+        //Création des collections discords pour les handlers :
+        /**
+         * Une Collection de Discord.js pour stocker les gestionnaires de commandes.
+         * @type {Collection}
+         */
+        this.commands = new Collection();
+
+        /**
+         * Une Collection de Discord.js pour stocker les gestionnaires d'interactions de boutons.
+         * @type {Collection}
+         */
+        this.buttons = new Collection();
+
+        /**
+         * Une Collection de Discord.js pour stocker les gestionnaires de menus déroulants.
+         * @type {Collection}
+         */
+        this.selects = new Collection();
+
+        /**
+         * Une Collection de Discord.js pour stocker les gestionnaires de modaux.
+         * @type {Collection}
+         */
+        this.modals = new Collection();
+    }
+}
+
+const client = new CustomClient({
     intents: [
         GatewayIntentBits.DirectMessageReactions,
         GatewayIntentBits.DirectMessageTyping,
@@ -29,26 +76,17 @@ const client = new Client({
     ],
     partials: [Partials.Channel, Partials.User, Partials.Reaction, Partials.Message, Partials.GuildMember, Partials.GuildScheduledEvent, Partials.ThreadMember],
 });
+//export du client
+module.exports.client = client;
+
 const version = "1.0.0";
 
 console.log(greenBright.bold.underline("Lancement du bot :"));
 
-//Mise en cache de la config :
-client.config = configFile;
-client.configHandler = new configHandler(configPath);
 //config bdd :
 if (configFile.bdd) {
     require("./api/bdd.js");
 }
-
-//Création des collections discords pour les handlers :
-client.commands = new Collection();
-client.buttons = new Collection();
-client.selects = new Collection();
-client.modals = new Collection();
-
-//export du client
-module.exports.client = client;
 
 //Chargement en mémoire des handlers :
 ["command", "event", "button", "select", "modal"].forEach(async (handler) => {

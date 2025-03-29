@@ -22,14 +22,14 @@ module.exports = (client) => {
 				//met le cooldown en ms et ajuste le temps max
 				if (commande.cooldown) {
 					commande.cooldown *= 1000;
-					if (commande.cooldown > 2147483646) commande.cooldown = 2147483646; //ne peut pas dépasser cette valeur
+					if (commande.cooldown > 2147483646) commande.cooldown = 2147483646; //ne peut pas dépasser int max
 				}
-				
+
 				//si pas de devOnly, par defaut false
 				if (!commande.devOnly) commande.devOnly = false;
 				//pour bloquer l'utlisation de la commande en mp
 				if (!commande.mp) commande.mp = false;
-				
+
 				//la categorie
 				if (commande.category === "") commande.category = "sans_categorie";
 				if (!commande.commandeGroupe) commande.category = dir === "../commands" ? "sans_categorie" : dir.toLowerCase();
@@ -38,7 +38,7 @@ module.exports = (client) => {
 				if (!commande.botPermissions) commande.botPermissions = [];
 				commande.userPermissions.push("SendMessages");
 				commande.botPermissions.push("SendMessages");
-				
+
 				//upload dans le bot
 				if (commande.commandeGroupe && dir !== "../commands") {
 					commande.isCommandeGroupe = true;

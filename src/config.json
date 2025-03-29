@@ -1,16 +1,17 @@
 {
+  "$schema": "./configSchema.json",
   "dev": [
 	  "665266080285196299"
   ],
   "bdd": false,
   "guildID": "861570273400717313",
   "postPing": {
-    "alias<salon>:creation_contenu": {
+    "alias<salon>:creation_contenu:": {
       "pingNewPost": {
-          "1282285783788552327": "alias<roles>:equipe_graphiste",
-          "1282285835278094399": "alias<roles>:equipe_monteur",
-          "1282285936754954250": "alias<roles>:equipe_redacteur",
-          "1282285978542805086": "alias<roles>:equipe_audio"
+          "1282285783788552327": "alias<roles>:equipe_graphiste:",
+          "1282285835278094399": "alias<roles>:equipe_monteur:",
+          "1282285936754954250": "alias<roles>:equipe_redacteur:",
+          "1282285978542805086": "alias<roles>:equipe_audio:"
       },
       "messageNewPost": ":wrench: %pings%\nIl ya du travail !!",
       "pingDonePost": [
@@ -19,12 +20,539 @@
       ],
       "messageDonePost": "Super bravo à tous !\n:lock: Ce post est maintenant archivé !!"
     },
-    "alias<salon>:demande_mail": {
+    "alias<salon>:demande_mail:": {
       "pingDonePost": [
         "1282349736413888624",
         "1287319737239601203"
       ],
       "messageDonePost": "Super bravo à tous !\n:lock: Ce post est maintenant archivé !!"
     }
-  }
+  },
+  "calendars": {
+    "SG-AA": {
+      "name": "SG - Accueil adhérents",
+      "color": "#FFFF00",
+      "calendarID": "cd8749fba3dd8887e40306d1097e103d99d7abf83da9f565ab6d0331e3a7f199@group.calendar.google.com",
+      "role": ["accueil_des_adherents"],
+      "channel": "alias<salons>:accueil_adherents:"
+    },
+    "SG-AS":{
+      "name": "SG - Admin site",
+      "color": "#FF0000",
+      "calendarID": "c36b651b0bf2d9f800339e6a15610e356dcad7883451660f26fbfa367b61c5ca@group.calendar.google.com",
+      "role": ["alias<roles>:admin_site_internet:"],
+      "channel": "alias<salons>:admin_site_internet:"
+    },
+    "SG-CI":{
+      "name": "SG - Com Interne",
+      "color": "#4CAF50",
+      "calendarID": "be05c27384f74c9db41e299af101d944962b8a7e34789c99f6e71eee1b77f151@group.calendar.google.com",
+      "role": ["alias<roles>:communication_interne:"],
+      "channel": "alias<salons>:com_interne:"
+    },
+    "SG-EV": {
+      "name": "SG - Événementiel",
+      "color": "#FFA500",
+      "calendarID": "bb7a81bb9559168d62b5b1add838bc54d42c9a4edd53befbf2b03de9a978c510@group.calendar.google.com",
+      "role": ["alias<roles>:evenementiel:"],
+      "channel": "alias<salons>:evenementiel:"
+    },
+    "SG-OI": {
+      "name": "SG - Outils internes",
+      "color": "#2196F3",
+      "calendarID": "5f57ce78894380f361e8f26eedb947adc4d7c5f4eff228028b5c089604a7a9fa@group.calendar.google.com",
+      "role": ["alias<roles>:outils_internes:"],
+      "channel": "alias<salons>:outils_internes:"
+    },
+    "COM-CC": {
+      "name": "COM - Création Contenu",
+      "color": "#4caf50",
+      "calendarID": "68bed445c223237435588c078f0fba564018901501ef594336774d6424f322a2@group.calendar.google.com",
+      "role": ["alias<roles>:communication:"],
+      "channel": "alias<salons>:equipe_com:"
+    },
+    "COM-RS": {
+      "name": "COM - Réseau Sociaux",
+      "color": "#9357cc",
+      "calendarID": "communication.externe.equinoxe@gmail.com",
+      "role": ["alias<roles>:com_rs:"],
+      "channel": "alias<salons>:equipe_com:"
+    },
+    "COM-SI": {
+      "name": "COM - Site Internet",
+      "color": "#ffd412",
+      "calendarID": "0e9ab52aa1cde37cfad128c19ceffe251a3e1ab4949f73bd3766d1d88cf87475@group.calendar.google.com",
+      "role": ["alias<roles>:equipe_site_internet:"],
+      "channel": "alias<salons>:site_internet:"
+    },
+    "COM-CE": {
+      "name": "COM - Calendrier Éditorial",
+      "color": "#4cc0ea",
+      "calendarID": "c1aca860042bcb9613caad6d66508f7a5796b6361540333298b0d901e66100a1@group.calendar.google.com",
+      "role": ["alias<roles>:communication:"],
+      "channel": "alias<salons>:relecture:"
+    },
+    "PROG-RP":{
+      "name": "PROG - Réunions Programme",
+      "color": "#3159de",
+      "calendarID": "programme.equinoxe@gmail.com",
+      "role": ["alias<roles>:programme:"],
+      "channel": "alias<salons>:equipe_programme:"
+    },
+    "PROG-RR": {
+      "name": "PROG - Réunion Responsables",
+      "color": "#61efef",
+      "calendarID": "35c2e804ba07f8a570315a1b16136d10e8c5718ef2f5fb324106d2667078f3fb@group.calendar.google.com",
+      "role": ["alias<roles>:responsable_programme:"],
+      "channel": "alias<salons>:prog_equipe_resp:"
+    }
+  },
+  "afkChanel": "alias<salons>:afk:",
+  "testBotChanel": "alias<salons>:test_bot:",
+  "counters": {
+    "membres": {
+      "channel": "alias<salons>:compteur:",
+      "message": "🌓│%count% membres"
+    },
+    "alias<roles>:adherent:": {
+      "channel": "alias<salons>:compteur_adh:",
+      "message": "🌓│%count% connectés"
+    }
+  },
+  "conflictRoles": {
+    "adherent": "alias<roles>:adherent:",
+    "sympathisant": "alias<roles>:sympathisant:"
+  },
+  "wellcomingMessage":[
+    {
+      "type": "embed",
+      "description": "# __Bienvenue sur le Discord d’Équinoxe ! :__\nNous sommes ravis de vous accueillir parmi nous.\nCe serveur Discord est un espace de travail collaboratif pour toutes les équipes opérationnelles d’Équinoxe.\nIl vous permettra de participer activement aux projets et aux discussions du parti.",
+      "color": "alias<colors>:jaune:",
+      "thumbnail": "alias<images>:banniere:",
+      "images": "alias<images>:info:",
+      "fields": [
+        {
+            "name": "Comment utiliser le Discord ? 💻",
+            "value": "- Nouveau sur discord ? => [Viens voir ce tutoriel](https://www.youtube.com/watch?v=A11SwaLqKFA)\n- Dans **“Accueil Équinoxe”** commencez par lire <#alias<salons>:a_lire_adherents:>.\n- C'est plus sympa si tu peux te renommer (si tu ne sais pas faire il y a un bouton !)"
+        }, {
+            "name": "Informations essentielles :",
+            "value": "- Respectez la vie privée : Ne partagez jamais vos **adresses e-mail ou numéros de téléphone** dans les salons publics.\n- Protection des documents : Ne postez pas de liens Drive ou autres documents confidentiels dans les salons publics.\n- Si tu as besoin d'aide <#${salons.aide_questions}>"
+        }, {
+            "name": "Participer à une Réunion d’accueil 🤝",
+            "value": "- Les réunions d’accueil des nouveaux adhérents et sympathisants se déroulent :\n - [Le premier dimanche de chaque mois à 19h00](https://us02web.zoom.us/j/87353318442?pwd=44HcaChnQkd2zNIaSgZ6Nw4X40jHf9.1)\n - [Le troisième mercredi de chaque mois à 12h30](https://us02web.zoom.us/j/86436461575?pwd=aE2B5noC6QyP6S7qgM9GVI5MbFtaQP.1)"
+        }, {
+            "name": "Ressources importantes 🔗",
+            "value": "- [Manifeste du parti](https://drive.google.com/file/d/1vgSE_hrin1K2FYVhMIPSl4Vs6StKerv8/view?usp=drive_link)\n- [Les podcasts d'Équinoxe](https://parti-equinoxe.fr/nos-podcasts/)\n- Tu es sur ta boucle WhatsApp ? https://discord.com/channels/861570273400717313/1276190973105410101"
+        }
+      ],
+      "footer": {
+        "text": "Tu peux utiliser le bouton si dessous pour te renommer"
+      },
+      "author": {
+        "name": "🌓 L’équipe Équinoxe"
+      }
+    },
+    {
+      "type": "button",
+      "id": "accueil:formlaire",
+      "emoji": "📝",
+      "label": "Se renommer",
+      "style": 1
+    }
+  ],
+  "prefabMessages": {
+    "accueil":[
+      {
+        "type": "embed",
+        "description": "# __Bienvenue sur le discord du parti :__\nIci vous trouverez l'essentiel des informations pour vous lancer dans l'action avec nous.",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:info:",
+        "fields": [
+          {
+            "name": "➡️ Les infos principales :",
+            "value": "- La réunion d'accueil des nouveaux sur Zoom, lLe premier dimanche de chaque mois à 19h00](https://us02web.zoom.us/j/87353318442?pwd=44HcaChnQkd2zNIaSgZ6Nw4X40jHf9.1) et [le troisième mercredi de chaque mois à 12h30](https://us02web.zoom.us/j/86436461575?pwd=aE2B5noC6QyP6S7qgM9GVI5MbFtaQP.1)\n- Le [guide du nouvel adhérent](https://docs.google.com/presentation/d/1j0sXELn29E4ZOxRoWZqe9m8kN_WpWdZ-gqxeKEF3s-0/edit?usp=drive_link) vous présente **l’architecture** et **l’organisation** du parti.\n"
+          }, {
+            "name": "🔑 Accès :",
+            "value": "- Vous avez accès aux dossiers drive.\n- Pour accéder à d'autre canaux discord (<#867892299346477077>) : <#1206261702606463026>.\n- Pour rejoindre votre groupe what's app local : <#1276190973105410101>.\n"
+          }, {
+            "name": "❓Besoin d'aide ?",
+            "value": "- Si vous avez besoin d'aide hésitez pas à créer un post ici : <#1249732581872767057>.\n"
+          }
+        ]
+      },
+      {
+        "type": "embed",
+        "description": "# __Règles de bonne conduite sur le discord :__",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:reglement:",
+        "fields": [
+          {
+            "name": "Pensez à vous renommer : <Prénom> <Nom> et à vous présenter :",
+            "value": "- Cela permet une **une meilleure intégration** ainsi qu'__une plus grande transparence__ de plus autant __assumer vos avis__. *Vous pouvez utiliser le bouton ci-dessous pour vous renommer.*\n- <#862077093226610688> pour vous présenter.\n"
+          }, {
+            "name": "Ni insultes, ni attaques personnelle :",
+            "value": "- On discute des **idées** et __non des personnes__.\n- On peut **déconstruire des arguments** ou **proposer des contre-arguments** __sans s'attaquer aux personnes__ les proposant.\n- Ainsi, **les insultes** ou **attaques personnelles** ne sont pas tolérées, *la modération veille au grain !*\n"
+          }, {
+            "name": "Pas de tag / ping (@.......) inutile :",
+            "value": "- Le discord peut être __un endroit très bruyant__, alors n'en rajoutons pas en taggant **inutilement** __les rôles__ ou __les personnes__.\n- Utilisez **les réactions** pour éviter __des messages de validation inutiles__."
+          }, {
+            "name": "Sobriété dans les messages et usage des canaux appropriés :",
+            "value": "- Dans la mesure du possible, essayons de ne poster qu'**un message à la fois** afin d'éviter les malentendus à cause __de messages partiels__\n- Le **découpage en plusieurs paragraphes** permet néanmoins des __réponses plus ciblées__.\n- Les différents __canaux et catégories__ du discord faisant référence à des **sujets spécifiques**, __respectons l'organisation des salons__ (*Il y a une description en haut de la page)*.\n"
+          }, {
+            "name": "Ni violences, ni discriminations, ni offenses :",
+            "value": "- __Certaines publications__ peuvent ne pas être acceptées si elles sont **discriminatoires**, **offensantes** ou si elles sont **susceptibles de choquer** (*violence explicite, blague de mauvais goût, etc*).\n- Les salons <#1023829177004199966> et <#1249829979328348230> existent.\n"
+          }
+        ]
+      },
+      {
+        "type": "button",
+        "id": "accueil:formlaire",
+        "emoji": "📝",
+        "label": "Se renommer",
+        "style": 1
+      }
+    ],
+    "cellueEcoute": [
+      {
+        "type": "embed",
+        "description": "# __  :__\n- Si vous êtes victime de comportements inappropriés.\n- Si vous êtes témoin de comportements inappropriés.\n### Vous pouvez contacter <@1255487701109706816> ou le `06 71 42 93 63`, l'anonymat sera respecté.",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:celluleDecoute:"
+      }
+    ],
+    "infoCom": [
+      {
+        "type": "special_roleAssignation",
+        "description": "longtext<infoCom>",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:info:",
+        "roles": [
+         {
+            "roleID": "contribuer:com_rs",
+            "emoji": "📱",
+            "name": "Réseaux Sociaux",
+            "style": 1
+          }, {
+            "roleID": "contribuer:com_gl",
+            "emoji": "🔗",
+            "name": "Gestion de la liste",
+            "style": 1
+          }, {
+            "iroleIDd": "contribuer:equipe_site_internet",
+            "emoji": "📒",
+            "name": "Site Internet",
+            "style": 1
+          }, {
+            "roleID": "contribuer:relecteur",
+            "emoji": "✅",
+            "name": "Relecteur",
+            "style": 1
+          }
+        ]
+      }
+    ],
+    "infoSG": [
+      {
+        "type": "embed",
+        "description": "longtext<infoSG>'",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:info:"
+      }
+    ],
+    "whatsapp": [
+      {
+        "type": "embed",
+        "description": "## Comment rejoindre le groupe WhatsApp de mon département ?\nVous pouvez rejoindre le groupe du parti via le lien reçu par mail, lors de votre adhésion.\nEnsuite rechercher votre département et rejoinez le groupe (vidéo ci-dessous).",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:"
+      }
+    ],
+    "roleCC": [
+      {
+        "type": "special_roleAssignation",
+        "description": "# __Contribuez en rejoignant nos équipes de création de contenu :__\nPour participer à la création de contenu visuel, vidéo, audio (podcasts) ou rédactionnel, et à la création de templates pour anticiper les besoins des Groupes Locaux.\n*Contrairement à ce qui est marqué pas besoin d'être spécialistes :sweat_smile:.*\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsable <@&alias<roles>:referent_creation_contenu:}>.",
+        "color": "alias<colors>:jaune:",
+        "images": "alias<images>:contribuer:",
+        "roles": [
+          {
+              "roleID": "alias<roles>:equipe_redacteur:",
+              "name": "Rédacteur",
+              "emoji": "📝",
+              "description": "Pour les spécialistes des lettres."
+          }, {
+              "roleID": "alias<roles>:equipe_graphiste:",
+              "name": "Graphiste",
+              "emoji": "🌄",
+              "description": "Pour les spécialistes de canvas."
+          }, {
+              "roleID": "alias<roles>:equipe_audio:",
+              "name": "Audio",
+              "emoji": "🎙",
+              "description": "Pour les spécialistes de l'audio et des podcasts."
+          }, {
+              "roleID": "alias<roles>:equipe_monteur:",
+              "name": "Monteur",
+              "emoji": "🖥",
+              "description": "Pour les spécialistes de la création et du montage de vidéo."
+          }
+        ]
+      }
+    ],
+    "roleContribuer": [
+      {
+        "type": "special_roleAssignation",
+        "description": "# __Contribuez en rejoignant nos équipes opérationnelles :__\nCi-dessous vous trouverez une présentation des différentes équipes accompagnée de postes sur lesquels nous avons besoin de force vive (liste non exhaustive).\nSi vous pensez pouvoir nous aider (*même un peu*) sur l'un de ces sujets. Utilisez les boutons ci-dessous.",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:contribuer:",
+        "roles": [
+          {
+            "roleID": "alias<roles>:programme",
+            "name": "Programme",
+            "emoji": "📒",
+            "description": "Pour contribuer à la création du programme. Passez dans <#alias<salons>:info_programme:}> pour voir les informations sur le pôle et choisir vos thèmes."
+          }, {
+            "roleID": "alias<roles>:blog_actu",
+            "name": "Blog Actu",
+            "emoji": "✍",
+            "description": "Pour contribuer à la rédaction d'articles sur l'actualité."
+          }, {
+            "roleID": "alias<roles>:secretariat_general",
+            "name": "Secrétariat Général",
+            "emoji": "🔶",
+            "description": "Pour contribuer à l'organisation d'événements, à la communication interne et administrative."
+          }, {
+            "roleID": "alias<roles>:communication",
+            "name": "Communication",
+            "emoji": "📡",
+            "description": "Pour contribuer à la stratégie de communication, à la gestion des relations avec la presse ou à la création et rédaction de posts pour les réseaux sociaux, le site internet et les mails."
+          }, {
+            "roleID": "alias<roles>:mobilisation",
+            "name": "Mobilisation",
+            "emoji": "👉",
+            "description": "Pour contribuer à l'organisation et la formation des militants."
+          }, {
+            "roleID": "alias<roles>:relecteur",
+            "name": "Relecteur",
+            "emoji": "✅",
+            "description": "Pour contribuer à la relecture et à la corrections des posts et articles."
+          }, {
+            "roleID": "alias<roles>:reseaux_partenariats",
+            "name": "Réseaux et Partenariats",
+            "emoji": "🤝",
+            "description": "Pour contribuer à faire connaître Équinoxe auprès de personnalités ciblées : influenceurs, scientifiques, mécènes. Gestion des contacts avec différents partis politiques et associations."
+          }
+        ]
+      }
+    ],
+    "roleProgTheme": [
+      {
+        "type": "special_roleAssignation",
+        "description": "# __Contribuez en rejoignant les équipes thématiques :__\nPour aider à la création et au maintien du programme, par thème.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&alias<roles>:responsable_programme:> et les responsables thématiques.",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:contribuer:",
+        "roles": [
+          {
+            "roleID": "agriculture_environement",
+            "emoji": "🌾",
+            "name": "Agriculture et Environnement",
+            "description": "Équipe responsable du programme portant sur l’agriculture, l’alimentation, l’environnement, la mer, les forêts, la biodiversité."
+          }, {
+            "roleID": "social",
+            "emoji": "👫",
+            "name": "Social",
+            "description": "Équipe responsable du programme portant sur les questions sociales et sociétales: droits animaux et humains, égalité homme-femme, discriminations, personnes âgées, retraites, handicap, culture, sport, enfance, famille."
+          }, {
+            "roleID": "sante",
+            "emoji": "🫀",
+            "name": "Santé",
+            "description": "Équipe responsable du programme portant sur les questions de santé, de ses acteurs, de ses infrastructures, de l'accès au système de santé ainsi que de son organisation."
+          }, {
+            "roleID": "economie",
+            "emoji": "💰",
+            "name": "Économie",
+            "description": "Équipe responsable du programme portant sur les questions économiques, la fiscalité, le travail, le commerce extérieur, le tourisme, l’industrie, ainsi que les questions d'inégalités économiques."
+          }, {
+            "roleID": "international",
+            "emoji": "🌍",
+            "name": "International",
+            "description": "Équipe responsable du programme portant sur les relations, coopérations et politiques internationales et européennes, et sur la défense."
+          }, {
+            "roleID": "numerique",
+            "emoji": "🖥️",
+            "name": "Numérique",
+            "description": "Équipe responsable du programme portant sur le numérique et l’intelligence artificielle: risques et opportunités, impact sociétal et environnemental, règlementations, transformation numérique de la fonction publique, inégalité numérique."
+          }, {
+            "roleID": "energie",
+            "emoji": "⚡",
+            "name": "Énergie",
+            "description": "Équipe responsable du programme portant sur les modalités de production, de stockage, de transport et de consommation de l'énergie."
+          }, {
+            "roleID": "democratie",
+            "emoji": "🗽",
+            "name": "Démocratie",
+            "description": "Équipe responsable du programme portant sur les questions de gouvernance et de démocratie, le renouveau démocratique, les modalités d’élection, le référendum, les conventions citoyennes."
+          }, {
+            "roleID": "cohesion",//securite-justice
+            "emoji": "🤝",
+            "name": "Cohésion",
+            "description": "Équipe responsable du programme portant sur la sécurité intérieure, la justice, l'immigration, le droit d’asile."
+          }, {
+            "roleID": "education",
+            "emoji": "📖",
+            "name": "Éducation",
+            "description": "Équipe responsable du programme portant sur l'éducation, l'enseignement supérieur, la recherche et la formation tout au long de la vie."
+          }, {
+            "roleID": "transport",
+            "emoji": "🚅",
+            "name": "Transport",
+            "description": "Équipe responsable du programme portant sur les modalités, les équipements, les infrastructures de transport et de mobilité."
+          }, {
+            "roleID": "logement",
+            "emoji": "🏘️",
+            "name": "Logement",
+            "description": "Équipe responsable du programme portant sur l’accès au logement, la rénovation énergétique, l’urbanisme et l’aménagement du territoire (en lien avec transport, économie, environnement)."
+          }
+        ]
+      }
+    ],
+    "roleProgTrans": [
+      {
+        "type": "special_roleAssignation",
+        "description": "# __Contribuez en rejoignant nos équipes transversales du pôle programme :__\nPour gérer la communication, les formations ou les outils et méthodes utilisés par les équipes thématiques ainsi que le reste du pôle programme.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&$alias<roles>:responsable_programme:> et <@&alias<roles>:coordination_programme:>.",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:contribuer:",
+        "roles": [
+          {
+            "roleID": "alias<roles>:prog_formation:",
+            "emoji": "📖",
+            "description": "S'occupe d'apporter du contenu de formation (lectures, conférences, podcasts…) aux équipes du programme ainsi que pour former les adhérents sur le programme."
+          },
+          {
+            "roleID": "alias<roles>:prog_processus:",
+            "emoji": "⚙️",
+            "description": "S'occupe de préparer/fournir des outils et méthodes pour aider les équipes thématiques."
+          },
+          {
+            "roleID": "alias<roles>:prog_diffusion:",
+            "emoji": "📡",
+            "description": "S'occupe de créer les articles sur le programme pour l'équipe de communication."
+          }
+        ]
+      }
+    ],
+    "roleSG": [
+      {
+        "type": "special_roleAssignation",
+        "description": "# __Contribuez en rejoignant une équipe du secrétariat général :__\nVenez aider sur les différents travaux interne, à l'organisation des évenements, à la communication interne, l'accueil des nouveaux arrivants et l'organisation du parti.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:contribuer:",
+        "roles": [
+          {
+              "roleID": "alias<roles>:communication_interne:",
+              "emoji": "",
+              "description": "Pour s'occuper de la communication interne (mails, What's App, discord, etc).",
+              "refID": "alias<roles>:referent_communication_interne:"
+          }, {
+              "roleID": "alias<roles>:outils_internes:",
+              "emoji": "",
+              "description": "Pour s'occuper de la mise en place et la maintenance des outils numérique du parti, ainsi que la sécurité et le respect du RGPD.",
+              "refID": "alias<roles>:referent_outils_internes:"
+          }, {
+              "roleID": "alias<roles>:accueil_des_adherents:",
+              "emoji": "",
+              "description": "Pour s'occuper d'accueillir les nouveaux arrivants et s'occuper des guides.",
+              "refID": "alias<roles>:referent_accueil_des_adherents:"
+          }, {
+              "roleID": "alias<roles>:evenementiel:",
+              "emoji": "",
+              "description": "Pour gérer les évenements majeurs du parti et aider les GL pour l'organisation de leurs événements.",
+              "refID": "alias<roles>:referent_evenementiel:"
+          }, {
+              "roleID": "alias<roles>:organisation_du_secretariat:",
+              "emoji": "",
+              "description": "Pour s'occuper de l'organisation du scecrétariat.",
+              "refID": "alias<roles>:referent_organisation_du_secretariat:"
+          }, {
+              "roleID": "alias<roles>:admin_site_internet:",
+              "emoji": "",
+              "description": "Pour s'occuper de la maintenance et la sécurité du site internet (gestion des erreurs, mises à jour...).",
+              "refID": "alias<roles>:referent_site_internet:"
+          }, {
+              "roleID": "alias<roles>:administrateur:",
+              "emoji": "🤓",
+              "description": "Pour s'occuper de l'équipe de modération et plus largement du serveur discord.",
+              "refID": "alias<roles>:responsable_discord:"
+          }
+        ]
+      }
+    ]
+  },
+  "ProgrammeAwnser": {
+    "title": "Programme :",
+    "description": "Pour participer aux discussions : <#<alias>:contribuer:>",
+    "timestamp": true
+  },
+  "blackListedGiveRoles": {
+    "alias<roles>:admin_site_internet": {
+      "reason": "Seul les personnes ayant accès au panel admin du site ont se rôle, aller dans <#1268310816092979261> pour le demander."
+    },
+    "alias<roles>:administrateur": {
+      "reason": "Pour être administrateur il faut voir avec le bureau."
+    },
+    "alias<roles>:vice_presidente": {},
+    "alias<roles>:moderation": {},
+    "alias<roles>:bureau": {},
+    "alias<roles>:tresorier": {},
+    "alias<roles>:secretaire_departemental": {},
+    "alias<roles>:coordination_programme": {},
+    "alias<roles>:president": {},
+    "alias<roles>:comite_ethique": {},
+    "alias<roles>:tire_au_sort": {},
+    "alias<roles>:suppleant": {},
+    "alias<roles>:secretaire_regional": {},
+    "alias<roles>:reseau_territorial": {},
+    "alias<roles>:candidat": {},
+    "alias<roles>:adherent": {},
+    "alias<roles>:equinoxe_bot": {},
+    "alias<roles>:sympathisant": {}
+  },
+  "commandCategoryRequireRole": {
+      "admin": {
+        "reason": "Seul les administrateurs ou les membres du bureau peuvent utiliser cette commande.",
+        "roles": [
+          "alias<roles>:administrateur:",
+          "alias<roles>:bureau:"
+        ]
+      },
+      "ce": {
+        "reason": "Vous ne faite pas partie du Comité d'Éthique.",
+        "roles": [
+          "alias<roles>:comite_ethique:"
+        ]
+      },
+      "moderation": {
+        "reason": "Vous ne faite pas partie de l'équipe de modération.",
+        "roles": [
+          "alias<roles>:bureau:",
+          "alias<roles>:moderation:"
+        ]
+      },
+      "gestion": {
+        "reason": "Vous ne faite pas partie de l'équipe de modération.",
+        "roles": [
+          "alias<roles>:bureau:",
+          "alias<roles>:moderation:"
+        ]
+      }
+  },
+  "logChannel": "alias<salons>:logs:"
 }

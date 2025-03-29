@@ -22,11 +22,11 @@ module.exports = {
             content: ":page_facing_up: Le salon doit être un salon texte !",
             flags: [MessageFlags.Ephemeral]
         });*/
-        if (channel.parentId === categories.archive) return interaction.reply({
+        if (channel.parentId === categories.archive) return interaction.reply({ // todo: déplacer la catégroie archive dans la config
             content: ":page_facing_up: Ce salon est déjà archivé.",
             flags: [MessageFlags.Ephemeral]
         });
-        await channel.setParent(categories.archive, {lockPermissions: true});
+        await channel.setParent(categories.archive, {lockPermissions: true}); // todo: déplacer la catégroie archive dans la config
         //await channel.lockPermissions();
         await channel.send({
             content: `:lock: Le salon a été archivé par **${interaction.user.username}** le <t:${Math.floor(Date.now() / 1000)}:f>.`

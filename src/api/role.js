@@ -1,6 +1,6 @@
-const {MessageFlags} = require("discord.js");
-const {getChannel, getGuild} = require("./utils");
-const {salons, roles} = require("./permanent");
+const { MessageFlags } = require("discord.js");
+const { getChannel, getGuild } = require("./utils.js");
+const configHandler = require("../index.js").client.configHandler;
 /**
  * @param {ButtonInteraction} interaction
  */
@@ -10,7 +10,7 @@ module.exports.rolereact = async (interaction, roleID) => {
         content: ":no_entry_sign: Je n'ai pas la permission de modifier vos roles.",
         flags: [MessageFlags.Ephemeral]
     });
-    if (this.userARole(interaction.member.roles.cache, roleID)) {
+    if (this.userAnyRoles(interaction.member.roles.cache, roleID)) {
         await interaction.member.roles.remove(role);
         return interaction.reply({
             content: `Le role <@&${roleID}> vous a bien été retiré.`,
@@ -26,12 +26,51 @@ module.exports.rolereact = async (interaction, roleID) => {
 }
 
 /**
- * @param {DataManager.cache} rolesUser - les roles de l'utilisateur (**interaction.member.roles.cache**)
  * @param {Role.id | string} roleID - l'ID du role en question
+ * @returns {{allowed: boolean, reason?: string}} - Le field reason est définie si allowed est à false.
+ */
+module.exports.checkGiveRole = (roleID) => {
+    const config = {};
+    if (client.configHandler.tryGet("blackListedGiveRoles", config)) {
+        if (config.value[roleID]) {
+            return {
+                allowed: false,
+                reason: config.value[roleID].reason ?? "Ce role est blacklisté !"
+            }
+        }
+    }
+    return {
+        allowed: true,
+    }
+}
+
+/**
+ * @param {string} category - la catégorie de la commande
+ * @param {GuildMember} member - le membre qui a fait la commande
+ * @returns {{allowed: boolean, reason?: string}} - Le field reason est définie si allowed est à false.
+ */ // Je ne suis pas sur ce que ce sois un GuildMember
+module.exports.checkMemberRoleCommand = (member, category) => {
+    const config = {};
+    if (client.configHandler.tryGet("commandCategoryRequireRole", config)) {
+        if (config.value[category] && !this.userAnyRoles(member.roles.cache, config.value[category].roles[category])) {
+            return {
+                allowed: false,
+                reason: config.value[category].reason ?? "Vous n'avez pas la permission !"
+            }
+        }
+    }
+    return {
+        allowed: true,
+    }
+}
+
+/**
+ * @param {DataManager.cache} rolesUser - les roles de l'utilisateur (**interaction.member.roles.cache**)
+ * @param {...Role.id | string} roleIDs - l'ID du role en question
  * @return {boolean} - si l'utilisateur a le role
  */
-module.exports.userARole = (rolesUser, roleID) => {
-    return rolesUser.has(roleID);//.valueOf().some((role) => role == roleID); //faut pas mettre "===" car ils ont pas le même type
+module.exports.userAnyRoles = (rolesUser, ...roleIDs) => {
+    return roleIDs.some((roleID) => rolesUser.has(roleID));//.valueOf().some((role) => role == roleID); //faut pas mettre "===" car ils ont pas le même type
 };
 
 /**
@@ -40,12 +79,21 @@ module.exports.userARole = (rolesUser, roleID) => {
  * @returns {Promise<void>}
  */
 module.exports.channelRoleCounter = async () => {
-    await (await getChannel(salons.compteur)).edit({
-        name: `🌓│${(await getGuild()).memberCount} membres`
-    });
-    await (await getChannel(salons.compteur_adh)).edit({
-        name: `🌓│${(await getGuild()).roles.cache.get(roles.adherent).members.size} connectés`
-    });
+    const config = {};
+    if (!configHandler.tryGet("counters", config))
+        return;
+
+    for (const role in config.value) {
+        const channel = config.value[role].channel;
+        const message = config.value[role].message;
+        const count = role === "membres"
+            ? (await getGuild()).roles.cache.get(role).members.size
+            : (await getGuild()).memberCount;
+
+        await (await getChannel(channel)).edit({
+            name: message.replace("%count%", count)
+        });
+    }
 };
 
 /**
@@ -55,14 +103,19 @@ module.exports.channelRoleCounter = async () => {
  */
 module.exports.updateRoleMember = async (member) => {
     try {
-        const adh = module.exports.userARole(member.roles.cache, roles.adherent);
-        const symp = module.exports.userARole(member.roles.cache, roles.sympathisant);
-        if ((adh && !symp) || (!adh && symp)) return;
-        if (adh && symp) {
-            await member.roles.remove(roles.sympathisant);
+        const config = {};
+        if (!configHandler.tryGet("conflictRoles", config))
+            return;
+
+        const adh = module.exports.userAnyRoles(member.roles.cache, config.value.adherent);
+        const symp = module.exports.userAnyRoles(member.roles.cache, config.value.sympathisant);
+        if (adh) {
+            if (symp) {
+                await member.roles.remove(config.value.adherent);
+            }
         }
-        if (!adh && !symp) {
-            await member.roles.add(roles.sympathisant);
+        else if (!symp) {
+            await member.roles.add(config.value.sympathisant);
         }
     } catch (e) {
         console.log(`>> Erreur de mise à jour de role pour ${member.nickname ?? member.user.username} (${member.id}) : ${e}`);

@@ -1,34 +1,44 @@
-const {embedEvents, thisWeek, weekTimeEnd} = require("../../../api/google");
-const {roles} = require("../../../api/permanent");
-const calendarConfig = require("../../../data/utils/calendar.json");
-const {userARole} = require("../../../api/role");
-const {ChatInputCommandInteraction, Client, MessageFlags} = require("discord.js");
-const choices = calendarConfig.list.map((c) => {
-    return {
-        name: c.name,
-        value: c.id
-    }
-});
+const { embedEvents, thisWeek, weekTimeEnd } = require("../../../api/google");
+const client = require("../../../index.js").client;
+const { userAnyRoles } = require("../../../api/role");
+const { ChatInputCommandInteraction, Client, MessageFlags } = require("discord.js");
 
 module.exports = {
     name: "calendrier",
     description: "Permet d'obtenir les prochaines réunions prévues (semaine prochaine).",
-    options: [
-        {
-            name: "nom",
-            description: "Le nom de l'équipe ou du calendrier à afficher.",
-            type: 3,
-            choices: choices
-        }
-    ],
+    get options() {
+        const calendarConfig = {};
+        if (!client.configHandler.tryGet("calendars", calendarConfig))
+            return [];
+
+        const choices = calendarConfig.value.list.map((c) => {
+            return {
+                name: c.name,
+                value: c.id
+            }
+        });
+
+        return [
+            {
+                name: "nom",
+                description: "Le nom de l'équipe ou du calendrier à afficher.",
+                type: 3,
+                choices: choices
+            }
+        ];
+    },
     /**
      * @param {ChatInputCommandInteraction} interaction
-     * @param {Client} client
+     * @param {Client} _
      */
-    runInteraction: async (client, interaction) => {
-        const filter = [interaction.options.getString("nom") ?? calendarConfig.list.map((cal) => {
-            return userARole(interaction.member.roles.cache, roles[cal.role]) ? cal.id : false
-        }).filter(c => c) ?? false].flat();
+    runInteraction: async (_, interaction) => {
+        const calendarConfig = {};
+        if (!client.configHandler.tryGet("calendars", calendarConfig))
+            calendarConfig.value = {};
+
+        const filter = [interaction.options.getString("nom") ?? calendarConfig.value.map((cal) => {
+                return userAnyRoles(interaction.member.roles.cache, cal.role) ? cal.id : false
+            }).filter(c => c) ?? false].flat();
         if (!filter[0] || filter.length === 0) return interaction.reply({
             content: ":x: Pas de calendrier trouvé à partir de vos rôles !\nVous pouvez regarder les calendrier en spécifiant leur nom.",
             flags: [MessageFlags.Ephemeral]

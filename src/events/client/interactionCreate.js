@@ -16,7 +16,6 @@ const interName = {
 };
 const {Events} = require("discord.js");
 const {getChannel} = require("../../api/utils");
-const {salons} = require("../../api/permanent");
 
 client.on(Events.InteractionCreate, async (interaction) => {
     if (interaction.user.bot) return console.log(`Le bot ${interaction.user.username}(${interaction.user.id}) a tenté de faire une commande !`);
@@ -39,10 +38,14 @@ client.on(Events.InteractionCreate, async (interaction) => {
         if (debug) console.log(`> ${Date.now() - interaction.createdTimestamp}ms`);
         if (Date.now() - interaction.createdTimestamp > 3000 && !interaction.deferred) console.log(redBright.bold(`/!\\ Cette interaction a mis plus de 3000ms (${Date.now() - interaction.createdTimestamp}ms)\nL'utilisation de "interaction.deferReply();" est conseiller.`));
         if (interaction.responded || interaction.replied || interaction.deferred) return interaction.editReply({content: "Une erreur s'est produite !" + cmdPing});
-        (await getChannel(salons.test_bot)).send({
-            content: `## Erreur dans ${interaction.commandName ?? interaction.customId ?? "inconnue"}${cmdPing ?? " (" + interName[interaction.type] + ")"} :\n> User : <@${interaction.user.id}> dans <#${interaction.channelId}>\n\`\`\`console\n${err.stack}\`\`\``,
-            allowedMentions: {repliedUser: false}
-        });
+        const configOutPut = {};
+        if (client.configHandler.tryGet("testBotChanel", configOutPut)) {
+            (await getChannel(configOutPut.value)).send({
+                content: `## Erreur dans ${interaction.commandName ?? interaction.customId ?? "inconnue"}${cmdPing ?? " (" + interName[interaction.type] + ")"} :\n> User : <@${interaction.user.id}> dans <#${interaction.channelId}>\n\`\`\`console\n${err.stack}\`\`\``,
+                allowedMentions: {repliedUser: false}
+            });
+        }
+
         return interaction.reply({
             content: "Une erreur s'est produite !" + cmdPing ?? "",
             flags: [MessageFlags.Ephemeral]

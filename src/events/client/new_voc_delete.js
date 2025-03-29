@@ -1,4 +1,3 @@
-const {salons} = require("../../api/permanent.js");
 const {Events} = require("discord.js");
 const discordTranscripts = require("discord-html-transcripts");
 const {logWithImage, durationFormatter} = require("../../api/utils");

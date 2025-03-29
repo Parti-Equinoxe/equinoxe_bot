@@ -1,7 +1,7 @@
 const {ChatInputCommandInteraction, Client, EmbedBuilder, MessageFlags} = require("discord.js");
-const {readdirSync} = require("fs");
-const {couleurs, roles} = require("../../../api/permanent.js");
-const {userARole} = require("../../../api/role");
+const { readdirSync } = require("fs");
+const { couleurs } = require("../../../api/permanent.js");
+const { checkMemberRoleCommand } = require("../../../api/role");
 let dirsCategory = readdirSync("./interactions/commands/").filter((file) => !file.includes("."));
 dirsCategory.push("../commands");
 module.exports = {
@@ -27,10 +27,10 @@ module.exports = {
 				name: "La liste des commandes :",
 				value: "Une liste de toutes les catégories disponibles et leurs commandes.\nPour plus d'informations sur une commande, tapez `/help <command>`",
 			}]);
-			
+
 			for (let category of dirsCategory) {
-				if (category !== "admin" || (userARole(interaction.member.roles.cache, roles.administrateur) || userARole(interaction.member.roles.cache, roles.bureau))) {
-					if (category === "../commands") category = "sans_categorie";
+				if (category === "../commands") category = "sans_categorie";
+				if (checkMemberRoleCommand(interaction.member, category).allowed) {
 					const cmdsUtilisable = client.commands.filter((cmd) => cmd.category === category.toLowerCase()).map((cmd) => {
 						const cmdID = client.application.commands.cache.find((x) => x.name === cmd.name).id;
 						if (!cmd.isCommandeGroupe) return `</${cmd.name}:${cmdID}>`;
@@ -48,7 +48,7 @@ module.exports = {
 							},
 						]);
 					}
-					
+
 				}
 			}
 			return interaction.reply({embeds: [noArgsEmbed]});
@@ -59,7 +59,7 @@ module.exports = {
 			flags: [MessageFlags.Ephemeral]
 		});
 		//usage :
-		
+
 		const cmdId = client.application.commands.cache.find(x => x.name === cmdName).id;
 		//embed :
 		if (cmd.isCommandeGroupe) {
@@ -100,7 +100,7 @@ module.exports = {
 		}
 		return interaction.reply({embeds: [embed]});
 	},
-	
+
 	/**
 	 * @param {AutocompleteInteraction} interaction
 	 * @param {Client} client
@@ -108,9 +108,8 @@ module.exports = {
 	runAutocomplete: async (client, interaction) => {
 		const focusedOptions = interaction.options.getFocused(true);
 		let choices = client.commands?.map((c) => {
-			if (c.category !== "admin" || (userARole(interaction.member.roles.cache, roles.administrateur) || userARole(interaction.member.roles.cache, roles.bureau))) {
+			if (checkMemberRoleCommand(interaction.member, c.category).allowed)
 				return c.name;
-			}
 		});
 		//vire les undefined
 		choices = choices.filter((c) => c);

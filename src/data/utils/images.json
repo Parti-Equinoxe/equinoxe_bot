@@ -1,0 +1,37 @@
+{
+    "banniere":{
+        "link": "attachment://equinoxe_banner.png",
+        "attachement": "./data/images/equinoxe_banner_hight.png",
+        "attachementData": {
+            "name": "equinoxe_banner.png"
+        }
+    },
+    "info": {
+        "link": "attachment://info.png",
+        "attachement": "./data/images/information.png",
+        "attachementData": {
+            "name": "info.png"
+        }
+    },
+    "reglement": {
+        "link": "attachment://reglement.png",
+        "attachement": "./data/images/reglement.png",
+        "attachementData": {
+            "name": "reglement.png"
+        }
+    },
+    "celluleDecoute": {
+        "link": "attachment://cde.png",
+        "attachement": "./data/images/cellule_decoute.png",
+        "attachementData": {
+            "name": "cde.png"
+        }
+    },
+    "contribuer": {
+        "link": "attachment://contribuer.png",
+        "attachement": "./data/images/contribuer.png",
+        "attachementData": {
+            "name": "contribuer.png"
+        }
+    }
+}

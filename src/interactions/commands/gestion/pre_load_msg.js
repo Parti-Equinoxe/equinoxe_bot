@@ -1,10 +1,5 @@
-const {ChatInputCommandInteraction, Client, MessageFlags} = require("discord.js");
-const {readdirSync} = require("fs");
-const pre_load_msgs = readdirSync("./data/pre_load/").filter((file) => file.endsWith(".js")).map((msg) => {
-    //permet de vérifier et que tou va bien
-    require(`../../../data/pre_load/${msg}`);
-    return msg.replace(".js", "");
-});
+const { ChatInputCommandInteraction, Client, MessageFlags } = require("discord.js");
+const { getAllPrefabMessages, getMessage } = require("../../../api/prefabMessage.js");
 
 module.exports = {
     name: "pre_load_message",
@@ -31,9 +26,10 @@ module.exports = {
         await interaction.deferReply({flags: [MessageFlags.Ephemeral]});
         const msgName = interaction.options.getString("message");
         const channel = interaction.options.getChannel("salon") ?? interaction.channel;
-        if (!pre_load_msgs.includes(msgName)) return interaction.reply({content: `Il n'y a pas de message pré-enregistrer nommé **${msgName}** !`});
-        const msg = require(`../../../data/pre_load/${msgName}.js`);
-        await channel.send(await msg.send(interaction));
+        const messageTemplate = getAllPrefabMessages()[msgName];
+        if (!messageTemplate) return interaction.reply({ content: `Il n'y a pas de message pré-enregistrer nommé **${msgName}** !` });
+        const message = getMessage(msgName, interaction.guildId);
+        await channel.send(message);
         return interaction.editReply({
             content: `Le message pré-enregistré **${msgName}** a bien été posté dans <#${channel.id}> !`,
             flags: [MessageFlags.Ephemeral]
@@ -45,7 +41,7 @@ module.exports = {
      */
     runAutocomplete: async (client, interaction) => {
         const focusedOptions = interaction.options.getFocused(true);
-        const filtered = pre_load_msgs.filter((c) => c.includes(focusedOptions.value));
+        const filtered = Object.keys(getAllPrefabMessages()).filter((c) => c.includes(focusedOptions.value));
         if (filtered.length === 0) return await interaction.respond([{
             name: "Ceci n'est pas un message pre-enregistré valide…",
             value: "pasUnMsg"

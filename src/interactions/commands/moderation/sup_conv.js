@@ -1,7 +1,7 @@
-const {MessageFlags} = require("discord.js");
-const {durationFormatter, logWithImage} = require("../../../api/utils.js");
+const { MessageFlags } = require("discord.js");
+const { durationFormatter, logWithImage } = require("../../../api/utils.js");
 const discordTranscripts = require("discord-html-transcripts");
-const {salons} = require("../../../api/permanent");
+const client = require("../../../index.js").client;
 
 module.exports = {
     name: "supprimer_conversation",
@@ -18,7 +18,14 @@ module.exports = {
      * @param {ChatInputCommandInteraction} interaction
      * @param {Client} client
      */
-    runInteraction: async (client, interaction) => {
+    runInteraction: async (_, interaction) => {
+        const config = {};
+        if (!client.configHandler.tryGet("logChannel", config)) {
+            return interaction.reply({
+                content: "Cette commande n'a pas été configurer/activer.",
+                flags: [MessageFlags.Ephemeral]
+            });
+        }
         const date = Date.now();
         await interaction.deferReply({flags: [MessageFlags.Ephemeral]});
         const nb = interaction.options.getInteger("nombre");
@@ -36,7 +43,7 @@ module.exports = {
         });
         const bDinfo = (await oldChannel.bulkDelete(msgs, false)).map((msg) => msg);
         oldChannel.send({
-            content: `Les dernier **${bDinfo.length}** messages ont été supprimés ! (une sauvegarde est disponible dans <#${salons.log}>)`,
+            content: `Les dernier **${bDinfo.length}** messages ont été supprimés ! (une sauvegarde est disponible dans <#${config.value}>)`,
         });
         return logWithImage(`**${bDinfo.length}/${msgs.length}** messages ont été supprimés dans <#${oldChannel.id}> en ${durationFormatter(Date.now() - date)} !`, "Suppression de conversation", interaction.member, "warning", attachment);
     }

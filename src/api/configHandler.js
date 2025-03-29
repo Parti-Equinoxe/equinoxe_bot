@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const pathForAlias = "../data/utils/"
-const replaceAliasRgx = new RegExp("alias<(?<file>\\w+)>:(?<var>.+)");
+const pathForLongText = "../data/utils/textes/";
+const replaceAliasRgx = new RegExp("alias<(?<file>\\w+?)>:(?<var>.+?):");
+const replaceTextRgx = new RegExp("longtext<(?<file>\\w+?)>");
 
 /**
  * Remplace les alias dans un objet et renvois le resulta dans un nouvel objet
@@ -45,7 +47,7 @@ function replaceAlias(str, emptyIfError = true) {
             return emptyIfError ? "" : match + "_error(file read error)";
         }
         const value = getValueFromPath(fileContent, varName);
-        if (value === undefined){
+        if (value === undefined) {
             console.error(`La variable (string) ${varName} n'existe pas dans le fichier ${file}.`, match);
             return emptyIfError ? "" : match + "_error(var not found)";
         }
@@ -54,6 +56,20 @@ function replaceAlias(str, emptyIfError = true) {
             return emptyIfError ? "" : match + "_error(var not string)";
         }
         return value;
+    }).replace(replaceTextRgx, (match, file, varName) => {
+        const filePath = path.join(__dirname, `${pathForLongText}${file}.txt`);
+        if (!fs.existsSync(filePath)) {
+            console.error(`Le fichier ${filePath} est introuvable.`, match);
+            return emptyIfError ? "" : match + "_error(file not found)";
+        }
+        let fileContent;
+        try {
+            fileContent = fs.readFileSync(filePath, 'utf-8');
+        } catch (error) {
+            console.error(`Erreur lors de la lecture du fichier ${filePath}:`, match, error);
+            return emptyIfError ? "" : match + "_error(file read error)";
+        }
+        return fileContent;
     });
 }
 
@@ -84,6 +100,12 @@ class ConfigHandler {
         this.reload();
         console.log(this.config);
     }
+
+    /**
+     * @typedef {Object} PossibleResult
+     * @property {boolean} sucess si la valeur a été trouvé
+     * @property {any} value la valeur trouvé
+     */
 
     /**
      * recharge la configuration
@@ -121,9 +143,8 @@ class ConfigHandler {
     /**
      * essaye de trouve la premier valeur dans la config qui repsecte le prédicat
      * @param {function(string, any): boolean} predicate le prédictat pour trouver la première valeur, en premier paramètre la clé et en deuxième la valeur
-     * @param {Object} result le résultat de la recherche { sucess: boolean, value: any, key: string }, doit être initialisé
+     * @param {PossibleResult} result le résultat de la recherche { sucess: boolean, value: any, key: string }, doit être initialisé
      * @param {string} path le chemin pour accéder à la valeur
-     * @throws {Error} si result est undefined
      * @returns {boolean} true si une valeur a été trouvé, false sinon
      */
     tryGetFrist(predicate, result, path = "") {
@@ -146,8 +167,7 @@ class ConfigHandler {
     /**
      * essaye de trouve le premier champs dans la config
      * @param {string} fieldName le nom du champ à chercher du forma "valeurs.sous-valeur"
-     * @param {object} result le résultat de la recherche { sucess: boolean, value: any }, doit être initialisé
-     * @throws si result est non défini
+     * @param {PossibleResult} result le résultat de la recherche { sucess: boolean, value: any }, doit être initialisé
      * @returns {boolean} true si le champ a été trouvé, false sinon
      */
     tryGet(fieldName, result) {
