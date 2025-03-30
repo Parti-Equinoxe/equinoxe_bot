@@ -87,13 +87,13 @@ module.exports.removeRoleMember = async (member) => {
         const symp = module.exports.userARole(member.roles.cache, roles.sympathisant);
         if (!symp) return;
         if (member.roles.cache.size === 1) return;
-        for (const role of member.roles.cache) {
-            if (role.id === roles.sympathisant) continue;
-            console.log(role.name);
-            //await member.roles.remove(role); @TODO a activer
+        for (const role of member.roles.cache.map(r => r)) {
+            if (role.id === roles.sympathisant || role.id === member.guild.id) continue;
+            await member.roles.remove(role);
         }
     } catch (e) {
         console.log(`>> Erreur de suppression de role pour ${member.nickname ?? member.user.username} (${member.id}) : ${e}`);
+        console.log(role.name);
     }
 }
 
