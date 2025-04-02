@@ -399,7 +399,7 @@
             "name": "Démocratie",
             "description": "Équipe responsable du programme portant sur les questions de gouvernance et de démocratie, le renouveau démocratique, les modalités d’élection, le référendum, les conventions citoyennes."
           }, {
-            "roleID": "cohesion",//securite-justice
+            "roleID": "cohesion",
             "emoji": "🤝",
             "name": "Cohésion",
             "description": "Équipe responsable du programme portant sur la sécurité intérieure, la justice, l'immigration, le droit d’asile."
