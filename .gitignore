@@ -8,3 +8,11 @@ src/data/bdd/liste_depart.json
 src/service-account-key.json
 **/*.iml
 .env
+
+# ignorée les fichiers générée par les IDE
+**/.cr
+**/.vs
+**/.vscode
+**/obj
+*.sln
+*.esproj
