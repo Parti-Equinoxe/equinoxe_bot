@@ -1,4 +1,4 @@
-const {client} = require("../index.js");
+const { client } = require("../index.js");
 const removeAccents = require('remove-accents');
 const {
     GuildBasedChannel,
@@ -232,7 +232,7 @@ module.exports.log = async (message, titre, member, type = "info") => {
         .setDescription(message)
         .setAuthor({name: member.nickname ?? member.user.username, iconURL: member.user.displayAvatarURL()})
         .setTimestamp();
-    return (await this.getChannel(salons.log)).send({embeds: [embed]}); // TODO: remplacer cella par logChannel de la config
+    return (await this.getChannel(client.configHandler.get("logChannel"))).send({embeds: [embed]});
 }
 /**
  * @param {string} message - le message
@@ -250,7 +250,7 @@ module.exports.logWithImage = async (message, titre, member, type = "info", atta
         .setAuthor({name: member.nickname ?? member.user.username, iconURL: member.user.displayAvatarURL()})
         .setImage(attachment.name.includes(".png") ? `attachment://${attachment.name}` : null)
         .setTimestamp();
-    return (await this.getChannel(salons.log)).send({embeds: [embed], files: [attachment]}); // TODO: remplacer cella par logChannel de la config
+    return (await this.getChannel(client.configHandler.get("logChannel"))).send({embeds: [embed], files: [attachment]});
 }
 /**
  * @param {GuildTextBasedChannel} channel - le channel

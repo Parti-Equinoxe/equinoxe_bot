@@ -1,7 +1,7 @@
 const {client} = require("../../index");
 const {Events} = require("discord.js");
 
-client.on(Events.ThreadCreate, async (thread) => {
+client.safelyOn(Events.ThreadCreate, async (thread) => {
     let config = {};
     if (!client.configHandler.tryGetFrist((key, value) => key == thread.parentId, config, "postPing"))
         return;
@@ -25,7 +25,7 @@ client.on(Events.ThreadCreate, async (thread) => {
     }
 });
 
-client.on(Events.ThreadUpdate, async (oldThread, newThread) => {
+client.safelyOn(Events.ThreadUpdate, async (oldThread, newThread) => {
     let config = {};
     if (!client.configHandler.tryGetFrist((key, value) => key == newThread.parentId, config, "postPing"))
         return;
@@ -33,12 +33,12 @@ client.on(Events.ThreadUpdate, async (oldThread, newThread) => {
         return;
     if (oldThread.appliedTags.join("") === newThread.appliedTags.join(""))
         return;
+    if (!config.value.messageDonePost)
+        return;
     if (!config.value.pingDonePost.some((element, index, array) => newThread.appliedTags.includes(element)))
         return;
-    if (config.value.messageDonePost !== null) {
-        await newThread.send({
-            content: config.value.messageDonePost
-        });
-    }
+    await newThread.send({
+        content: config.value.messageDonePost
+    });
     return newThread.setArchived(true, "Travail terminer");
 });

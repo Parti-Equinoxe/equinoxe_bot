@@ -1,9 +1,12 @@
-const {client} = require("../../index.js");
-const {Events} = require("discord.js");
-const msg = require("../../data/pre_load/arriver.js");
+const { client } = require("../../index.js");
+const { Events } = require("discord.js");
+const { getMessage } = require("../../api/prefabMessage.js");
 
-client.on(Events.GuildMemberAdd, async (member) => {
+client.safelyOn(Events.GuildMemberAdd, async (member) => {
+    const config = {};
+    if (!client.configHandler.tryGet("wellcomingMessage", config))
+        return;
     const channel = await member.createDM(true).catch(() => null);
     if (!channel) return;
-    await channel.send(await msg.send().catch(() => null)).catch(() => null);
+    await channel.send(getMessage(config.value)).catch(() => null);
 });

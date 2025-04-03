@@ -7,15 +7,10 @@ module.exports = {
     description: "pour faire des test",
     devOnly: true,
     get options() {
-        // Une erreur est throw si la propriété calendars n'est pas définie
-        // je ne considaire pas cella comme un problême car la command s'appelle test
-        // -- Valentin
-        const choices = client.configHandler.get("calendars").list.map((c) => {
-            return {
-                name: c.name,
-                value: c.id
-            }
-        });
+        const config = {};
+        const choices = client.configHandler.tryGet("calendars", config)
+            ? config.value.list.map((c) => ({ name: c.name, value: c.id }))
+            : [];
 
         return [
             {

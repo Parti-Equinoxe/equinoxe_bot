@@ -17,7 +17,7 @@ const interName = {
 const {Events} = require("discord.js");
 const {getChannel} = require("../../api/utils");
 
-client.on(Events.InteractionCreate, async (interaction) => {
+client.safelyOn(Events.InteractionCreate, async (interaction) => {
     if (interaction.user.bot) return console.log(`Le bot ${interaction.user.username}(${interaction.user.id}) a tenté de faire une commande !`);
     const inter = await interType[interaction.type](client, interaction);
     if (!inter[0]) return interaction.reply(inter[1] ?? {

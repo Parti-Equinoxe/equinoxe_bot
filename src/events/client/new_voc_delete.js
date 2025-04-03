@@ -2,7 +2,7 @@ const {Events} = require("discord.js");
 const discordTranscripts = require("discord-html-transcripts");
 const {logWithImage, durationFormatter} = require("../../api/utils");
 const client = require("../../index").client;
-client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
+client.safelyOn(Events.VoiceStateUpdate, async (oldState, newState) => {
     if (oldState.channel == null || !oldState.channel.name.includes("🔈")) return;
     if (oldState.channel.members.size !== 0) return;
     const channel = oldState.channel;

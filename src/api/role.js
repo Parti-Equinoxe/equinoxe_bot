@@ -1,6 +1,6 @@
 const { MessageFlags } = require("discord.js");
 const { getChannel, getGuild } = require("./utils.js");
-const configHandler = require("../index.js").client.configHandler;
+const client = require("../index.js").client;
 /**
  * @param {ButtonInteraction} interaction
  */
@@ -52,7 +52,7 @@ module.exports.checkGiveRole = (roleID) => {
 module.exports.checkMemberRoleCommand = (member, category) => {
     const config = {};
     if (client.configHandler.tryGet("commandCategoryRequireRole", config)) {
-        if (config.value[category] && !this.userAnyRoles(member.roles.cache, config.value[category].roles[category])) {
+        if (config.value[category] && !this.userAnyRoles(member.roles.cache, ...config.value[category].roles)) {
             return {
                 allowed: false,
                 reason: config.value[category].reason ?? "Vous n'avez pas la permission !"
@@ -70,7 +70,7 @@ module.exports.checkMemberRoleCommand = (member, category) => {
  * @return {boolean} - si l'utilisateur a le role
  */
 module.exports.userAnyRoles = (rolesUser, ...roleIDs) => {
-    return roleIDs.some((roleID) => rolesUser.has(roleID));//.valueOf().some((role) => role == roleID); //faut pas mettre "===" car ils ont pas le même type
+    return roleIDs.some((roleID) => rolesUser.has(roleID));
 };
 
 /**
@@ -80,15 +80,15 @@ module.exports.userAnyRoles = (rolesUser, ...roleIDs) => {
  */
 module.exports.channelRoleCounter = async () => {
     const config = {};
-    if (!configHandler.tryGet("counters", config))
+    if (!client.configHandler.tryGet("counters", config))
         return;
 
     for (const role in config.value) {
         const channel = config.value[role].channel;
         const message = config.value[role].message;
         const count = role === "membres"
-            ? (await getGuild()).roles.cache.get(role).members.size
-            : (await getGuild()).memberCount;
+            ? (await getGuild()).memberCount
+            : (await getGuild()).roles.cache.get(role)?.members?.size ?? 0;
 
         await (await getChannel(channel)).edit({
             name: message.replace("%count%", count)
@@ -104,14 +104,14 @@ module.exports.channelRoleCounter = async () => {
 module.exports.updateRoleMember = async (member) => {
     try {
         const config = {};
-        if (!configHandler.tryGet("conflictRoles", config))
+        if (!client.configHandler.tryGet("conflictRoles", config))
             return;
 
         const adh = module.exports.userAnyRoles(member.roles.cache, config.value.adherent);
         const symp = module.exports.userAnyRoles(member.roles.cache, config.value.sympathisant);
         if (adh) {
             if (symp) {
-                await member.roles.remove(config.value.adherent);
+                await member.roles.remove(config.value.sympathisant);
             }
         }
         else if (!symp) {

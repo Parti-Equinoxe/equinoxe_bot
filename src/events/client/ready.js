@@ -4,7 +4,7 @@ const {ActivityType, Status, Events} = require("discord.js");
 const {channelRoleCounter, verifRoles} = require("../../api/role");
 const {getGuild} = require("../../api/utils");
 
-client.once(Events.ClientReady, async () => {
+client.safelyOnce(Events.ClientReady, async () => {
     client.user.setPresence({
         activities: [{name: "le serveur", type: ActivityType.Watching}],
         status: Status.Connecting,

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const pathForAlias = "../data/utils/"
-const pathForLongText = "../data/utils/textes/";
+const pathForLongText = "../data/textes/";
 const replaceAliasRgx = new RegExp("alias<(?<file>\\w+?)>:(?<var>.+?):");
 const replaceTextRgx = new RegExp("longtext<(?<file>\\w+?)>");
 
@@ -10,14 +10,18 @@ const replaceTextRgx = new RegExp("longtext<(?<file>\\w+?)>");
  * @param {Object} obj l'object à remplacer les alias
  * @returns {string} le nouvel object avec les alias remplacés
  */
-function replaceAliasInObject(obj) {
-    const newObj = {};
+function replaceAliasInObject(obj, isArray = false) {
+    const newObj = isArray ? [] : {};
     for (const key in obj) {
         const field = obj[key];
         if (typeof field === 'string') {
             newObj[replaceAlias(key, false)] = replaceAlias(field);
         } else if (typeof field === 'object') {
-            newObj[replaceAlias(key, false)] = replaceAliasInObject(field);
+            const fieldIsArray = Array.isArray(field);
+            if (fieldIsArray)
+                newObj[key] = replaceAliasInObject(field, true);
+            else
+                newObj[replaceAlias(key, false)] = replaceAliasInObject(field);
         } else {
             newObj[replaceAlias(key, false)] = field;
         }
@@ -29,45 +33,69 @@ function replaceAliasInObject(obj) {
 /**
  * Remplace tous alias respectant le forma de replaceAliasRgx "alias<(?<file>\\w+)>:(?<var>.+)" dans un string
  * @param {string} str le string à remplacer les alias
- * @param {boolean} emptyIfError si true, remplace l'alias avec une string vide si une erreur survient, sinon conserver l'alias avec l'erreur ajouter
+ * @param {boolean} isValue si l'element passer est une clée ou une valeur
  * @returns {string} le string avec les alias remplacés
  */
-function replaceAlias(str, emptyIfError = true) {
+function replaceAlias(str, isValue = true) {
+    if (isValue) {
+        const globalMath = str.match(replaceAliasRgx);
+        if (globalMath && globalMath.index == 0 && globalMath[0].length == str.length) {
+            const { file, var: varName } = globalMath.groups;
+            const filePath = path.join(__dirname, `${pathForAlias}${file}.json`);
+            if (!fs.existsSync(filePath)) {
+                console.error(`Le fichier ${filePath} est introuvable.`, match);
+                return value ? "" : match + "_error(file not found)";
+            }
+            let fileContent;
+            try {
+                fileContent = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+            } catch (error) {
+                console.error(`Erreur lors de la lecture du fichier ${filePath}:`, match, error);
+                return value ? "" : match + "_error(file read error)";
+            }
+            const value = getValueFromPath(fileContent, varName);
+            if (value === undefined) {
+                console.error(`La variable (string) ${varName} n'existe pas dans le fichier ${file}.`, match);
+                return value ? "" : match + "_error(var not found)";
+            }
+            return value;
+        }
+    }
     return str.replace(replaceAliasRgx, (match, file, varName) => {
         const filePath = path.join(__dirname, `${pathForAlias}${file}.json`);
         if (!fs.existsSync(filePath)) {
             console.error(`Le fichier ${filePath} est introuvable.`, match);
-            return emptyIfError ? "" : match + "_error(file not found)";
+            return value ? "" : match + "_error(file not found)";
         }
         let fileContent;
         try {
             fileContent = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
         } catch (error) {
             console.error(`Erreur lors de la lecture du fichier ${filePath}:`, match, error);
-            return emptyIfError ? "" : match + "_error(file read error)";
+            return value ? "" : match + "_error(file read error)";
         }
         const value = getValueFromPath(fileContent, varName);
         if (value === undefined) {
             console.error(`La variable (string) ${varName} n'existe pas dans le fichier ${file}.`, match);
-            return emptyIfError ? "" : match + "_error(var not found)";
+            return value ? "" : match + "_error(var not found)";
         }
         if (typeof value !== 'string') {
             console.error(`La variable ${varName} dans le fichier ${file} n'est pas un string.`, match);
-            return emptyIfError ? "" : match + "_error(var not string)";
+            return value ? "" : match + "_error(var not string)";
         }
         return value;
     }).replace(replaceTextRgx, (match, file, varName) => {
         const filePath = path.join(__dirname, `${pathForLongText}${file}.txt`);
         if (!fs.existsSync(filePath)) {
             console.error(`Le fichier ${filePath} est introuvable.`, match);
-            return emptyIfError ? "" : match + "_error(file not found)";
+            return isValue ? "" : match + "_error(file not found)";
         }
         let fileContent;
         try {
             fileContent = fs.readFileSync(filePath, 'utf-8');
         } catch (error) {
             console.error(`Erreur lors de la lecture du fichier ${filePath}:`, match, error);
-            return emptyIfError ? "" : match + "_error(file read error)";
+            return isValue ? "" : match + "_error(file read error)";
         }
         return fileContent;
     });

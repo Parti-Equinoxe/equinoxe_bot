@@ -34,7 +34,7 @@ function getMessage(messageTemplate, guild = null) {
         switch (composent.type) {
             case "embed": {
                 const embedBuilder = new EmbedBuilder();
-                setEmbed(embedBuilder, composent);
+                setEmbed(embedBuilder, composent, files);
                 embeds.push(embedBuilder);
                 break;
             }
@@ -59,19 +59,11 @@ function getMessage(messageTemplate, guild = null) {
                     .setFooter({ text: "Cliquez sur les boutons ci-dessous pour vous ajouter/retirer des roles." })
                     .addFields({
                         name: "__Liste des rôles :__",
-                        value: composent.roles.map(
-                            (role) => {
-                                let result = "### - ";
-                                if (role.emoji !== "")
-                                    result += role.emoji + "・ ";
-                                result += `<@&${role.roleID}>\n> ${role.description}\n>`;
-                                if (role.refID)
-                                    result += ` => <@&${role.refID}>`;
-                                return result;
-                            })
+                        value: composent.roles.map(getRoleInfo).join('\n')
                     });
-                setEmbed(embedBuilder, composent);
+                setEmbed(embedBuilder, composent, files);
                 embeds.push(embedBuilder);
+                const nbPerRow = composent.nbPerRow ?? 4; // Default 4 si non définie, valeur totalement arbitraire
                 const raws = Math.min(Math.ceil(composent.roles.length / nbPerRow), 5);
                 for (let index = 0; index < raws; index++) {
                     components.push(new ActionRowBuilder().addComponents(composent.roles.slice(nbPerRow * index, nbPerRow * (index + 1)).map((role) => {
@@ -81,8 +73,11 @@ function getMessage(messageTemplate, guild = null) {
                             buttonBuilder.setEmoji(parseEmoji(role.emoji));
                         if (role.roleID)
                             buttonBuilder.setLabel(role.name);
-                        else if (guild)
-                            buttonBuilder.setLabel(guild.roles.cache.get(role.roleID).name);
+                        else if (guild) {
+                            const guildRole = guild.roles.cache.get(role.roleID);
+                            if (guildRole)
+                                buttonBuilder.setLabel(guildRole.name);
+                        }
                         if (role.style)
                             buttonBuilder.setStyle(role.style);
                         else
@@ -101,11 +96,25 @@ function getMessage(messageTemplate, guild = null) {
     }
 }
 
+function getRoleInfo(role)
+{
+    let result = "- ";
+    if (role.emoji)
+        result += role.emoji + "・ ";
+    result += `<@&${role.roleID}>`;
+    if (role.description)
+        result += `\n> ${role.description}`
+    if (role.refID)
+        result += `\n> => <@&${role.refID}>`;
+    return result;
+}
+
+
 /**
  * @param {EmbedBuilder} embedBuilder
  * @param {string} composent
  */
-function setEmbed(embedBuilder, composent) {
+function setEmbed(embedBuilder, composent, files) {
     if (composent.description)
         embedBuilder.setDescription(composent.description);
     if (composent.color)
@@ -113,12 +122,12 @@ function setEmbed(embedBuilder, composent) {
     if (composent.thumbnail) {
         embedBuilder.setThumbnail(composent.thumbnail.link);
         if (!files[composent.thumbnail.link])
-            files[composent.thumbnail.link] = new AttachmentBuilder(composent.thumbnail.file, composent.thumbnail.attachementData);
+            files[composent.thumbnail.link] = new AttachmentBuilder(composent.thumbnail.attachement, composent.thumbnail.attachementData);
     }
     if (composent.image) {
         embedBuilder.setImage(composent.image.link);
         if (!files[composent.thumbnail.link])
-            files[composent.thumbnail.link] = new AttachmentBuilder(composent.thumbnail.file, composent.thumbnail.attachementData);
+            files[composent.thumbnail.link] = new AttachmentBuilder(composent.thumbnail.attachement, composent.thumbnail.attachementData);
     }
     if (composent.fields) {
         for (const field of Object.values(composent.fields)) {

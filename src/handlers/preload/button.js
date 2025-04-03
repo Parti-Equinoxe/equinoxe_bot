@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { cyan, redBright } = require("cli-color");
-const configRoleReact = require("../../interactions/buttons/contribuer/config.json").blacklist; // Ce fichier n'existe plus, utiliser la configHandler à la racine si besoin
-const { roles } = require("../../api/permanent");
+// const configRoleReact = require("../../interactions/buttons/contribuer/config.json").blacklist; // Ce fichier n'existe plus, utiliser la configHandler à la racine si besoin
+// const { roles } = require("../../api/permanent");
 
 //const fileList = [];
 const customIDList = [];

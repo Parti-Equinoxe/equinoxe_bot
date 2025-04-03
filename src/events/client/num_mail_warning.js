@@ -5,8 +5,8 @@ const regExMail = new RegExp(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/gm)
 const regExNum = new RegExp(/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/gm);
 //const regExSupNum = new RegExp(/\b\d{12,}\b/gm);
 
-client.on(Events.MessageCreate, alert);
-client.on(Events.MessageUpdate, (old, newM) => alert(newM))
+client.safelyOn(Events.MessageCreate, alert);
+client.safelyOn(Events.MessageUpdate, (old, newM) => alert(newM))
 
 async function alert(message){
     if (message.author.bot) return;

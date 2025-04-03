@@ -1,13 +1,20 @@
 //Template made with love by Here-Template (https://github.com/here-template)
 require("dotenv").config();
 const { Client, GatewayIntentBits, Partials, Collection } = require("discord.js");
-const configPath = "./config.json";
+const configPath = process.env.DEBUG === "true" ? "./configDebug.json" : "./config.json";
 const {greenBright, redBright} = require("cli-color");
 const configFile = require(configPath);
 const ConfigHandler = require("./api/configHandler.js");
 
 // Asure une documentation pour le client.
 // Si il au autre solution que d'héritée l'Client je suis preneur
+/**
+ * CustomClient est une classe personnalisée qui étend la classe Client de Discord.js.
+ * Elle est utilisée pour gérer les fonctionnalités spécifiques du bot, y compris la gestion
+ * des commandes, des interactions, et la configuration.
+ *
+ * @extends {Client}
+ */
 class CustomClient extends Client {
     constructor(options) {
         super(options);
@@ -50,6 +57,37 @@ class CustomClient extends Client {
          */
         this.modals = new Collection();
     }
+
+    /**
+     * Attacher un event handler à un event en le wrappant dans un try/catch.
+     * @param {*} event l'event à s'attacher
+     * @param {(...args) => void} listener l'event handler
+     */
+    safelyOn(event, listener) {
+        this.on(event, (...args) => {
+            try {
+                listener(...args);
+            } catch (error) {
+                console.error(`An error occurred in the '${event}' event listener:`, error);
+            }
+        });
+    }
+
+    /**
+     * Attacher un event handler à un event en le wrappant dans un try/catch.
+     * @param {*} event l'event à s'attacher
+     * @param {(...args) => void} listener l'event handler
+     */
+    safelyOnce(event, listener) {
+        this.once(event, (...args) => {
+            try {
+                listener(...args);
+            } catch (error) {
+                console.error(`An error occurred in the '${event}' event listener:`, error);
+            }
+        });
+    }
+
 }
 
 const client = new CustomClient({

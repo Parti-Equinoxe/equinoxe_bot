@@ -1,4 +1,5 @@
-const { checkGiveRole } = require("../../../api/role.js");
+const { MessageFlags } = require("discord.js");
+const { checkGiveRole, userAnyRoles } = require("../../../api/role.js");
 
 module.exports = {
     customID: "give_role",
@@ -23,7 +24,7 @@ module.exports = {
         });
         const roleID = arguments[0];
         const role = await interaction.guild.roles.fetch(roleID);
-        if (this.userAnyRoles(interaction.member.roles.cache, roleID)) {
+        if (userAnyRoles(interaction.member.roles.cache, roleID)) {
             await interaction.member.roles.remove(role);
             return interaction.reply({
                 content: `Le role <@&${roleID}> vous a bien été retiré.`,

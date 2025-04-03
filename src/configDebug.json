@@ -1,0 +1,244 @@
+{
+  "$schema": "./configSchema.json",
+  "dev": [
+    "665266080285196299",
+    "357575063219863553"
+  ],
+  "bdd": false,
+  "guildID": "1357046389934391406",
+  "postPing": {
+    "1357053253136683118": {
+      "pingNewPost": {
+        "1357053931523407992": "1357054104282857643",
+        "1357053919825494237": "1357054025471758494"
+      },
+      "pingDonePost": [
+        "1357055175919010054"
+      ],
+      "messageDonePost": "Chanel 1"
+    },
+    "1357053317141757992": {
+      "pingNewPost": {
+        "1357053986674442280": "1357054104282857643",
+        "1357053957968625875": "1357054025471758494",
+        "1357053968433549403": "1357054040445288623"
+      },
+      "messageNewPost": ":wrench: %pings%\nIl ya du travail !!",
+      "pingDonePost": [
+        "1357054598887510109",
+        "1357054609927045231"
+      ],
+      "messageDonePost": "Chanel 0"
+    }
+  },
+  "afkChanel": "1357058746823479367",
+  "testBotChanel": "1357065032382415050",
+  "logChannel": "1357065032382415050",
+  "programmeCategory": "1357046390475198757",
+  "archiveCategory": "1357162876741222603",
+  "counters": {
+    "membres": {
+      "channel": "1357047206682689567",
+      "message": "🌓│%count% membres"
+    },
+    "1357109651145097456": {
+      "channel": "1357047163900788736",
+      "message": "🌓│%count% compte moi"
+    }
+  },
+  "conflictRoles": {
+    "adherent": "1357059385758847179",
+    "sympathisant": "1357059361658372287"
+  },
+  "wellcomingMessage": [
+    {
+      "type": "embed",
+      "description": "# __Bienvenue sur le Discord d’Équinoxe ! :__\nNous sommes ravis de vous accueillir parmi nous.\nCe serveur Discord est un espace de travail collaboratif pour toutes les équipes opérationnelles d’Équinoxe.\nIl vous permettra de participer activement aux projets et aux discussions du parti.",
+      "color": "alias<colors>:jaune:",
+      "thumbnail": "alias<images>:banniere:",
+      "images": "alias<images>:info:",
+      "fields": [
+        {
+          "name": "Comment utiliser le Discord ? 💻",
+          "value": "- Nouveau sur discord ? => [Viens voir ce tutoriel](https://www.youtube.com/watch?v=A11SwaLqKFA)\n- Dans **“Accueil Équinoxe”** commencez par lire <#alias<salons>:a_lire_adherents:>.\n- C'est plus sympa si tu peux te renommer (si tu ne sais pas faire il y a un bouton !)"
+        },
+        {
+          "name": "Informations essentielles :",
+          "value": "- Respectez la vie privée : Ne partagez jamais vos **adresses e-mail ou numéros de téléphone** dans les salons publics.\n- Protection des documents : Ne postez pas de liens Drive ou autres documents confidentiels dans les salons publics.\n- Si tu as besoin d'aide <#${salons.aide_questions}>"
+        },
+        {
+          "name": "Participer à une Réunion d’accueil 🤝",
+          "value": "- Les réunions d’accueil des nouveaux adhérents et sympathisants se déroulent :\n - [Le premier dimanche de chaque mois à 19h00](https://us02web.zoom.us/j/87353318442?pwd=44HcaChnQkd2zNIaSgZ6Nw4X40jHf9.1)\n - [Le troisième mercredi de chaque mois à 12h30](https://us02web.zoom.us/j/86436461575?pwd=aE2B5noC6QyP6S7qgM9GVI5MbFtaQP.1)"
+        },
+        {
+          "name": "Ressources importantes 🔗",
+          "value": "- [Manifeste du parti](https://drive.google.com/file/d/1vgSE_hrin1K2FYVhMIPSl4Vs6StKerv8/view?usp=drive_link)\n- [Les podcasts d'Équinoxe](https://parti-equinoxe.fr/nos-podcasts/)\n- Tu es sur ta boucle WhatsApp ? https://discord.com/channels/861570273400717313/1276190973105410101"
+        }
+      ],
+      "footer": {
+        "text": "Tu peux utiliser le bouton si dessous pour te renommer"
+      },
+      "author": {
+        "name": "🌓 L’équipe Équinoxe"
+      }
+    },
+    {
+      "type": "button",
+      "id": "accueil:formulaire",
+      "emoji": "📝",
+      "label": "Se renommer",
+      "style": 1
+    }
+  ],
+  "prefabMessages": {
+    "accueil": [
+      {
+        "type": "embed",
+        "description": "# __Bienvenue sur le discord du parti :__\nIci vous trouverez l'essentiel des informations pour vous lancer dans l'action avec nous.",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:info:",
+        "fields": [
+          {
+            "name": "➡️ Les infos principales :",
+            "value": "- La réunion d'accueil des nouveaux sur Zoom, [Le premier dimanche de chaque mois à 19h00](https://us02web.zoom.us/j/87353318442?pwd=44HcaChnQkd2zNIaSgZ6Nw4X40jHf9.1) et [le troisième mercredi de chaque mois à 12h30](https://us02web.zoom.us/j/86436461575?pwd=aE2B5noC6QyP6S7qgM9GVI5MbFtaQP.1)\n- Le [guide du nouvel adhérent](https://docs.google.com/presentation/d/1j0sXELn29E4ZOxRoWZqe9m8kN_WpWdZ-gqxeKEF3s-0/edit?usp=drive_link) vous présente **l’architecture** et **l’organisation** du parti.\n"
+          },
+          {
+            "name": "🔑 Accès :",
+            "value": "- Vous avez accès aux dossiers drive.\n- Pour accéder à d'autre canaux discord (<#867892299346477077>) : <#1206261702606463026>.\n- Pour rejoindre votre groupe what's app local : <#1276190973105410101>.\n"
+          },
+          {
+            "name": "❓Besoin d'aide ?",
+            "value": "- Si vous avez besoin d'aide hésitez pas à créer un post ici : <#1249732581872767057>.\n"
+          }
+        ]
+      },
+      {
+        "type": "embed",
+        "description": "# __Règles de bonne conduite sur le discord :__",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:reglement:",
+        "fields": [
+          {
+            "name": "Pensez à vous renommer : <Prénom> <Nom> et à vous présenter :",
+            "value": "- Cela permet une **une meilleure intégration** ainsi qu'__une plus grande transparence__ de plus autant __assumer vos avis__. *Vous pouvez utiliser le bouton ci-dessous pour vous renommer.*\n- <#862077093226610688> pour vous présenter.\n"
+          },
+          {
+            "name": "Ni insultes, ni attaques personnelle :",
+            "value": "- On discute des **idées** et __non des personnes__.\n- On peut **déconstruire des arguments** ou **proposer des contre-arguments** __sans s'attaquer aux personnes__ les proposant.\n- Ainsi, **les insultes** ou **attaques personnelles** ne sont pas tolérées, *la modération veille au grain !*\n"
+          },
+          {
+            "name": "Pas de tag / ping (@.......) inutile :",
+            "value": "- Le discord peut être __un endroit très bruyant__, alors n'en rajoutons pas en taggant **inutilement** __les rôles__ ou __les personnes__.\n- Utilisez **les réactions** pour éviter __des messages de validation inutiles__."
+          },
+          {
+            "name": "Sobriété dans les messages et usage des canaux appropriés :",
+            "value": "- Dans la mesure du possible, essayons de ne poster qu'**un message à la fois** afin d'éviter les malentendus à cause __de messages partiels__\n- Le **découpage en plusieurs paragraphes** permet néanmoins des __réponses plus ciblées__.\n- Les différents __canaux et catégories__ du discord faisant référence à des **sujets spécifiques**, __respectons l'organisation des salons__ (*Il y a une description en haut de la page)*.\n"
+          },
+          {
+            "name": "Ni violences, ni discriminations, ni offenses :",
+            "value": "- __Certaines publications__ peuvent ne pas être acceptées si elles sont **discriminatoires**, **offensantes** ou si elles sont **susceptibles de choquer** (*violence explicite, blague de mauvais goût, etc*).\n- Les salons <#1023829177004199966> et <#1249829979328348230> existent.\n"
+          }
+        ]
+      },
+      {
+        "type": "button",
+        "id": "accueil:formulaire",
+        "emoji": "📝",
+        "label": "Se renommer",
+        "style": 1
+      }
+    ],
+    "celluleEcoute": [
+      {
+        "type": "embed",
+        "description": "# __Cellule d'écoute :__\n- Si vous êtes victime de comportements inappropriés.\n- Si vous êtes témoin de comportements inappropriés.\n### Vous pouvez contacter <@1255487701109706816> ou le `06 71 42 93 63`, l'anonymat sera respecté.",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:celluleDecoute:"
+      }
+    ],
+    "infoCom": [
+      {
+        "type": "special_roleAssignation",
+        "description": "Ici les roles G0 à G3. Et du text: longtext<infoCom>",
+        "color": "alias<colors>:jaune:",
+        "thumbnail": "alias<images>:banniere:",
+        "images": "alias<images>:info:",
+        "roles": [
+          {
+            "roleID": "1357060726002290700",
+            "emoji": "📱",
+            "name": "G0",
+            "style": 1
+          },
+          {
+            "roleID": "1357060761217663153",
+            "emoji": "🔗",
+            "name": "G1",
+            "style": 1
+          },
+          {
+            "roleID": "1357060785485905931",
+            "emoji": "📒",
+            "name": "G2",
+            "style": 1
+          },
+          {
+            "roleID": "1357060783212724355",
+            "emoji": "✅",
+            "name": "G3",
+            "style": 1
+          },
+          {
+            "roleID": "1357061819977437365",
+            "name": "G4",
+            "style": 1
+          }
+        ]
+      }
+    ]
+  },
+  "programmeAwnser": {
+    "title": "Programme :",
+    "description": "Pour participer aux discussions : <#alias<salons>:contribuer:>",
+    "timestamp": true
+  },
+  "blackListedGiveRoles": {
+    "1357060785485905931": {
+      "reason": "G2 est bloquer."
+    },
+    "1357060783212724355": {
+      "reason": "G3 est bloquer."
+    },
+    "1357061819977437365": {}
+  },
+  "commandCategoryRequireRole": {
+    "admin": {
+      "reason": "Seul les administrateurs ou les membres du bureau peuvent utiliser cette commande.",
+      "roles": [
+        "1357060785485905931",
+        "1357060783212724355"
+      ]
+    },
+    "ce": {
+      "reason": "Vous ne faite pas partie du Comité d'Éthique.",
+      "roles": [
+        "1357060783212724355"
+      ]
+    },
+    "moderation": {
+      "reason": "Vous ne faite pas partie de l'équipe de modération.",
+      "roles": [
+        "1357060785485905931"
+      ]
+    },
+    "gestion": {
+      "reason": "Vous ne faite pas partie de l'équipe de modération.",
+      "roles": [
+        "1357060785485905931"
+      ]
+    }
+  }
+}

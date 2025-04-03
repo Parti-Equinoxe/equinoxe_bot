@@ -28,7 +28,7 @@ module.exports = {
         const channel = interaction.options.getChannel("salon") ?? interaction.channel;
         const messageTemplate = getAllPrefabMessages()[msgName];
         if (!messageTemplate) return interaction.reply({ content: `Il n'y a pas de message pré-enregistrer nommé **${msgName}** !` });
-        const message = getMessage(msgName, interaction.guildId);
+        const message = getMessage(messageTemplate, interaction.guild);
         await channel.send(message);
         return interaction.editReply({
             content: `Le message pré-enregistré **${msgName}** a bien été posté dans <#${channel.id}> !`,
