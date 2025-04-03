@@ -6,9 +6,9 @@ const { client } = require("../index.js");
  */
 module.exports.rolereact = async (interaction, roleID) => {
     const configAdherent = {};
-    if (client.configHandler.tryGet("adherentRole", configAdherent)) // TODO: retravailer la config des roles 
+    if (client.configHandler.tryGet("adherentRole", configAdherent)) // TODO: retravailer la config des roles
     {
-            const adh = module.exports.userARole(interaction.member.roles.cache, configAdherent.value);
+        const adh = module.exports.userAnyRoles(interaction.member.roles.cache, configAdherent.value);
         if (!adh) {
             const aLireAdherentsConfig = {};
             if (!client.configHandler.tryGet("aLireAdherents", aLireAdherentsConfig)) {
