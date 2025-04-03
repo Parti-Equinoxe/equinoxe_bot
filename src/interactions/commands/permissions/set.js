@@ -33,13 +33,16 @@ module.exports = {
                 deny: p.deny.toArray()
             };
         });
-        const new_perm = permission.filter(p => p.id === roles.adherent).map(p => {
-            return {
-                id: "1325177770824957952",
-                allow: p.allow,
-                deny: p.deny
-            }
-        });
+        const configAdherentRole = {};
+        if (client.configHandler.tryGet("adherentRole", configAdherentRole)) {
+            const new_perm = permission.filter(p => p.id === roles.adherent).map(p => {
+                return {
+                    id: configAdherentRole.value,//adh connecte
+                    allow: p.allow,
+                    deny: p.deny
+                }
+            });
+        }
         permission.push(...new_perm);
         try {
             await channel.permissionOverwrites.set(permission, `Copies des permissions vers <@&1325177770824957952>`);

@@ -1,10 +1,36 @@
-const { MessageFlags } = require("discord.js");
+const { MessageFlags, Snowflake, ButtonInteraction } = require("discord.js");
 const { getChannel, getGuild } = require("./utils.js");
-const client = require("../index.js").client;
+const { client } = require("../index.js");
 /**
  * @param {ButtonInteraction} interaction
  */
 module.exports.rolereact = async (interaction, roleID) => {
+    const configAdherent = {};
+    if (client.configHandler.tryGet("adherentRole", configAdherent)) // TODO: retravailer la config des roles 
+    {
+            const adh = module.exports.userARole(interaction.member.roles.cache, configAdherent.value);
+        if (!adh) {
+            const aLireAdherentsConfig = {};
+            if (!client.configHandler.tryGet("aLireAdherents", aLireAdherentsConfig)) {
+                return interaction.reply({
+                    content: `:no_entry_sign: Vous devez être adhérent(e) et avoir lié votre compte.`,
+                    flags: [MessageFlags.Ephemeral]
+                });
+            }
+
+            return interaction.reply({
+                content: `:no_entry_sign: Vous devez être adhérent(e) et avoir lié votre compte (<#${aLireAdherentsConfig.value}>) pour pouvoir prendre des rôles.`,
+                flags: [MessageFlags.Ephemeral]
+            })
+        }
+    }
+    const check = this.checkGiveRole(arguments[0]);
+    if (!check.allowed) {
+        return interaction.reply({
+            content: ":no_entry_sign:" + check.reason,
+            flags: [MessageFlags.Ephemeral]
+        });
+    }
     const role = await interaction.guild.roles.fetch(roleID);
     if (!interaction.member.manageable) return interaction.reply({
         content: ":no_entry_sign: Je n'ai pas la permission de modifier vos roles.",
@@ -13,13 +39,13 @@ module.exports.rolereact = async (interaction, roleID) => {
     if (this.userAnyRoles(interaction.member.roles.cache, roleID)) {
         await interaction.member.roles.remove(role);
         return interaction.reply({
-            content: `Le role <@&${roleID}> vous a bien été retiré.`,
+            content: `Le role <@&${roleID}> vous a bien été **retiré**.`,
             flags: [MessageFlags.Ephemeral]
         });
     } else {
         await interaction.member.roles.add(role);
         return interaction.reply({
-            content: `Le role <@&${roleID}> vous a bien été ajouté.`,
+            content: `Le role <@&${roleID}> vous a bien été **ajouté**.`,
             flags: [MessageFlags.Ephemeral]
         });
     }
@@ -102,23 +128,50 @@ module.exports.channelRoleCounter = async () => {
  * @return {Promise<void>}
  */
 module.exports.updateRoleMember = async (member) => {
-    try {
-        const config = {};
-        if (!client.configHandler.tryGet("conflictRoles", config))
+    try { // TODO conflictRoles a été retirée, utiliser dictement les roles
+        const configAdherent = {};
+        const configSympathisant = {};
+        if (!client.configHandler.tryGet("adherentRole", configAdherent))
             return;
 
-        const adh = module.exports.userAnyRoles(member.roles.cache, config.value.adherent);
-        const symp = module.exports.userAnyRoles(member.roles.cache, config.value.sympathisant);
+        if (!client.configHandler.tryGet("sympathisantRole", configSympathisant))
+            return;
+
+        const adh = module.exports.userAnyRoles(member.roles.cache, configAdherent.value);
+        const symp = module.exports.userAnyRoles(member.roles.cache, configSympathisant.value);
         if (adh) {
             if (symp) {
-                await member.roles.remove(config.value.sympathisant);
+                await member.roles.remove(configAdherent.value.sympathisant);
             }
         }
         else if (!symp) {
-            await member.roles.add(config.value.sympathisant);
+            await member.roles.add(configAdherent.value.sympathisant);
         }
     } catch (e) {
         console.log(`>> Erreur de mise à jour de role pour ${member.nickname ?? member.user.username} (${member.id}) : ${e}`);
+    }
+}
+
+/**
+ * Supprime les roles (si sympathisant)
+ * @param member
+ * @return {Promise<void>}
+ */
+module.exports.removeRoleMember = async (member) => {
+    try {
+        const configSympathisant = {};
+        if (!client.configHandler.tryGet("sympathisantRole", configSympathisant)) return;
+
+        const symp = module.exports.userARole(member.roles.cache, configSympathisant.value);
+        if (!symp) return;
+        if (member.roles.cache.size === 1) return;
+        for (const role of member.roles.cache.map(r => r)) {
+            if (role.id === configSympathisant.value || role.id === member.guild.id) continue;
+            await member.roles.remove(role);
+        }
+    } catch (e) {
+        console.log(`>> Erreur de suppression de role pour ${member.nickname ?? member.user.username} (${member.id}) : ${e}`);
+        console.log(role.name);
     }
 }
 
@@ -131,5 +184,60 @@ module.exports.verifRoles = async (members) => {
     for (const member of members) {
         if (member.user.bot) continue;
         await this.updateRoleMember(member);
+        await this.removeRoleMember(member);
     }
+}
+
+/**
+ * Met à jour les perms du role @sympathisant sur celles de @everyone
+ * @param {Snowflake | String} channelID
+ */
+module.exports.majPermSymp = async (channelID) => {
+    const configSympathisant = {};
+    if (!client.configHandler.tryGet("sympathisantRole", configSympathisant)) return;
+
+    const channel = await getChannel(channelID);
+    const perms = channel.permissionOverwrites.cache.map(p => {
+        return {
+            id: p.id,
+            allow: p.allow.toArray(),
+            deny: p.deny.toArray()
+        };
+    }).filter(p => p.id !== configSympathisant.value);//role @everyone
+    const perm_everyone = perms.find(p => p.id === client.config.guildID);
+    if (!perm_everyone) return;
+    perms.push({
+        id: configSympathisant.value,
+        allow: perm_everyone.allow,
+        deny: perm_everyone.deny
+    });
+    await channel.permissionOverwrites.set(perms, `Copies des permissions de @everyone vers sympathisant`);
+}
+
+/**
+ * Met à jour les perms du role @sympathisant sur celles de @everyone
+ * @param {Snowflake | String} channelID
+ */
+module.exports.majPermInvite = async (channelID) => {
+    const configAdherent = {};
+    if (!client.configHandler.tryGet("adherentRole", configAdherent)) return;
+    const configInvite = {};
+    if (!client.configHandler.tryGet("inviteRole", configInvite)) return;
+
+    const channel = await getChannel(channelID);
+    const perms = channel.permissionOverwrites.cache.map(p => {
+        return {
+            id: p.id,
+            allow: p.allow.toArray(),
+            deny: p.deny.toArray()
+        };
+    }).filter(p => p.id !== configInvite.value);
+    const perm_everyone = perms.find(p => p.id === configAdherent.value);
+    if (!perm_everyone) return;
+    perms.push({
+        id: configInvite.value,
+        allow: perm_everyone.allow,
+        deny: perm_everyone.deny
+    });
+    await channel.permissionOverwrites.set(perms, `Copies des permissions de adherent vers invite`);
 }
