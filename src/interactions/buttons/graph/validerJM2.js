@@ -12,9 +12,16 @@ module.exports = {
             value += `${field.name} (**${field.value}**)\n`;
             nb -= parseInt(field.value);
         }
-        if (nb<0) {
+        if (nb < 0) {
+            msgJM.components[0].components[0].data.disabled = false;
+            msgJM.components[0].components[1].data.disabled = msgJM.embeds[0].fields.length === 0;
+            msgJM.components[0].components[2].data.disabled = false;
+            await msgJM.edit({components: [msgJM.components[0]]});
             interaction.message.delete();
-            return interaction.reply({content: ":warning: Vous avez introduit une valeur invalide !\nMerci de recommencer.", ephemeral: true});
+            return interaction.reply({
+                content: ":warning: Vous avez introduit une valeur invalide !\nMerci de recommencer.",
+                ephemeral: true
+            });
         }
         value += `Abstention : (**${nb}**)`;
         embedJM.addFields({name: titre, value: value});
