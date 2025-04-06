@@ -6,7 +6,7 @@
   "bdd": false,
   "guildID": "861570273400717313",
   "postPing": {
-    "alias<salon>:creation_contenu:": {
+    "alias<salons>:creation_contenu:": {
       "pingNewPost": {
           "1282285783788552327": "alias<roles>:equipe_graphiste:",
           "1282285835278094399": "alias<roles>:equipe_monteur:",
@@ -20,7 +20,7 @@
       ],
       "messageDonePost": "Super bravo à tous !\n:lock: Ce post est maintenant archivé !!"
     },
-    "alias<salon>:demande_mail:": {
+    "alias<salons>:demande_mail:": {
       "pingDonePost": [
         "1282349736413888624",
         "1287319737239601203"
