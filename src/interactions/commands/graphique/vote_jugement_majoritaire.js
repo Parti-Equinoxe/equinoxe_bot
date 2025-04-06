@@ -21,12 +21,13 @@ module.exports = {
         }
     ],
     runInteraction: async (client, interaction) => {
+        await interaction.deferReply();
         const embed = new EmbedBuilder()
             .setTitle(interaction.options.getString("titre") ?? "Résultat du vote au jugement majoritaire")
             .setColor(couleurs.jaune)
             .setDescription("Utilise les boutons pour ajouter des données !")
             .setTimestamp();
-        if (interaction.options.getAttachment("json") &&interaction.options.getAttachment("json").contentType === "application/json; charset=utf-8") {
+        if (interaction.options.getAttachment("json") && interaction.options.getAttachment("json").contentType.includes("application/json")) {
             embed.setDescription(null);
             embed.setTitle(null);
             const dataUrl = await axios({
@@ -34,15 +35,18 @@ module.exports = {
                 method: 'GET',
                 responseType: 'json',
             }).catch(error => {
-               interaction.reply({content: ":inbox_tray: Le fichier n'a pas pu être téléchargé.", flags: [MessageFlags.Ephemeral]});
-               return false;
+                interaction.editReply({
+                    content: ":inbox_tray: Le fichier n'a pas pu être téléchargé.",
+                    //flags: [MessageFlags.Ephemeral]
+                });
+                return false;
             });
             if (!dataUrl) return;
             const data = dataUrl.data;
             if (!data.titre) data.titre = interaction.options.getString("titre") ?? "Pas de titre donnée";
             const graph = await voteJugementMajoritaire(data.titre, data.data);
             embed.setImage(`attachment://${graph.name}`);
-            return interaction.reply({embeds: [embed], files: [graph]});
+            return interaction.editReply({embeds: [embed], files: [graph]});
         }
 
         const btnAjouter = new ButtonBuilder()
@@ -53,7 +57,7 @@ module.exports = {
             .setStyle(1);
         const btnValider = new ButtonBuilder()
             .setCustomId("graph:validerJM")
-            .setLabel("Ajouter")
+            .setLabel("Valider")
             .setEmoji("✔")
             .setDisabled(true)
             .setStyle(3);
@@ -64,7 +68,7 @@ module.exports = {
             .setDisabled(false)
             .setStyle(4);
 
-        await interaction.reply({
+        await interaction.editReply({
             embeds: [embed],
             components: [new ActionRowBuilder().addComponents(btnAjouter).addComponents(btnValider).addComponents(btnAnnuler)],
         });
