@@ -16,7 +16,7 @@
     "cli-color": "2.0.4",
     "discord-html-transcripts": "^3.2.0",
     "discord.js": "14.17.3",
-    "dotenv": "16.4.7",
+    "dotenv": "16.5.0",
     "googleapis": "^144.0.0",
     "mysql2": "^3.10.2",
     "node-cron": "^3.0.3",
