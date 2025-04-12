@@ -28,85 +28,96 @@
       "messageDonePost": "Super bravo à tous !\n:lock: Ce post est maintenant archivé !!"
     }
   },
-  "calendars": {
-    "SG-AA": {
+  "calendars": [
+   {
       "name": "SG - Accueil adhérents",
+      "id": "SG-AA",
       "color": "#FFFF00",
       "calendarID": "cd8749fba3dd8887e40306d1097e103d99d7abf83da9f565ab6d0331e3a7f199@group.calendar.google.com",
       "role": ["accueil_des_adherents"],
       "channel": "alias<salons>:accueil_adherents:"
     },
-    "SG-AS":{
+    {
       "name": "SG - Admin site",
+      "id": "SG-AS",
       "color": "#FF0000",
       "calendarID": "c36b651b0bf2d9f800339e6a15610e356dcad7883451660f26fbfa367b61c5ca@group.calendar.google.com",
       "role": ["alias<roles>:admin_site_internet:"],
       "channel": "alias<salons>:admin_site_internet:"
     },
-    "SG-CI":{
+    {
       "name": "SG - Com Interne",
+      "id": "SG-CI",
       "color": "#4CAF50",
       "calendarID": "be05c27384f74c9db41e299af101d944962b8a7e34789c99f6e71eee1b77f151@group.calendar.google.com",
       "role": ["alias<roles>:communication_interne:"],
       "channel": "alias<salons>:com_interne:"
     },
-    "SG-EV": {
+    {
       "name": "SG - Événementiel",
+      "id": "SG-EV",
       "color": "#FFA500",
       "calendarID": "bb7a81bb9559168d62b5b1add838bc54d42c9a4edd53befbf2b03de9a978c510@group.calendar.google.com",
       "role": ["alias<roles>:evenementiel:"],
       "channel": "alias<salons>:evenementiel:"
     },
-    "SG-OI": {
+    {
       "name": "SG - Outils internes",
+      "id": "SG-OI",
       "color": "#2196F3",
       "calendarID": "5f57ce78894380f361e8f26eedb947adc4d7c5f4eff228028b5c089604a7a9fa@group.calendar.google.com",
       "role": ["alias<roles>:outils_internes:"],
       "channel": "alias<salons>:outils_internes:"
     },
-    "COM-CC": {
+    {
       "name": "COM - Création Contenu",
+      "id": "COM-CC",
       "color": "#4caf50",
       "calendarID": "68bed445c223237435588c078f0fba564018901501ef594336774d6424f322a2@group.calendar.google.com",
       "role": ["alias<roles>:communication:"],
       "channel": "alias<salons>:equipe_com:"
     },
-    "COM-RS": {
+    {
       "name": "COM - Réseau Sociaux",
+      "id": "COM-RS",
       "color": "#9357cc",
       "calendarID": "communication.externe.equinoxe@gmail.com",
       "role": ["alias<roles>:com_rs:"],
       "channel": "alias<salons>:equipe_com:"
     },
-    "COM-SI": {
+    {
       "name": "COM - Site Internet",
+      "id": "COM-SI",
       "color": "#ffd412",
       "calendarID": "0e9ab52aa1cde37cfad128c19ceffe251a3e1ab4949f73bd3766d1d88cf87475@group.calendar.google.com",
       "role": ["alias<roles>:equipe_site_internet:"],
       "channel": "alias<salons>:site_internet:"
     },
-    "COM-CE": {
+    {
       "name": "COM - Calendrier Éditorial",
+      "id": "COM-CE",
       "color": "#4cc0ea",
       "calendarID": "c1aca860042bcb9613caad6d66508f7a5796b6361540333298b0d901e66100a1@group.calendar.google.com",
       "role": ["alias<roles>:communication:"],
       "channel": "alias<salons>:relecture:"
     },
-    "PROG-RP":{
+    {
       "name": "PROG - Réunions Programme",
+      "id": "PROG-RP",
       "color": "#3159de",
       "calendarID": "programme.equinoxe@gmail.com",
       "role": ["alias<roles>:programme:"],
       "channel": "alias<salons>:equipe_programme:"
     },
-    "PROG-RR": {
+    {
       "name": "PROG - Réunion Responsables",
+      "id": "PROG-RR",
       "color": "#61efef",
       "calendarID": "35c2e804ba07f8a570315a1b16136d10e8c5718ef2f5fb324106d2667078f3fb@group.calendar.google.com",
       "role": ["alias<roles>:responsable_programme:"],
       "channel": "alias<salons>:prog_equipe_resp:"
     }
-  },
+  ],
   "afkChanel": "alias<salons>:afk:",
   "testBotChanel": "alias<salons>:test_bot:",
   "logChannel": "alias<salons>:logs:",
