@@ -9,7 +9,7 @@ module.exports = {
     get options() {
         const config = {};
         const choices = client.configHandler.tryGet("calendars", config)
-            ? config.value.list.map((c) => ({ name: c.name, value: c.id }))
+            ? config.value.map((c) => ({ name: c.name, value: c.id }))
             : [];
 
         return [

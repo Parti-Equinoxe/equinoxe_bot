@@ -10,8 +10,7 @@ module.exports = {
         const calendarConfig = {};
         if (!client.configHandler.tryGet("calendars", calendarConfig))
             return [];
-
-        const choices = calendarConfig.value.list.map((c) => {
+        const choices = calendarConfig.value.map((c) => {
             return {
                 name: c.name,
                 value: c.id
