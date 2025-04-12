@@ -143,7 +143,7 @@ module.exports.embedEvents = (events) => {
         .setTimestamp();
 }
 /**
- * @param {} event
+ * @param {CalendarEvent} event
  * @return {EmbedBuilder}
  */
 module.exports.embedEvent = (event) => {
