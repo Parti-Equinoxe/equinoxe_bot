@@ -161,8 +161,6 @@ module.exports.removeRoleMember = async (member) => {
     try {
         const configSympathisant = {};
         if (!client.configHandler.tryGet("sympathisantRole", configSympathisant)) return;
-
-        const symp = module.exports.userARole(member.roles.cache, configSympathisant.value);
         const symp = module.exports.userAnyRoles(member.roles.cache, configSympathisant.value);
         if (!symp) return;
         if (member.roles.cache.size === 1) return;
