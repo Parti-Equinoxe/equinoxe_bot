@@ -67,6 +67,24 @@ function parcours_alias(obj) {
     }
 }
 
+function verifActivation(obj, activation) {
+    const cat = Object.keys(activation);
+    for (k in obj) {
+        if (typeof obj[k] != "object") continue;
+        if (cat.includes(k)) {
+            if (!activation[k]) {
+                console.log(`La catégorie '${k}' a été désactivé !!`);
+                delete obj[k];
+            }
+        } else {
+            throw new Error(`La catégorie '${k}' n'a pas de configuration d'activation !!`);
+        }
+    }
+    console.log("Verification terminé !");
+}
+
+verifActivation(config, activation);
+
 parcours_alias(config);
 
 module.exports = new Proxy(config, {
