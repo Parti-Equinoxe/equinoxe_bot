@@ -30,7 +30,8 @@ const client = new Client({
 const version = "1.0.0";
 
 console.log(greenBright.bold.underline("Lancement du bot :"));
-
+//activations de la config (remplacement des alias) :
+require("./api/config.js");
 //Mise en cache de la config :
 client.config = configFile;
 //config bdd :

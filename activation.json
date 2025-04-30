@@ -1,0 +1,7 @@
+{
+  "calendar": true,
+  "roles": true,
+  "salons": true,
+  "categories": true,
+  "test": true
+}
