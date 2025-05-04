@@ -72,8 +72,10 @@ module.exports.voteJugementMajoritaire = async (titre, data) => {
                         max: 100,
                         //grace: 0.1,
                         ticks: {
-                            stepSize: 25,
-                            callback: (value) => `${Math.abs(value)}%`,
+                            stepSize: 1,
+                            callback: (value, index) => {
+                                if (value % 25 === 0 || index === 0) return `${Math.abs(value)}%`;
+                            },
                             font: {size: 40},
                             color: texteColor,
                             padding: 20
@@ -142,7 +144,7 @@ module.exports.voteLegislative = async (titre, data) => {
     const dataset = {
         label: "% dans la circonscription",
         data: data.map((v) => {
-            return parseFloat(v.pourcentage.replace("%",""));
+            return parseFloat(v.pourcentage.replace("%", ""));
         }),
         backgroundColor: couleurs.jaune
     }
