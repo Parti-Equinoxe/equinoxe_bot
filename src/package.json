@@ -19,7 +19,7 @@
     "dotenv": "16.4.7",
     "googleapis": "^144.0.0",
     "mysql2": "^3.10.2",
-    "node-cron": "^3.0.3",
+    "node-cron": "^4.0.3",
     "remove-accents": "^0.5.0"
   },
   "devDependencies": {
