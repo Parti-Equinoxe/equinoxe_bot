@@ -54,7 +54,7 @@ module.exports.send = async (interaction) => {
     const contri = new AttachmentBuilder('./data/images/contribuer.png', {name: 'contribuer.png'});
     return {
         embeds: [new EmbedBuilder()
-            .setDescription(`# __Contribuez en rejoignant les équipes thématiques :__\nPour aider à la création et au maintien du programme, par thème.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&${roles.responsable_programme}>.`)
+            .setDescription(`# __Contribuez en rejoignant les équipes thématiques :__\nPour aider à la création et au maintien du programme, par thème.\nUtilisez les boutons ci-dessous pour rejoindre une équipe.\nResponsables : <@&${roles.responsable_programme}>.\nVous pouvez trouvez qui sont les responsables de chaque thème dans les salons forums associé (post épinglé).`)
             .setColor(couleurs.jaune)
             .setThumbnail(banniere.link)
             .setImage(`attachment://contribuer.png`)
