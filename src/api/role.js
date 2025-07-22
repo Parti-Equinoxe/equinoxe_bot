@@ -2,6 +2,7 @@ const {MessageFlags, Snowflake, ButtonInteraction} = require("discord.js");
 const {getChannel, getGuild} = require("./utils");
 const {salons, roles} = require("./permanent");
 const {client} = require("../index");
+const axios = require("axios");
 /**
  * @param {ButtonInteraction} interaction
  */
@@ -49,9 +50,20 @@ module.exports.channelRoleCounter = async () => {
     await (await getChannel(salons.compteur)).edit({
         name: `🌓│${(await getGuild()).memberCount} membres`
     });
-    await (await getChannel(salons.compteur_adh)).edit({
-        name: `🌓│${(await getGuild()).roles.cache.get(roles.adherent).members.size} adhérent(e)s`
+    await (await getChannel(salons.compteur_connecte)).edit({
+        name: `🌓│${(await getGuild()).roles.cache.get(roles.adherent).members.size} connecté(e)s`
     });
+    try {
+        const nb =(await axios.get("https://api.parti-equinoxe.fr/brevo/nombre_adherents")).data.nombre ?? 0;
+        await (await getChannel(salons.compteur_adh)).edit({
+            name: `🌓│${nb} adhérent(e)s`
+        });
+    } catch (e) {
+        console.log(`>> Erreur de mise à jour du compteur d'adhérents : ${e}`);
+        await (await getChannel(salons.compteur_adh)).edit({
+            name: `🌓│🛠️🛠️ adhérent(e)s`
+        });
+    }
 };
 
 /**
