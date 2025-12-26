@@ -53,7 +53,8 @@ module.exports.channelRoleCounter = async () => {
     await (await getChannel(salons.compteur_connecte)).edit({
         name: `🌓│${(await getGuild()).roles.cache.get(roles.adherent).members.size} connecté(e)s`
     });
-    try {
+    //crash pour le moment
+    /*try {
         const nb =(await axios.get("https://api.parti-equinoxe.fr/brevo/nombre_adherents")).data.nombre ?? 0;
         await (await getChannel(salons.compteur_adh)).edit({
             name: `🌓│${nb} adhérent(e)s`
@@ -63,7 +64,7 @@ module.exports.channelRoleCounter = async () => {
         await (await getChannel(salons.compteur_adh)).edit({
             name: `🌓│🛠️🛠️ adhérent(e)s`
         });
-    }
+    }*/
 };
 
 /**
