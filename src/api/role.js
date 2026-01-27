@@ -29,7 +29,7 @@ module.exports.rolereact = async (interaction, roleID) => {
         const roleName=Object.keys(roles).find(k=>roles[k]===roleID);
         if (!!roleName && !!config.message[roleName]) {
             const channel = await interaction.guild.channels.fetch(salons[config.message[roleName]]);
-            channel.send({content:`<@${interaction.user.id}> viens de rejoindre l'équipe !`});
+            channel.send({content:`<@${interaction.user.id}> vient de rejoindre l'équipe !`});
         }
         return interaction.reply({
             content: `Le role <@&${roleID}> vous a bien été **ajouté**.`,
