@@ -19,5 +19,13 @@
     "equinoxe_bot",
     "sympathisant",
     "invite"
-  ]
+  ],
+  "message": {
+    "programme": "equipe_programme",
+    "communication": "equipe_com",
+    "mobilisation": "orga_mobilisation",
+    "blog_actu": "orga_blog_actus",
+    "reseaux_partenariats": "reseaux_et_partenariats",
+    "secretariat_general": "orga_secretariat"
+  }
 }

@@ -9,7 +9,7 @@ Ce sont les interactions qui viennent de clique sur un bouton.
 Les boutons ont des catégories (des sous-dossiers), et il faut bien remplir le `customID` avec un id unique (aux boutons).
 Pour appeler un bouton qui est enregistré dans une catégorie, il faut utiliser `<nom catégorie>:<customID>`.
 Le dossier [contribuer](../src/interactions/buttons/contribuer) contient des boutons auto généré en fonction des rôles enregistrés dans le fichier de [rôles](../src/data/utils/roles.json).
-Ceci est configurable dans [config.json](../src/interactions/buttons/contribuer/config.json).
+Ceci est configurable dans [config.json](../src/data/utils/config.json).
 
 ---
 ### [Commandes](../src/interactions/commands/)

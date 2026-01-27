@@ -1,6 +1,6 @@
 const fs = require("fs");
 const {cyan, redBright} = require("cli-color");
-const configRoleReact = require("../../interactions/buttons/contribuer/config.json").blacklist;
+const configRoleReact = require("../../data/utils/config_role_react.json").blacklist;
 const {roles} = require("../../api/permanent");
 
 //const fileList = [];
