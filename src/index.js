@@ -27,7 +27,8 @@ const client = new Client({
     ],
     partials: [Partials.Channel, Partials.User, Partials.Reaction, Partials.Message, Partials.GuildMember, Partials.GuildScheduledEvent, Partials.ThreadMember],
 });
-const version = "1.0.0";
+const version = require("./package.json").version;
+process.env.npm_package_version = version;
 
 console.log(greenBright.bold.underline("Lancement du bot :"));
 
