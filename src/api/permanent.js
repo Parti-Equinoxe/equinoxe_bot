@@ -10,7 +10,8 @@ module.exports.banniere = {
  */
 module.exports.couleurs = {
     jaune: "#ffd412",
-    noir: "#19171C"
+    noir: "#19171C",
+    bleu: "#1C355A"
 }
 
 module.exports.roles = roles;
