@@ -1,5 +1,4 @@
 **/node_modules/
-**/*-lock.json
 **/.DS_store
 **/.idea
 src/data/bdd/lien_gl.json
