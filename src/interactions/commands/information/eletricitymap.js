@@ -17,10 +17,11 @@ module.exports = {
         }
     ],
     runInteraction: async (client, interaction) => {
-        if ((await axios.get("https://api.electricitymap.org/health")).data.status !== "ok") return interaction.reply({
+        if ((await axios.get("https://api.electricitymap.org/health")).data.status !== "UP") return interaction.reply({
             content: ":x: L'API [ElectricityMap](https://app.electricitymaps.com/map) n'est pas accessible. Merci de revenire plus tard.",
             flags: [MessageFlags.Ephemeral]
         });
+        await interaction.deferReply();
         const zone = pays.find(p => p.value === interaction.options.getString("pays")) ?? pays.find(p => p.value === "FR");
         const data = await getData(zone.value);
         const graph = await graphProd(data);
@@ -41,7 +42,7 @@ module.exports = {
             .setImage(`attachment://${graph.name}`)
             .setFooter({text: "Mis à jour"})
             .setTimestamp(new Date(data.updatedAt));
-        return interaction.reply({
+        return interaction.editReply({
             //content: `\`\`\`json\n${JSON.stringify(data, null, 2)}\`\`\``,
             files: [graph],
             embeds: [embed]
