@@ -1,6 +1,6 @@
 {
   "name": "equinoxe_bot",
-  "version": "0.0.0",
+  "version": "1.1.0",
   "description": "Un bot discord pour le parti politique français Équinoxe.",
   "main": "index.js",
   "scripts": {
