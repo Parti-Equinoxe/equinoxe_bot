@@ -2,6 +2,7 @@ const {MessageFlags, Snowflake, ButtonInteraction} = require("discord.js");
 const {getChannel, getGuild} = require("./utils");
 const {salons, roles} = require("./permanent");
 const {client} = require("../index");
+const config = require("./../data/utils/config_role_react.json")
 const axios = require("axios");
 /**
  * @param {ButtonInteraction} interaction
@@ -25,6 +26,11 @@ module.exports.rolereact = async (interaction, roleID) => {
         });
     } else {
         await interaction.member.roles.add(role);
+        const roleName=Object.keys(roles).find(k=>roles[k]===roleID);
+        if (!!roleName && !!config.message[roleName]) {
+            const channel = await interaction.guild.channels.fetch(salons[config.message[roleName]]);
+            channel.send({content:`<@${interaction.user.id}> viens de rejoindre l'équipe !`});
+        }
         return interaction.reply({
             content: `Le role <@&${roleID}> vous a bien été **ajouté**.`,
             flags: [MessageFlags.Ephemeral]
