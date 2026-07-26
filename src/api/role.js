@@ -26,10 +26,10 @@ module.exports.rolereact = async (interaction, roleID) => {
         });
     } else {
         await interaction.member.roles.add(role);
-        const roleName=Object.keys(roles).find(k=>roles[k]===roleID);
+        const roleName = Object.keys(roles).find(k => roles[k] === roleID);
         if (!!roleName && !!config.message[roleName]) {
             const channel = await interaction.guild.channels.fetch(salons[config.message[roleName]]);
-            channel.send({content:`<@${interaction.user.id}> vient de rejoindre l'équipe !`});
+            channel.send({content: `<@${interaction.user.id}> vient de rejoindre l'équipe !`});
         }
         return interaction.reply({
             content: `Le role <@&${roleID}> vous a bien été **ajouté**.`,
@@ -75,7 +75,7 @@ module.exports.channelRoleCounter = async () => {
 
 /**
  * Met a jour les roles (sympathisant) en fct de adherent
- * @param member
+ * @param {String} member
  * @return {Promise<void>}
  */
 module.exports.updateRoleMember = async (member) => {
@@ -173,4 +173,17 @@ module.exports.majPermInvite = async (channelID) => {
         deny: perm_everyone.deny
     });
     await channel.permissionOverwrites.set(perms, `Copies des permissions de adherent vers invite`);
+}
+
+/**
+ * @param {String} memberID
+ * @param {String} role
+ * @return {boolean}
+ */
+module.exports.ajoutRole = async (memberID, role) => {
+    const member = await (await getGuild()).members.fetch(memberID);
+    const adh = module.exports.userARole(member.roles.cache, roles.adherent);
+    if (!adh) return false
+    await member.roles.add(role);
+    return true
 }
