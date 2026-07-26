@@ -170,7 +170,6 @@ module.exports.removeRoleMember = async (member) => {
         }
     } catch (e) {
         console.log(`>> Erreur de suppression de role pour ${member.nickname ?? member.user.username} (${member.id}) : ${e}`);
-        console.log(role.name);
     }
 }
 
