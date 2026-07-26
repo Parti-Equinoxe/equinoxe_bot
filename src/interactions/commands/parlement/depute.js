@@ -37,7 +37,7 @@ module.exports = {
                 },
                 {
                     name: "Site web :",
-                    value: `- [Fiche Assemblé Nationale](${info.url_an})\n`+info.sites_web.map(s=>`- ${s}`).join("\n")
+                    value: `- [Fiche Assemblé Nationale](${info.url_an})\n`+info.sites_web.map(s=>`- ${s.site}`).join("\n")
                 }
             ])
             .setURL(`https://www.nosdeputes.fr/${result.slug}`)
