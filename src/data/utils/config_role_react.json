@@ -18,7 +18,16 @@
     "adherent",
     "equinoxe_bot",
     "sympathisant",
-    "invite"
+    "invite",
+    "direction_de_campagne",
+    "stagiaire",
+    "conseil_national",
+    "ancien_bureau",
+    "bureau_de_campagne",
+    "delegation_nationale",
+    "developpeur",
+    "commission_legislatives",
+    "coordinateur_ce.js"
   ],
   "message": {
     "programme": "equipe_programme",

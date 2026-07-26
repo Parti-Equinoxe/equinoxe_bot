@@ -1,0 +1,8 @@
+const {roles} = require("../../../api/permanent.js");
+const {rolereact} = require("../../../api/role.js");
+module.exports = {
+    customID: "commission_legislatives",
+    runInteraction: async (client, interaction) => {
+        return rolereact(interaction, roles.commission_legislatives);
+    }
+}
