@@ -145,15 +145,6 @@ module.exports.simplify = (texte) => {
 }
 
 /**
- * Send a message in the log-bot channel.
- *
- * @param {string | MessagePayload} message - The message to be send in the channel log
- * @return {Promise<void>} A promise that resolves when the message is successfully logged
- */
-/*module.exports.log = async (message) => {
-    (await this.getChannel(salons.log)).send(message);
-}*/
-/**
  * Send a message in the log-channel channel.
  *
  * @param {string | MessagePayload} message - The message to be send in the channel log
@@ -175,7 +166,7 @@ module.exports.sendMessagesUsers = async (messages, channel) => {
     let nb = 0, webhook = (await channel.fetchWebhooks()).filter((w) => w.owner.id === client.user.id);
     if (webhook.size === 0) {
         webhook = await channel.createWebhook({
-            name: "MEssage",
+            name: "Message",
         });
     } else {
         webhook = webhook.first();
