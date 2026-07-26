@@ -27,6 +27,7 @@ module.exports = {
         await interaction.deferReply({flags: [MessageFlags.Ephemeral]});
         const nb = interaction.options.getInteger("nombre");
         const newChannel = interaction.options.getChannel("salon");
+        console.log(newChannel);
         const oldChannel = interaction.channel;
         await oldChannel.messages.fetch({force: true, limit: 100});
         const msgs = oldChannel.messages.cache.map((msg) => {
@@ -35,9 +36,9 @@ module.exports = {
                 member = {
                     user: {
                         username: "Utilisateur inconnu",
-                        displayAvatarURL: () => "https://cdn.discordapp.com/embed/avatars/0.png"
+                        displayAvatarURL: () => "https://cdn.discordapp.com/embed/avatars/0.png",
                     },
-                    nickname: "Utilisateur inconnu"
+                    nickname: "Utilisateur inconnu",
                 }
             }
             return {
@@ -45,14 +46,16 @@ module.exports = {
                 embeds: msg.embeds ?? [],
                 attachments: msg.attachments.map((a) => a),
                 createdTimestamp: msg.createdTimestamp,
-                member: member
+                member: member,
+                ...msg
             }
         }).sort((a, b) => b.createdTimestamp - a.createdTimestamp)
             .filter((msg) => (msg.content.length + msg.embeds.length + msg.attachments.length) !== 0)
             .map((msg) => msg).slice(0, nb)
             .sort((a, b) => a.createdTimestamp - b.createdTimestamp);
 
-        const attachment = await discordTranscripts.generateFromMessages(oldChannel.messages.cache.sort((a, b) => b.createdTimestamp - a.createdTimestamp).filter((msg) => !(msg.content === "" && msg.embeds.length === 0 && msg.attachments.size === 0)).map((msg) => msg).slice(0, nb).sort((a, b) => a.createdTimestamp - b.createdTimestamp), oldChannel);
+        console.log(msgs.map(m=>m.member.user));
+        const attachment = await discordTranscripts.generateFromMessages(msgs, oldChannel);
 
         await interaction.editReply({
             content: `**${msgs.length}/${nb}** messages vont être déplacer vers <#${newChannel.id}> !`,
