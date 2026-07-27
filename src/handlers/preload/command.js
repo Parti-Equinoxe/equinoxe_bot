@@ -17,6 +17,7 @@ module.exports = (client) => {
 		console.log(yellow.bold(`> ${dir === "../commands" ? "sans catégorie" : dir} :`));
 		files.forEach((file) => {
 			let commande = require(`../../interactions/commands/${dir}/${file}`);
+			if (commande.disable) return;
 			if (commande && !commande.subCommande) {
 				if (!verifCmdPAram(commande, dir, file)) return;
 				//met le cooldown en ms et ajuste le temps max
