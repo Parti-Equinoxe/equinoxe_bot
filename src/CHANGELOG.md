@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/Parti-Equinoxe/equinoxe_bot/compare/v1.1.0...v1.2.0) (2026-07-27)
+
+
+### Features
+
+* Ajoue d'une gestionaire de config et récriture de l'event handler tagPingCom.js pour supporter la config. ([0219c46](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/0219c46911b3499bab218d68fb578be4e0bd129b))
+* Ajout de plus de config, messages prefab et permissions ([34d2e5c](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/34d2e5c90017543ab8a5a6c99ae5acc136b3c009))
+* ajout fct ajouter role ([849e406](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/849e4063eb511971f0b03e2e1e935943d46a42fc))
+* clean up ([e9b22b7](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/e9b22b741438ed499b5646fdbbfabdc44f3c48b0))
+* **disable:** ajout d'une fonctionalité pour désactiver une commande ([b4aa039](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/b4aa0391a6321965cd2069b8bc14c737b525eb90))
+* **disable:** désactivation des commandes intulisable ou buggé ([ad08792](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/ad0879250d612d3645e5d7ee196a04a8917ed520))
+* maj des roles ([1c256d4](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/1c256d46f870a087a4c14c3f65fdca82dbf28994))
+* maj des salons ([e367d6e](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/e367d6e24746252efc05da606391c9c4d507cc9e))
+
+
+### Bug Fixes
+
+* **calendar config:** - .list (ancien config) ([c0dd6e6](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/c0dd6e6ffb908ea9183519681de6f5dc85e36e34))
+* **calendar config:** format config (ct pas mappable) ([32b24ac](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/32b24ac0a84b264539af3105426873f572e8132a))
+* **doc:** syntaxe ([3c1014b](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/3c1014bb2ee4c2e32667bb0e349539b3619b4685))
+* erreure de logique ([4cc472b](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/4cc472b01f2083b3a6135c0d4b3bad54b4927d20))
+* faute de frappe ([3928e9a](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/3928e9a66a5442f9002f2c9ec891b0984642556b))
+* fix de la config salon -> salons , mielleurs gestions de ConfigHandler des erreur de config et déplacement du code dans API. Fix tagPingCom, fix le path vert config dans index.js. ([db22561](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/db2256164ce4ea8acb2ccdb7f61e8313ee1c6be4))
+* fix et test les fonctionalitée du commit [#34](https://github.com/Parti-Equinoxe/equinoxe_bot/issues/34)d2e5c90017543ab8a5a6c99ae5acc136b3c009 ([7f7c239](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/7f7c23983c3f066676338c27d48836775a4fc104)), closes [#34d2e5c90017543ab8a5a6c99ae5acc136b3c009](https://github.com/Parti-Equinoxe/equinoxe_bot/issues/34d2e5c90017543ab8a5a6c99ae5acc136b3c009)
+* fix une erreur de renomage, fix d'un alias dans la config ([63ed554](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/63ed55427a681a9c21345ff959e5d90c220dfe5f))
+* GatewayIntentBits en double ([2063fab](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/2063fab6a075155920bb4a11a2df41dede6cea5c))
+* liste lien ([16934e3](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/16934e31cebffe40cc59a4d12033014b84f23e3c))
+* mauvais nom fct ([8cfb023](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/8cfb023d38c66d1e10934cc68d3bbb4e2f65ab0a))
+* merge commit erreur de syntaxe userARole -> userAnyRoles ([0772fbb](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/0772fbb8d87cad13343f36f04cc550397cf50ef7))
+* sup log ([98eb9cc](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/98eb9ccb4f5ed4512823ee2c22af1fc13e9411ca))
+* typedeff ([f751020](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/f751020dab1ff1dabe4f7551e3a8659acda081fe))
+* userARole => userAnyRoles ([8e4ddf4](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/8e4ddf4a37b3165814a412f3357972f994c71128))
+* xml config retirée un commentaire qui ne devrait pas être là ([163383c](https://github.com/Parti-Equinoxe/equinoxe_bot/commit/163383cebe3feb74b6ddfe74c0bfb0d52030ef17))
+
 ## 1.0.1 (2026-01-27)
 
 
