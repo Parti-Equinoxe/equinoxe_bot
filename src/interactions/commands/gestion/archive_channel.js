@@ -12,6 +12,7 @@ module.exports = {
         channelTypes: [0, 5]
     }],
     devOnly: true,
+    disable: true,
     /**
      * @param {ChatInputCommandInteraction} interaction
      * @param {Client} client

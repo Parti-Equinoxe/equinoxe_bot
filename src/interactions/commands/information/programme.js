@@ -13,6 +13,7 @@ module.exports = {
             channelTypes: [11, 15],
         }
     ],
+    disable: true,
     runInteraction: async (client, interaction) => {
         const channel = interaction.options.getChannel("recherche");
         const forum = channel.isThread() ? (await interaction.guild.channels.fetch(channel.parentId)) : channel;

@@ -16,6 +16,7 @@ module.exports = {
         type: 3,
         required: false
     }],
+    disable: true,
     runInteraction: async (client, interaction) => {
         if (interaction.options.getAttachment("json").contentType !== "application/json; charset=utf-8") return interaction.reply({
             content: ":x: Le fichier doit être au format JSON !",

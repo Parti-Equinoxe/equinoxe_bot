@@ -3,6 +3,7 @@ const {EmbedBuilder} = require("discord.js");
 module.exports = {
     name: "candidats",
     description: "Permet d'obtenir la liste des candidats.",
+    disable: true,
     runInteraction: async (client, interaction) => {
         const candidats = await interaction.guild.roles.fetch(roles.candidat);
         const embed = new EmbedBuilder()

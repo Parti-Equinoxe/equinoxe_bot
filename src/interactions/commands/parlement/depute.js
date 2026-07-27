@@ -13,6 +13,7 @@ module.exports = {
             autocomplete: true
         }
     ],
+    disable: true,
     runInteraction: async (client, interaction) => {
         await interaction.deferReply();
         const result = (await searchDepute(interaction.options.getString("nom")))[0] ?? false;
